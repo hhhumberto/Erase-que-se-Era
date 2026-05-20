@@ -727,6 +727,17 @@
                 slot.innerHTML = `<img src="${d.img}" onerror="this.style.display='none'"><div class="slot-name">${d.n}</div>`;
             }
         });
+        // Al completar la colección, activar clic en todos los slots
+        if (discovered.length === 9) {
+            discovered.forEach((val, index) => {
+                const slot = document.getElementById('slot-' + val);
+                if (slot) {
+                    slot.style.cursor = 'pointer';
+                    slot.title = 'Ver ficha';
+                    slot.onclick = () => openCatalog(index, false);
+                }
+            });
+        }
     }
 
     function updateInfoPanel(val) {
