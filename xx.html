@@ -645,7 +645,6 @@
     }
 
     let _eraOptionsTargetIdx = null;
-    let _reviewEraData = null; // datos de era en modo revisión
 
     function confirmReplayEra(idx) {
         if (idx >= currentEraIdx) return;
@@ -673,7 +672,6 @@
         const prevDiscovered = discovered;
         discovered = allVals;
         isCatalogSubgame = false;
-        _reviewEraData = eraData;
 
         document.getElementById('overlay-title').textContent = era.title;
         document.getElementById('overlay-text').textContent = "Colección completa · Solo lectura";
@@ -698,7 +696,6 @@
         btn.textContent = '← Volver al juego';
         btn.onclick = () => {
             discovered = prevDiscovered;
-            _reviewEraData = null;
             document.getElementById('era-overlay').classList.remove('active');
             btn.textContent = 'Siguiente Era';
             btn.onclick = nextEra;
@@ -864,7 +861,7 @@
 
     function updateCatalogView() {
         const activeArray = isCatalogSubgame ? subDiscovered : discovered;
-        const dataDic = isCatalogSubgame ? getSubgameData() : (_reviewEraData || getCurrentData());
+        const dataDic = isCatalogSubgame ? getSubgameData() : getCurrentData();
         const val = activeArray[currentCatalogIdx];
         const d = dataDic[val];
         
