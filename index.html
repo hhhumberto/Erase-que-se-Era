@@ -597,27 +597,7 @@
 
         initProgressBar();
         
-        const col = document.getElementById('era-progress-column');
-        col.innerHTML = '<div style="font-size: 0.8rem; font-weight: bold; opacity: 0.8; letter-spacing: 2px;">HISTORIA</div>';
-        for(let i=0; i<5; i++) { 
-            const slot = document.createElement('div');
-            slot.id = `era-slot-${i}`;
-            
-            if (i < currentEraIdx) {
-                const prevEraKey = ERA_ORDER[i];
-                const prevEraFirstElement = ERAS[prevEraKey].data[2];
-                slot.className = 'era-slot completed';
-                slot.innerHTML = `<img src="${prevEraFirstElement.img}" onerror="this.style.display='none'"><div style="font-weight:bold;">${ERAS[prevEraKey].title}</div>`;
-                slot.title = "Volver a jugar esta Era";
-                let capturedIdx = i;
-                slot.onclick = () => confirmReplayEra(capturedIdx);
-            } else {
-                slot.className = 'era-slot';
-                slot.innerHTML = '?';
-            }
-            col.appendChild(slot);
-        }
-
+        rebuildEraSidebar();
         addTile(); addTile();
     }
 
@@ -646,10 +626,10 @@
 
     let _eraOptionsTargetIdx = null;
     let _reviewEraData = null; // datos de era en modo revisión
+    let _maxEraIdx = 0; // máximo índice de era alcanzado
 
-    function confirmReplayEra(idx, maxIdx) {
-        const limit = (maxIdx !== undefined) ? maxIdx : currentEraIdx;
-        if (idx >= limit) return;
+    function confirmReplayEra(idx) {
+        if (idx >= _maxEraIdx) return;
         _eraOptionsTargetIdx = idx;
         const eraKey = ERA_ORDER[idx];
         const era = ERAS[eraKey];
@@ -661,10 +641,6 @@
     }
 
     function replayEra(idx) {
-        // Guardar estado actual para restaurar la columna lateral al terminar
-        const savedEraIdx = currentEraIdx;
-
-        // Limpiar tablero y discovered, cambiar era, pero SIN tocar la columna lateral
         board.forEach(t => { if(t && t.element) t.element.remove(); });
         document.getElementById('grid-container').innerHTML = '';
         board = Array(16).fill(null);
@@ -680,28 +656,29 @@
         document.getElementById('panel-title').style.color = 'var(--title-color)';
         document.getElementById('card-display').innerHTML = '<div style="opacity: 0.5; text-align: center;">Usa las flechas para jugar...</div>';
         initProgressBar();
+        rebuildEraSidebar();
+        addTile(); addTile();
+    }
 
-        // Reconstruir columna lateral respetando TODAS las eras completadas hasta savedEraIdx
+    function rebuildEraSidebar() {
         const col = document.getElementById('era-progress-column');
         col.innerHTML = '<div style="font-size: 0.8rem; font-weight: bold; opacity: 0.8; letter-spacing: 2px;">HISTORIA</div>';
         for(let i = 0; i < 5; i++) {
             const slot = document.createElement('div');
             slot.id = `era-slot-${i}`;
-            if (i < savedEraIdx) {
+            if (i < _maxEraIdx) {
                 const prevEraKey = ERA_ORDER[i];
                 slot.className = 'era-slot completed';
                 slot.innerHTML = `<img src="${ERAS[prevEraKey].data[2].img}" onerror="this.style.display='none'"><div style="font-weight:bold;">${ERAS[prevEraKey].title}</div>`;
                 slot.title = "Volver a jugar esta Era";
                 let capturedIdx = i;
-                slot.onclick = () => confirmReplayEra(capturedIdx, savedEraIdx);
+                slot.onclick = () => confirmReplayEra(capturedIdx);
             } else {
                 slot.className = 'era-slot';
                 slot.innerHTML = '?';
             }
             col.appendChild(slot);
         }
-
-        addTile(); addTile();
     }
 
     function closeEraOptions() {
@@ -940,9 +917,12 @@
             let capturedIdx = currentEraIdx;
             eraSlot.onclick = () => confirmReplayEra(capturedIdx);
         }
+        // Ensure all completed slots have correct onclick (in case sidebar was rebuilt during replay)
+        setTimeout(rebuildEraSidebar, 50);
 
         document.getElementById('era-overlay').classList.remove('active');
         currentEraIdx++;
+        if (currentEraIdx > _maxEraIdx) _maxEraIdx = currentEraIdx;
         
         if (currentEraIdx >= ERA_ORDER.length) return alert("¡HAS LLEGADO AL FINAL DE LA HISTORIA DISPONIBLE!");
 
