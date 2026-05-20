@@ -384,7 +384,7 @@
         astronomica: {
             title: "ERA ASTRO", panelTitle: "EL COSMOS",
             data: {
-                2: { n: "Big Bang", img: "2_bigbang.png", d: "El origen del tiempo y el espacio.", ext: "La singularidad inicial se expandió rápidamente hace unos 13.800 millones de años, creando el espacio-tiempo y liberando una cantidad inimaginable de energía que, al enfriarse, permitió la formación de las primeras partículas fundamentales." },
+                2: { n: "Big Bang", img: "2_bigbang.png", d: "El origen del tiempo y el espacio.", ext: "La singularidad inicial se expandió rápidamente hace unos 13.800 millones de años, creando el espacio-tiempo y liberando una cantidad inimaginable of energía que, al enfriarse, permitió la formación de las primeras partículas fundamentales." },
                 4: { n: "Núcleos", img: "4_nucleos.png", d: "Primeros protones y neutrones estables.", ext: "A medida que el universo primitivo se enfrió, los quarks se combinaron mediante la fuerza nuclear fuerte para formar hadrones, dando lugar a los primeros protones y neutrones estables en un proceso conocido como bariogénesis." },
                 8: { n: "Átomos", img: "8_atomos.png", d: "Nace el hidrógeno primordial.", ext: "Unos 380,000 años después del Big Bang, la temperatura descendió lo suficiente para que los electrones libres quedaran atrapados en las órbitas de los núcleos, formando los primeros átomos de hidrógeno y helio (recombinación)." },
                 16: { n: "Estrellas", img: "16_estrellas.png", d: "Se encienden los hornos nucleares.", ext: "Las fluctuaciones de densidad en las gigantescas nubes de gas primordial provocaron un colapso gravitatorio. El incremento extremo de presión y temperatura en sus núcleos logró encender por primera vez la fusión nuclear estable." },
@@ -426,9 +426,10 @@
     };
 
     // --- DATOS DE SUBJUEGOS ---
+    // NOTA: Cambio riguroso de 'Cloroplastos' a 'Cianobacterias' en la etapa 4 de Pioneros.
     const DATA_PIONEROS = {
         2: {n:'LUCA', img:'2_luca.png', d:'El último ancestro común universal.', adap: 'Organismo procariota primitivo adaptado a las fuentes hidrotermales oceánicas ricas en minerales.'},
-        4: {n:'Cloroplastos', img:'4_cloroplastos.png', d:'Fábricas solares celulares.', adap: 'Antiguas cianobacterias endosimbiontes que desarrollaron la fotosíntesis oxigénica para captar luz solar.'},
+        4: {n:'Cianobacterias', img:'4_cloroplastos.png', d:'Los motores de la fotosíntesis oxigénica.', adap: 'Bacterias pioneras libres que provocaron la Gran Oxidación y revolucionaron la atmósfera mucho antes de convertirse en orgánulos vegetales.'},
         8: {n:'Mitocondrias', img:'8_mitocondrias.png', d:'Centrales de energía.', adap: 'Bacterias aeróbicas absorbidas que proporcionan enormes cantidades de energía (ATP) a su célula huésped.'},
         16: {n:'Célula Eucariota', img:'16_eucariota.png', d:'Complejidad con núcleo definido.', adap: 'Compartimentación de orgánulos y un núcleo membranal que protege el material genético estructurado.'},
         32: {n:'Algas Unicelulares', img:'32_algas.png', d:'Fitoplancton primigenio.', adap: 'Dominio de la fotosíntesis en flotación libre para colonizar la inmensa zona fótica del océano.'},
@@ -727,19 +728,19 @@
             let extraButtonHTML = '';
             
             // Portales del Laberinto Principal
-            if (eraKey === 'vida' && val === 512) { // Primate -> Monitos
+            if (eraKey === 'vida' && val === 512) { 
                 extraButtonHTML = `
                     <div class="subgame-gateway-above" style="border-color: #2ecc71; color: #2ecc71;" onclick="event.stopPropagation(); openInvestigacion('monitos');">
                         <span style="color:white;">INVESTIGAR</span>
                         <span>MONITOS</span>
                     </div>`;
-            } else if (eraKey === 'vida' && val === 32) { // Anfibio -> Anfibios
+            } else if (eraKey === 'vida' && val === 32) { 
                 extraButtonHTML = `
                     <div class="subgame-gateway-above" style="border-color: #00cec9; color: #00cec9;" onclick="event.stopPropagation(); openInvestigacion('anfibios');">
                         <span style="color:white;">INVESTIGAR</span>
                         <span>ANFIBIOS</span>
                     </div>`;
-            } else if (eraKey === 'vida' && val === 2) { // Unicelular -> Pioneros
+            } else if (eraKey === 'vida' && val === 2) { 
                 extraButtonHTML = `
                     <div class="subgame-gateway-above" style="border-color: #e84393; color: #e84393;" onclick="event.stopPropagation(); openInvestigacion('pioneros');">
                         <span style="color:white;">INVESTIGAR</span>
@@ -967,6 +968,7 @@
         }, 300);
     }
 
+    // --- CONTROL DE DIRECCIONES Y COLISIONES ---
     function checkSubgameGameOver() {
         if (subBoard.includes(null)) return false; 
         for (let i = 0; i < 4; i++) {
