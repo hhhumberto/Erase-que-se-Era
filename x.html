@@ -518,8 +518,6 @@
     let isInvestigacionActive = false; 
     let subDiscovered = [];
     let activeSubgameType = null; // 'pioneros', 'monitos', 'anfibios', 'ranitas'
-    let _maxEraIdx = 0;        // máximo índice de era alcanzado
-    let _reviewEraData = null; // datos de era en modo revisión
 
     function getSubgameData() {
     if (activeSubgameType === 'pioneros') return DATA_PIONEROS;
@@ -626,8 +624,13 @@
         }
     }
 
+    let _eraOptionsTargetIdx = null;
+    let _reviewEraData = null; // datos de era en modo revisión
+    let _maxEraIdx = 0; // máximo índice de era alcanzado
+
     function confirmReplayEra(idx) {
         if (idx >= _maxEraIdx) return;
+        _eraOptionsTargetIdx = idx;
         const eraKey = ERA_ORDER[idx];
         const era = ERAS[eraKey];
         document.getElementById('era-options-title').textContent = era.title;
@@ -637,16 +640,6 @@
         document.getElementById('era-options-overlay').style.display = 'flex';
     }
 
-    function closeEraOptions() {
-        document.getElementById('era-options-overlay').style.display = 'none';
-    }
-
-    function reviewEraGallery(idx) {
-        const eraData = ERAS[ERA_ORDER[idx]].data;
-        const allVals = Object.keys(eraData).map(Number).sort((a,b) => a-b);
-        openCatalogWithData(0, allVals, eraData);
-    }
-
     function replayEra(idx) {
         board.forEach(t => { if(t && t.element) t.element.remove(); });
         document.getElementById('grid-container').innerHTML = '';
@@ -654,6 +647,7 @@
         discovered = [];
         score = 0;
         document.getElementById('score').textContent = score;
+
         currentEraIdx = idx;
         const eraKey = ERA_ORDER[idx];
         document.body.className = "era-" + eraKey;
@@ -669,7 +663,7 @@
     function rebuildEraSidebar() {
         const col = document.getElementById('era-progress-column');
         col.innerHTML = '<div style="font-size: 0.8rem; font-weight: bold; opacity: 0.8; letter-spacing: 2px;">HISTORIA</div>';
-        for (let i = 0; i < 5; i++) {
+        for(let i = 0; i < 5; i++) {
             const slot = document.createElement('div');
             slot.id = `era-slot-${i}`;
             if (i < _maxEraIdx) {
@@ -687,6 +681,17 @@
         }
     }
 
+    function closeEraOptions() {
+        document.getElementById('era-options-overlay').style.display = 'none';
+        _eraOptionsTargetIdx = null;
+    }
+
+    function reviewEraGallery(idx) {
+        const eraData = ERAS[ERA_ORDER[idx]].data;
+        const allVals = Object.keys(eraData).map(Number).sort((a,b) => a-b);
+        openCatalogWithData(0, allVals, eraData);
+    }
+
     function initProgressBar() {
         const bar = document.getElementById('progress-bar');
         bar.innerHTML = '';
@@ -701,7 +706,8 @@
     }
 
     function updateProgressBar() {
-        discovered.forEach(val => {
+        const eraIdxAtUpdate = currentEraIdx;
+        discovered.forEach((val, index) => {
             const slot = document.getElementById('slot-' + val);
             if (slot && !slot.classList.contains('filled')) {
                 const d = getCurrentData()[val];
@@ -709,6 +715,7 @@
                 slot.innerHTML = `<img src="${d.img}" onerror="this.style.display='none'"><div class="slot-name">${d.n}</div>`;
             }
         });
+        // Al completar la colección, activar clic en todos los slots
         if (discovered.length === 9) {
             const snapDiscovered = [...discovered];
             const snapData = Object.assign({}, getCurrentData());
@@ -721,6 +728,24 @@
                 }
             });
         }
+    }
+
+    function openCatalogWithData(idx, snapDiscovered, snapData) {
+        const prevDiscovered = discovered;
+        const prevReviewData = _reviewEraData;
+        discovered = snapDiscovered;
+        _reviewEraData = snapData;
+        isCatalogSubgame = false;
+        currentCatalogIdx = idx;
+        updateCatalogView();
+        document.getElementById('catalog-overlay').classList.add('active');
+        // Restaurar al cerrar
+        const origClose = window._catalogCloseHook;
+        window._catalogCloseHook = () => {
+            discovered = prevDiscovered;
+            _reviewEraData = prevReviewData;
+            window._catalogCloseHook = origClose;
+        };
     }
 
     function updateInfoPanel(val) {
@@ -849,23 +874,7 @@
 
     function closeCatalog() {
         document.getElementById('catalog-overlay').classList.remove('active');
-        if (window._catalogCloseHook) { window._catalogCloseHook(); }
-    }
-
-    function openCatalogWithData(idx, snapDiscovered, snapData) {
-        const prevDiscovered = discovered;
-        const prevReviewData = _reviewEraData;
-        discovered = snapDiscovered;
-        _reviewEraData = snapData;
-        isCatalogSubgame = false;
-        currentCatalogIdx = idx;
-        updateCatalogView();
-        document.getElementById('catalog-overlay').classList.add('active');
-        window._catalogCloseHook = () => {
-            discovered = prevDiscovered;
-            _reviewEraData = prevReviewData;
-            window._catalogCloseHook = null;
-        };
+        if (window._catalogCloseHook) window._catalogCloseHook();
     }
 
     function changeCatalog(dir) {
@@ -908,11 +917,12 @@
             let capturedIdx = currentEraIdx;
             eraSlot.onclick = () => confirmReplayEra(capturedIdx);
         }
+        // Ensure all completed slots have correct onclick (in case sidebar was rebuilt during replay)
+        setTimeout(rebuildEraSidebar, 50);
 
         document.getElementById('era-overlay').classList.remove('active');
         currentEraIdx++;
         if (currentEraIdx > _maxEraIdx) _maxEraIdx = currentEraIdx;
-        setTimeout(rebuildEraSidebar, 50);
         
         if (currentEraIdx >= ERA_ORDER.length) return alert("¡HAS LLEGADO AL FINAL DE LA HISTORIA DISPONIBLE!");
 
