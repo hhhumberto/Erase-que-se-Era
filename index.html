@@ -517,7 +517,7 @@
     let subScore = 0;
     let isInvestigacionActive = false; 
     let subDiscovered = [];
-    let activeSubgameType = null; // 'pioneros', 'monitos', 'anfibios', 'ranitas'
+    let activeSubgameType = null; // 'pioneros', 'monitos', 'anfibios', 'ranitas', 'pluricelulares'
     let _maxEraIdx = 0;        // máximo índice de era alcanzado
     let _reviewEraData = null; // datos de era en modo revisión
 
@@ -802,25 +802,41 @@
             // Portales del Laberinto Principal
             if (eraKey === 'vida' && val === 512) { 
                 extraButtonHTML = `
-                    <div class="subgame-gateway-above" style="border-color: #2ecc71; color: #2ecc71;" onclick="event.stopPropagation(); openInvestigacion('monitos');">
+                    <div class="subgame-gateway-above" style="border-color: #2ecc71; color: #2ecc71;" onclick="
+event.stopPropagation();
+document.getElementById('era-overlay').classList.remove('active');
+openInvestigacion('monitos');
+">
                         <span style="color:white;">INVESTIGAR</span>
                         <span>MONITOS</span>
                     </div>`;
             } else if (eraKey === 'vida' && val === 32) { 
                 extraButtonHTML = `
-                    <div class="subgame-gateway-above" style="border-color: #00cec9; color: #00cec9;" onclick="event.stopPropagation(); openInvestigacion('anfibios');">
+                    <div class="subgame-gateway-above" style="border-color: #00cec9; color: #00cec9;" onclick="
+event.stopPropagation();
+document.getElementById('era-overlay').classList.remove('active');
+openInvestigacion('anfibios');
+">
                         <span style="color:white;">INVESTIGAR</span>
                         <span>ANFIBIOS</span>
                     </div>`;
             } else if (eraKey === 'vida' && val === 2) { 
                 extraButtonHTML = `
-                    <div class="subgame-gateway-above" style="border-color: #e84393; color: #e84393;" onclick="event.stopPropagation(); openInvestigacion('pioneros');">
+                    <div class="subgame-gateway-above" style="border-color: #e84393; color: #e84393;" onclick="
+event.stopPropagation();
+document.getElementById('era-overlay').classList.remove('active');
+openInvestigacion('pioneros');
+">
                         <span style="color:white;">INVESTIGAR</span>
                         <span>PIONEROS</span>
                     </div>`;
             } else if (eraKey === 'vida' && val === 4) { 
                 extraButtonHTML = `
-                    <div class="subgame-gateway-above" style="border-color: #e84393; color: #e84393;" onclick="event.stopPropagation(); openInvestigacion('pluricelulares');">
+                    <div class="subgame-gateway-above" style="border-color: #e84393; color: #e84393;" onclick="
+event.stopPropagation();
+document.getElementById('era-overlay').classList.remove('active');
+openInvestigacion('pluricelulares');
+">
                         <span style="color:white;">INVESTIGAR</span>
                         <span>PLURICELULARES</span>
                     </div>`;
