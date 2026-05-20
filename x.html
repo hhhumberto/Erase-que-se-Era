@@ -719,7 +719,8 @@
     }
 
     function updateProgressBar() {
-        discovered.forEach(val => {
+        const eraIdxAtUpdate = currentEraIdx;
+        discovered.forEach((val, index) => {
             const slot = document.getElementById('slot-' + val);
             if (slot && !slot.classList.contains('filled')) {
                 const d = getCurrentData()[val];
@@ -729,15 +730,35 @@
         });
         // Al completar la colección, activar clic en todos los slots
         if (discovered.length === 9) {
-            discovered.forEach((val, index) => {
+            const snapDiscovered = [...discovered];
+            const snapData = Object.assign({}, getCurrentData());
+            snapDiscovered.forEach((val, index) => {
                 const slot = document.getElementById('slot-' + val);
                 if (slot) {
                     slot.style.cursor = 'pointer';
                     slot.title = 'Ver ficha';
-                    slot.onclick = () => openCatalog(index, false);
+                    slot.onclick = () => openCatalogWithData(index, snapDiscovered, snapData);
                 }
             });
         }
+    }
+
+    function openCatalogWithData(idx, snapDiscovered, snapData) {
+        const prevDiscovered = discovered;
+        const prevReviewData = _reviewEraData;
+        discovered = snapDiscovered;
+        _reviewEraData = snapData;
+        isCatalogSubgame = false;
+        currentCatalogIdx = idx;
+        updateCatalogView();
+        document.getElementById('catalog-overlay').classList.add('active');
+        // Restaurar al cerrar
+        const origClose = window._catalogCloseHook;
+        window._catalogCloseHook = () => {
+            discovered = prevDiscovered;
+            _reviewEraData = prevReviewData;
+            window._catalogCloseHook = origClose;
+        };
     }
 
     function updateInfoPanel(val) {
@@ -866,6 +887,7 @@
 
     function closeCatalog() {
         document.getElementById('catalog-overlay').classList.remove('active');
+        if (window._catalogCloseHook) window._catalogCloseHook();
     }
 
     function changeCatalog(dir) {
