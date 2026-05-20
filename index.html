@@ -1177,6 +1177,36 @@
             move(keys[e.key]); 
         }
     });
+// --- PRECARGA DE IMÁGENES ---
+const assetsToPreload = [
+    // Era Astro
+    "2_bigbang.png", "4_nucleos.png", "8_atomos.png", "16_estrellas.png", "32_supernova.png", "64_nebulosa.png", "128_tierra.png", "256_lluvia.png", "2_bacteria.png",
+    // Era Vida
+    "4_coral.png", "8_invertebrado.png", "16_pez.png", "32_rana.png", "64_iguana.png", "128_raton.png", "256_ardilla.png", "512_mono.png",
+    // Era Homo
+    "4_afarensis.png", "8_piedra.png", "16_fuego.png", "32_tumba.png", "64_expansion.png", "128_pintura.png", "256_agricultura.png", "512_egipto.png",
+    // Subjuegos (Pioneros)
+    "2_luca.png", "4_cloroplastos.png", "8_mitocondrias.png", "16_eucariota.png", "32_algas.png", "64_hongos.png", "128_amebas.png", "256_radiolarios.png", "512_coanoflagelados.png",
+    // Subjuegos (Monitos)
+    "2_lemur.png", "4_tarsero.png", "8_mono_arana.png", "16_mandril.png", "32_mono_narigudo.png", "64_gibon.png", "128_orangutan.png", "256_gorila.png", "512_chimpance.png",
+    // Subjuegos (Anfibios)
+    "2_proteo.png", "4_cecilia.png", "8_sirena.png", "16_salamandra_gigante.png", "32_salamandra.png", "64_triton_rojo.png", "128_triton.png", "256_ajolote.png", "512_rana_arborea.png",
+    // Subjuegos (Ranitas)
+    "2_rana_darwin.png", "4_rana_cornuda.png", "8_rana_musgosa.png", "16_mantella.png", "32_rana_lluvia.png", "64_rana_voladora.png", "128_rana_morada.png", "256_pipa.png", "512_rana_dardo.png"
+];
+
+function preloadAssets() {
+    assetsToPreload.forEach(src => {
+        const img = new Image();
+        img.src = src; // Esto descarga la imagen y la guarda en la caché del navegador
+    });
+}
+
+// Ejecutamos la precarga justo al cargar la página
+window.onload = () => {
+    preloadAssets();
+    console.log("Activos precargados en memoria.");
+};
 </script>
 </body>
 </html>
