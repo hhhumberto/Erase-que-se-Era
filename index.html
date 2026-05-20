@@ -647,8 +647,9 @@
     let _eraOptionsTargetIdx = null;
     let _reviewEraData = null; // datos de era en modo revisión
 
-    function confirmReplayEra(idx) {
-        if (idx >= currentEraIdx) return;
+    function confirmReplayEra(idx, maxIdx) {
+        const limit = (maxIdx !== undefined) ? maxIdx : currentEraIdx;
+        if (idx >= limit) return;
         _eraOptionsTargetIdx = idx;
         const eraKey = ERA_ORDER[idx];
         const era = ERAS[eraKey];
@@ -692,7 +693,7 @@
                 slot.innerHTML = `<img src="${ERAS[prevEraKey].data[2].img}" onerror="this.style.display='none'"><div style="font-weight:bold;">${ERAS[prevEraKey].title}</div>`;
                 slot.title = "Volver a jugar esta Era";
                 let capturedIdx = i;
-                slot.onclick = () => confirmReplayEra(capturedIdx);
+                slot.onclick = () => confirmReplayEra(capturedIdx, savedEraIdx);
             } else {
                 slot.className = 'era-slot';
                 slot.innerHTML = '?';
