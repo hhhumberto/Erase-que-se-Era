@@ -254,6 +254,7 @@
                     <option value="monitos">Investigar: MONITOS</option>
                     <option value="anfibios">Investigar: ANFIBIOS</option>
                     <option value="ranitas">Investigar: RANITAS</option>
+			<option value="pluricelulares">Investigar: PLURICELULARES</option>
                     <option disabled>───────────</option>
                     <option value="end-astronomica">FINAL Era Astro</option>
                     <option value="end-vida">FINAL Era Vida (Accesos)</option>
@@ -263,6 +264,7 @@
                     <option value="end-sub-monitos">FINAL Investigar: MONITOS</option>
                     <option value="end-sub-anfibios">FINAL Investigar: ANFIBIOS</option>
                     <option value="end-sub-ranitas">FINAL Investigar: RANITAS</option>
+			<option value="end-sub-pluricelulares">FINAL Investigar: PLURICELULARES</option>
                 </select>
                 <button class="btn-start" onclick="startSubGameDirectly()" style="background: #2ecc71; padding: 10px 20px; font-size: 1rem;">Ir</button>
             </div>
@@ -473,6 +475,17 @@
         256:{n:'Pipa de Surinam', img:'256_pipa.png', d:'Pipa pipa.', adap: 'Las hembras incuban los huevos incrustados en la piel de su espalda plana, de donde emergen crías completamente formadas.'},
         512:{n:'Rana Dardo Azul', img:'512_rana_dardo.png', d:'Dendrobates tinctorius.', adap: 'Secreta potentes toxinas lipofílicas a través de la piel, derivadas de su dieta especializada de hormigas tropicales.'}
     };
+	const DATA_PLURICELULARES = {
+    		2: {n:'Placozoos', img:'2_placozoo.png', d:'Trichoplax.', adap: 'El animal multicelular más simple conocido, compuesto por muy pocos tipos celulares.'},
+    		4: {n:'Ctenóforas', img:'4_ctenoforo.png', d:'Medusas peine.', adap: 'Depredadores marinos primitivos que nadan rítmicamente mediante hileras de cilios.'},
+    		8: {n:'Poríferos', img:'8_esponja.png', d:'Esponjas marinas.', adap: 'Animales sésiles sin verdaderos tejidos que filtran agua constantemente para alimentarse.'},
+    		16: {n:'Medusas', img:'16_medusa.png', d:'Cnidarios pelágicos.', adap: 'Forma de vida libre con simetría radial y células urticantes especializadas.'},
+    		32: {n:'Corales', img:'32_coral.png', d:'Pólipos coloniales.', adap: 'Constructores de grandes arrecifes gracias a la secreción de su esqueleto calcáreo protector.'},
+    		64: {n:'Anémonas', img:'64_anemona.png', d:'Pólipos solitarios.', adap: 'Depredadores bentónicos anclados al sustrato con potentes tentáculos urticantes.'},
+    		128: {n:'Hidras', img:'128_hidra.png', d:'Cnidarios de agua dulce.', adap: 'Notable capacidad de regeneración celular, siendo biológicamente inmortales.'},
+    		256: {n:'Platelmintos', img:'256_platelminto.png', d:'Gusanos planos.', adap: 'Desarrollan por primera vez la simetría bilateral y un sistema nervioso centralizado.'},
+    		512: {n:'Equinodermos', img:'512_equinodermo.png', d:'Estrellas y erizos.', adap: 'Evolucionan hacia una simetría pentarradial y desarrollan un sistema vascular acuífero único.'}
+	};
 
     const ERA_ORDER = ['astronomica', 'vida', 'homo'];
     let currentEraIdx = 0;
@@ -494,12 +507,12 @@
     let activeSubgameType = null; // 'pioneros', 'monitos', 'anfibios', 'ranitas'
 
     function getSubgameData() {
-        if (activeSubgameType === 'pioneros') return DATA_PIONEROS;
-        if (activeSubgameType === 'monitos') return DATA_MONITOS;
-        if (activeSubgameType === 'anfibios') return DATA_ANFIBIOS;
-        if (activeSubgameType === 'ranitas') return DATA_RANITAS;
-        return DATA_MONITOS;
-    }
+    if (activeSubgameType === 'pioneros') return DATA_PIONEROS;
+    if (activeSubgameType === 'monitos') return DATA_MONITOS;
+    if (activeSubgameType === 'anfibios') return DATA_ANFIBIOS;
+    if (activeSubgameType === 'ranitas') return DATA_RANITAS;
+    if (activeSubgameType === 'pluricelulares') return DATA_PLURICELULARES; // <-- AÑADIR ESTA LÍNEA
+	}
 
     // --- FUNCIONES DE DESARROLLO ---
 
@@ -519,7 +532,7 @@
             devJumpToEra(1);
         } else if (selection === 'homo') {
             devJumpToEra(2);
-        } else if (selection === 'pioneros' || selection === 'monitos' || selection === 'anfibios' || selection === 'ranitas') {
+        } else if (selection === 'pioneros' || selection === 'monitos' || selection === 'anfibios' || selection === 'ranitas' || selection === 'pluricelulares') {
             document.getElementById('start-screen').style.display = 'none';
             initEraSidebar();
             initProgressBar();
@@ -883,7 +896,13 @@
             document.getElementById('m-panel-title').textContent = "RANAS EXTRAORDINARIAS";
             document.getElementById('subgame-complete-title').style.color = "#0984e3";
             document.getElementById('subgame-complete-desc').textContent = "Has alcanzado a la Rana Dardo y completado la ramificación.";
-        }
+        } else if (type === 'pluricelulares') {
+        	container.style.setProperty('--subgame-color', '#9b59b6'); // Color morado/lila para esta línea
+        	document.getElementById('investigacion-title').textContent = "INVESTIGACIÓN: PLURICELULARES";
+        	document.getElementById('m-panel-title').textContent = "EVOLUCIÓN MULTICELULAR";
+        	document.getElementById('subgame-complete-title').style.color = "#9b59b6";
+        	document.getElementById('subgame-complete-desc').textContent = "Has alcanzado a los Equinodermos y completado la ramificación.";
+    	}
 
         document.getElementById('investigacion-overlay').classList.add('active');
         initSubgame();
