@@ -758,6 +758,12 @@
                         <span style="color:white;">INVESTIGAR</span>
                         <span>PIONEROS</span>
                     </div>`;
+            } else if (eraKey === 'vida' && val === 4) { 
+                extraButtonHTML = `
+                    <div class="subgame-gateway-above" style="border-color: #e84393; color: #e84393;" onclick="event.stopPropagation(); openInvestigacion('pluricelulares');">
+                        <span style="color:white;">INVESTIGAR</span>
+                        <span>PLURICELULARES</span>
+                    </div>`;
             }
 
             seqContainer.innerHTML += `
