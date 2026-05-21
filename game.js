@@ -837,8 +837,34 @@ function startSubGameDirectly() {
 
     // ── CASO 2: Rama de investigación ───────────────────────────
     if (INVESTIGATIONS[sel]) {
-        session.maxEraIdx = 0;
-        _bootEra(0);
+        // Buscar en qué era vive este portal para marcarla como completada
+        let eraForBranch = 0;
+        for (const [eKey, portals] of Object.entries(PORTALS)) {
+            if (eKey === '__subgame__') continue;
+            if (Object.values(portals).some(arr => arr.includes(sel))) {
+                eraForBranch = ERA_ORDER.indexOf(eKey);
+                break;
+            }
+        }
+        // Si no está en PORTALS de era (es sub-rama), buscar en __subgame__
+        if (eraForBranch === 0 && PORTALS.__subgame__) {
+            for (const parentBranch of Object.values(PORTALS.__subgame__)) {
+                if (Object.values(parentBranch).some(arr => arr.includes(sel))) {
+                    // Es sub-rama: buscar la era de la rama padre
+                    for (const [eKey, portals] of Object.entries(PORTALS)) {
+                        if (eKey === '__subgame__') continue;
+                        const parentId = Object.keys(PORTALS.__subgame__).find(k => PORTALS.__subgame__[k] === parentBranch);
+                        if (parentId && Object.values(portals).some(arr => arr.includes(parentId))) {
+                            eraForBranch = ERA_ORDER.indexOf(eKey);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        session.maxEraIdx = eraForBranch + 1;
+        _bootEra(eraForBranch);
         // Lanzar tronco sin theatre
         const pos = Math.floor(Math.random() * 16);
         session.main.board[pos] = _createTile(2, pos, session.main);
@@ -863,7 +889,8 @@ function startSubGameDirectly() {
                 break;
             }
         }
-        session.maxEraIdx = eraForBranch;
+        // La era que contiene el portal debe aparecer como completada
+        session.maxEraIdx = eraForBranch + 1;
         _bootEra(eraForBranch);
         openBranch(type);
         session.branch.discovered = Object.keys(inv.data).map(Number).sort((a,b) => a - b);
