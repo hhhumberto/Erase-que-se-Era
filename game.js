@@ -589,9 +589,17 @@ function _buildSequenceHTML(discovered, data, portals, { overlayToClose, cardCli
 
 function showTheatre(val, state) {
     uiState.theatreOpen = true;
-    const d = state.data[val];
+    const d   = state.data[val];
+    const img = document.getElementById('theatre-img');
 
-    document.getElementById('theatre-img').src           = d.img;
+    // Limpiar imagen anterior antes de cargar la nueva: evita residuos visuales
+    img.style.opacity = '0';
+    img.src           = '';
+    img.onload  = () => { img.style.opacity = '1'; };
+    img.onerror = () => { img.style.opacity = '0'; };
+    // Asignar después del vaciado para que el navegador lo trate como carga nueva
+    requestAnimationFrame(() => { img.src = d.img; });
+
     document.getElementById('theatre-title').textContent = d.n;
     document.getElementById('theatre-desc').textContent  = d.d;
     document.getElementById('theatre-ext').textContent   = d.ext ?? '';
@@ -602,7 +610,6 @@ function showTheatre(val, state) {
 
     document.getElementById('theatre-overlay').classList.add('active');
 
-    // Marcar el pending correcto usando el winTile del propio estado
     if (val === state.winTile) {
         if (state === session.branch) uiState.pendingBranchEnd = true;
         else                          uiState.pendingEndEra    = true;
@@ -805,43 +812,74 @@ window.addEventListener('keydown', e => {
 function startSubGameDirectly() {
     const sel = document.getElementById('dev-subgame-select').value;
 
-    // Reset de UI
+    // ── Reset global de UI ──────────────────────────────────────
     if (document.activeElement) document.activeElement.blur();
     document.querySelectorAll('.active').forEach(el => el.classList.remove('active'));
-    document.getElementById('era-options-overlay').style.display = 'none';
+    document.getElementById('era-options-overlay').style.display  = 'none';
+    document.getElementById('era-confirm-overlay').style.display  = 'none';
+    document.getElementById('start-screen').style.display         = 'none';
     uiState.theatreOpen = uiState.pendingEndEra = uiState.pendingBranchEnd = false;
     session.branch = null;
-    document.getElementById('start-screen').style.display = 'none';
 
-    // Era del tronco directamente
+    // ── CASO 1: Era del tronco ──────────────────────────────────
     const eraIdx = ERA_ORDER.indexOf(sel);
-    if (eraIdx !== -1) { session.maxEraIdx = eraIdx; _bootEra(eraIdx); launchEra(); return; }
+    if (eraIdx !== -1) {
+        session.maxEraIdx = eraIdx;   // eras anteriores "ya completadas"
+        _bootEra(eraIdx);
+        // Lanzar sin modal ni theatre del primer tile
+        const pos = Math.floor(Math.random() * 16);
+        session.main.board[pos] = _createTile(2, pos, session.main);
+        session.main.discover(2);
+        session.main.updateProgressBar();
+        session.main.updateInfoPanel(2);
+        return;
+    }
 
-    // Rama de investigación directamente
+    // ── CASO 2: Rama de investigación ───────────────────────────
     if (INVESTIGATIONS[sel]) {
+        session.maxEraIdx = 0;
         _bootEra(0);
+        // Lanzar tronco sin theatre
+        const pos = Math.floor(Math.random() * 16);
+        session.main.board[pos] = _createTile(2, pos, session.main);
+        session.main.discover(2);
+        session.main.updateProgressBar();
+        session.main.updateInfoPanel(2);
         openBranch(sel);
         return;
     }
 
-    // Final de una rama (para probar la pantalla de completado)
+    // ── CASO 3: Final de una rama ───────────────────────────────
     if (sel.startsWith('end-sub-')) {
-        const type = sel.replace('end-sub-', '');
-        _bootEra(1);
+        const type    = sel.replace('end-sub-', '');
+        const inv     = INVESTIGATIONS[type];
+        if (!inv) return;
+        // Buscar en qué era aparece este portal para arrancar el tronco correcto
+        let eraForBranch = 0;
+        for (const [eKey, portals] of Object.entries(PORTALS)) {
+            if (eKey === '__subgame__') continue;
+            if (Object.values(portals).some(arr => arr.includes(type))) {
+                eraForBranch = ERA_ORDER.indexOf(eKey);
+                break;
+            }
+        }
+        session.maxEraIdx = eraForBranch;
+        _bootEra(eraForBranch);
         openBranch(type);
-        session.branch.discovered = Object.keys(INVESTIGATIONS[type].data).map(Number).sort((a,b)=>a-b);
+        session.branch.discovered = Object.keys(inv.data).map(Number).sort((a,b) => a - b);
         session.branch.updateProgressBar();
         setTimeout(showBranchComplete, 150);
         return;
     }
 
-    // Final de una era del tronco
+    // ── CASO 4: Final de una era del tronco ────────────────────
     if (sel.startsWith('end-')) {
-        const key  = sel.replace('end-', '');
-        const idx  = ERA_ORDER.indexOf(key);
+        const key = sel.replace('end-', '');
+        const idx = ERA_ORDER.indexOf(key);
         if (idx === -1) return;
+        session.maxEraIdx = idx;
         _bootEra(idx);
-        session.main.discovered = Object.keys(ERAS[ERA_ORDER[idx]].data).map(Number).sort((a,b)=>a-b);
+        session.main.discovered = Object.keys(ERAS[ERA_ORDER[idx]].data).map(Number).sort((a,b) => a - b);
         session.main.updateProgressBar();
         triggerEraEnd();
     }
