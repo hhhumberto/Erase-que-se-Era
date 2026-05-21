@@ -480,14 +480,30 @@ function replayEra(idx)      { closeEraOptions(); _bootEra(idx); }
 // FIN DE ERA  — resumen + portales leídos de PORTALS
 // ═══════════════════════════════════════════════════════════════
 
-function triggerEraEnd() {
-    const eraKey     = ERA_ORDER[session.eraIdx];
+function triggerEraEnd(reviewIdx = null) {
+    // Si reviewIdx es null usamos la era activa; si no, mostramos la era indicada (solo lectura)
+    const idx        = reviewIdx ?? session.eraIdx;
+    const eraKey     = ERA_ORDER[idx];
     const eraPortals = PORTALS[eraKey] ?? {};
 
-    document.getElementById('overlay-text').textContent = 'Has completado la ' + ERAS[eraKey].title;
+    // Datos a mostrar: si es revisión usamos todas las fichas de la era; si es victoria, las descubiertas
+    const isReview   = reviewIdx !== null;
+    const discovered = isReview
+        ? Object.keys(ERAS[eraKey].data).map(Number).sort((a, b) => a - b)
+        : session.main.discovered;
+    const data       = ERAS[eraKey].data;
+
+    const titleEl = document.getElementById('overlay-text');
+    titleEl.textContent = isReview
+        ? 'Galería: ' + ERAS[eraKey].title
+        : 'Has completado la ' + ERAS[eraKey].title;
+
+    // En modo revisión, el botón "Siguiente Era" no tiene sentido: lo ocultamos
+    const nextBtn = document.getElementById('era-overlay-next-btn');
+    if (nextBtn) nextBtn.style.display = isReview ? 'none' : '';
 
     document.getElementById('sequence-container').innerHTML =
-        _buildSequenceHTML(session.main.discovered, session.main.data, eraPortals, {
+        _buildSequenceHTML(discovered, data, eraPortals, {
             overlayToClose : 'era-overlay',
             cardClick      : (idx) => `openCatalog(${idx}, false)`,
         });
@@ -841,9 +857,8 @@ function confirmReplayEra(idx) {
 function closeEraOptions()  { document.getElementById('era-options-overlay').style.display = 'none'; }
 
 function reviewEraGallery(idx) {
-    const eraData = ERAS[ERA_ORDER[idx]].data;
-    const allVals = Object.keys(eraData).map(Number).sort((a, b) => a - b);
-    openCatalogWithData(0, allVals, eraData);
+    // Abrir la pantalla de victoria de esa era en modo solo lectura
+    triggerEraEnd(idx);
 }
 
 
