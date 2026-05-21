@@ -82,7 +82,7 @@ const INVESTIGATIONS = {
         panelTitle: "MICROCOSMOS",
         color: '#e84393',
         completeDesc: "Has alcanzado a los Coanoflagelados y completado la ramificación.",
-        branches: [],   // futuro: ['algas_verdes', 'arqueas', ...]
+        branches: ['flora'], 
         data: {
             2:   { n: 'LUCA',             img: 'img/2_luca.png',             d: 'El último ancestro común universal.',          adap: 'Organismo procariota primitivo adaptado a las fuentes hidrotermales oceánicas ricas en minerales.' },
             4:   { n: 'Cianobacterias',   img: 'img/4_cloroplastos.png',     d: 'Los motores de la fotosíntesis oxigénica.',    adap: 'Bacterias pioneras libres que provocaron la Gran Oxidación y revolucionaron la atmósfera mucho antes de convertirse en orgánulos vegetales.' },
@@ -174,7 +174,28 @@ const INVESTIGATIONS = {
             256: { n: 'Platelmintos', img: 'img/256_platelminto.png',d: 'Gusanos planos.',        adap: 'Desarrollan por primera vez la simetría bilateral y un sistema nervioso centralizado.' },
             512: { n: 'Equinodermos', img: 'img/512_equinodermo.png',d: 'Estrellas y erizos.',    adap: 'Evolucionan hacia una simetría pentarradial y desarrollan un sistema vascular acuífero único.' }
         }
+    },
+
+    flora: {
+        id: 'flora',
+        title: "INVESTIGACIÓN: REINO VEGETAL",
+        panelTitle: "FLORA TERRESTRE",
+        color: '#27ae60', // Un tono verde bosque
+        completeDesc: "Has formado un ecosistema completo y completado la ramificación vegetal.",
+        branches: [],
+        data: {
+            2:   { n: 'Algas Unicelulares', img: 'img/2_algas.png',           d: 'El origen de la fotosíntesis eucariota.',            adap: 'Células flotantes que desarrollaron cloroplastos para aprovechar la energía solar en los océanos primigenios.' },
+            4:   { n: 'Algas Verdes',       img: 'img/4_algas_verdes.png',    d: 'Agrupación y multicelularidad.',                     adap: 'Clorofitas que comenzaron a formar filamentos y colonias en aguas someras, precursoras directas de las plantas terrestres.' },
+            8:   { n: 'Líquenes',           img: 'img/8_liquenes.png',        d: 'La conquista de la roca desnuda.',                   adap: 'Asociación simbiótica extrema entre un hongo y un alga. Capaces de disolver la roca mineral y crear el primer sustrato de suelo.' },
+            16:  { n: 'Musgos',             img: 'img/16_musgos.png',         d: 'Los primeros anfibios vegetales (Briófitas).',       adap: 'Plantas no vasculares que lograron anclarse a la tierra húmeda, aunque aún dependen del agua directa para la reproducción de sus esporas.' },
+            32:  { n: 'Helechos',           img: 'img/32_helechos.png',       d: 'Desarrollo de las "venas" (Pteridófitas).',          adap: 'Innovación clave: el tejido vascular (xilema y floema) y la lignina. Les permitió desafiar la gravedad y formar los primeros bosques gigantes primitivos.' },
+            64:  { n: 'Semilla Desnuda',    img: 'img/64_gimnospermas.png',   d: 'Independencia del agua (Gimnospermas).',             adap: 'La invención de la semilla protegió al embrión de la desecación, permitiendo a las coníferas colonizar climas fríos y áridos.' },
+            128: { n: 'Planta con Flor',    img: 'img/128_angiospermas.png',  d: 'Seducción visual y olfativa (Angiospermas).',        adap: 'Evolución conjunta con los insectos. Las flores actúan como reclamos publicitarios para garantizar una polinización cruzada altamente eficiente.' },
+            256: { n: 'Planta con Fruto',   img: 'img/256_frutos.png',        d: 'Recompensas para el transporte.',                    adap: 'El ovario de la flor madura y se vuelve carnoso o nutritivo, sobornando a los animales terrestres y aves para que dispersen sus semillas a grandes distancias.' },
+            512: { n: 'Bosque Maduro',      img: 'img/512_bosque.png',        d: 'El ecosistema clímax.',                              adap: 'Compleja red de coexistencia donde algas, musgos, helechos y árboles con frutos conviven, conectados subterráneamente por redes micorrícicas.' }
+        }
     }
+
 
 };
 
@@ -203,6 +224,9 @@ const PORTALS = {
     __subgame__: {
         anfibios: {
             512: ['ranitas']
+        },
+        pioneros: {
+            32: ['flora'] // <--- El nuevo portal que se abre al llegar a 32 en pioneros
         }
     }
 };
