@@ -230,3 +230,44 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
     margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 15px; padding: 0 20px; overflow-x: auto; border-radius: 0 0 15px 15px; transition: border-color 0.5s;
 }
 .progress-slot.subgame-slot { border-color: rgba(255, 255, 255, 0.2); color: var(--subgame-color, #2ecc71); transition: color 0.5s;}
+
+/* ── Sidebar: estados de slots de era ─────────────────────── */
+.era-slot-available {
+    border: 2px solid var(--title-color);
+    color: var(--title-color);
+    cursor: pointer;
+    animation: pulseAvailable 2s infinite alternate;
+}
+.era-slot-available:hover { background: rgba(255,255,255,0.08); transform: scale(1.05); }
+
+.era-slot-locked {
+    border: 2px dashed rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.15);
+    cursor: default;
+}
+body.era-vida .era-slot-locked,
+body.era-homo .era-slot-locked { border-color: rgba(0,0,0,0.08); color: rgba(0,0,0,0.15); }
+
+@keyframes pulseAvailable {
+    from { box-shadow: 0 0 0 rgba(162,155,254,0); }
+    to   { box-shadow: 0 0 12px var(--title-color); }
+}
+
+/* ── Modal de confirmación de era ────────────────────────── */
+#era-confirm-overlay {
+    position: fixed; inset: 0; z-index: 9100;
+    display: none; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+}
+#era-confirm-box {
+    background: #1a1a2e; border: 2px solid var(--title-color);
+    border-radius: 20px; padding: 40px 50px;
+    text-align: center; display: flex; flex-direction: column;
+    gap: 20px; min-width: 320px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+#era-confirm-title {
+    color: var(--title-color); font-size: 1.8rem;
+    font-weight: 900; letter-spacing: 2px; margin: 0;
+}
+.era-confirm-buttons { display: flex; gap: 15px; justify-content: center; }

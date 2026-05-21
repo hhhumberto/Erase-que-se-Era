@@ -385,6 +385,7 @@ function _eraAsDef(eraKey) {
 
 function startGame() {
     document.getElementById('start-screen').style.display = 'none';
+    session.maxEraIdx = 1;   // la primera era ya está disponible
     _bootEra(0);
 }
 
@@ -408,14 +409,22 @@ function _bootEra(idx) {
     session.main.reset();
 
     rebuildEraSidebar();
-    session.main.addTile();
-    session.main.addTile();
+    // El tablero arranca vacío: el jugador confirma desde el sidebar para lanzar la primera ficha
+}
+
+// Llamado cuando el jugador acepta comenzar una era desde el modal de confirmación
+function launchEra() {
+    closeEraConfirm();
+    // Primera ficha siempre es el elemento 2 de esta era
+    const pos = Math.floor(Math.random() * 16);
+    session.main.board[pos] = _createTile(2, pos, session.main);
+    session.main.cb.onDiscover(2, session.main);
 }
 
 function nextEra() {
+    // Marcar la era actual como completada en el sidebar
     const key  = ERA_ORDER[session.eraIdx];
     const slot = document.getElementById(`era-slot-${session.eraIdx}`);
-
     if (slot) {
         const cap      = session.eraIdx;
         slot.className = 'era-slot completed';
@@ -426,15 +435,20 @@ function nextEra() {
     }
 
     document.getElementById('era-overlay').classList.remove('active');
-    session.eraIdx++;
-    if (session.eraIdx > session.maxEraIdx) session.maxEraIdx = session.eraIdx;
-    setTimeout(rebuildEraSidebar, 50);
 
-    if (session.eraIdx >= ERA_ORDER.length) {
-        alert('¡HAS LLEGADO AL FINAL DE LA HISTORIA DISPONIBLE!');
+    const nextIdx = session.eraIdx + 1;
+    if (nextIdx >= ERA_ORDER.length) {
+        // No hay más eras: actualizar maxEraIdx y reconstruir sidebar
+        if (nextIdx > session.maxEraIdx) session.maxEraIdx = nextIdx;
+        rebuildEraSidebar();
         return;
     }
-    _bootEra(session.eraIdx);
+
+    // Desbloquear la siguiente sin arrancarla: el jugador decide cuándo
+    if (nextIdx > session.maxEraIdx) session.maxEraIdx = nextIdx;
+    rebuildEraSidebar();
+    // Preparar la siguiente era en segundo plano (tablero vacío, sin fichas)
+    _bootEra(nextIdx);
 }
 
 function restartEra()        { document.getElementById('game-over-overlay').classList.remove('active'); _bootEra(session.eraIdx); }
@@ -646,13 +660,13 @@ function rebuildEraSidebar() {
     col.innerHTML =
         '<div style="font-size:.8rem;font-weight:bold;opacity:.8;letter-spacing:2px;">HISTORIA</div>';
 
-    // Número de slots = eras totales; si hay pocas, al menos 5 visualmente
     const slots = Math.max(ERA_ORDER.length, 5);
     for (let i = 0; i < slots; i++) {
         const slot = document.createElement('div');
         slot.id    = `era-slot-${i}`;
 
-        if (i < session.maxEraIdx && i < ERA_ORDER.length) {
+        if (i < ERA_ORDER.length && i < session.maxEraIdx - 1) {
+            // COMPLETADA: miniatura clicable (replay / galería)
             const key      = ERA_ORDER[i];
             slot.className = 'era-slot completed';
             slot.innerHTML = `<img src="${ERAS[key].data[2].img}" onerror="this.style.display='none'">
@@ -660,15 +674,58 @@ function rebuildEraSidebar() {
             slot.title     = 'Volver a jugar esta Era';
             const cap      = i;
             slot.onclick   = () => confirmReplayEra(cap);
+
+        } else if (i < ERA_ORDER.length && i === session.maxEraIdx - 1) {
+            // DISPONIBLE ACTUAL (jugando ahora mismo): ? clicable si no ha arrancado aún
+            const key = ERA_ORDER[i];
+            if (session.main && session.main.discovered.length > 0) {
+                // Ya está en curso: mostrar miniatura sin replay
+                slot.className = 'era-slot completed';
+                slot.innerHTML = `<img src="${ERAS[key].data[2].img}" onerror="this.style.display='none'">
+                                  <div style="font-weight:bold;">${ERAS[key].title}</div>`;
+            } else {
+                // Disponible pero no iniciada: ? pulsante
+                slot.className = 'era-slot era-slot-available';
+                slot.innerHTML = '?';
+                slot.title     = 'Comenzar ' + ERAS[key].title;
+                slot.onclick   = () => confirmStartEra(i);
+            }
+
+        } else if (i < ERA_ORDER.length && i === session.maxEraIdx) {
+            // PRÓXIMA DESBLOQUEADA: ? clicable
+            const key      = ERA_ORDER[i];
+            slot.className = 'era-slot era-slot-available';
+            slot.innerHTML = '?';
+            slot.title     = 'Comenzar ' + ERAS[key].title;
+            slot.onclick   = () => confirmStartEra(i);
+
         } else {
-            slot.className = 'era-slot';
+            // BLOQUEADA: ? apagado
+            slot.className = 'era-slot era-slot-locked';
             slot.innerHTML = '?';
         }
+
         col.appendChild(slot);
     }
 }
 
-function initEraSidebar() { rebuildEraSidebar(); }   // alias para compatibilidad
+function initEraSidebar() { rebuildEraSidebar(); }   // alias de compatibilidad
+
+// Modal de confirmación para iniciar una era nueva
+function confirmStartEra(idx) {
+    const era = ERAS[ERA_ORDER[idx]];
+    document.getElementById('era-confirm-title').textContent = '¿Comenzar ' + era.title + '?';
+    document.getElementById('era-confirm-btn').onclick = () => {
+        // Si la era no es la actual, arrancarla primero
+        if (session.eraIdx !== idx) _bootEra(idx);
+        launchEra();
+    };
+    document.getElementById('era-confirm-overlay').style.display = 'flex';
+}
+
+function closeEraConfirm() {
+    document.getElementById('era-confirm-overlay').style.display = 'none';
+}
 
 function confirmReplayEra(idx) {
     if (idx >= session.maxEraIdx) return;
@@ -742,7 +799,7 @@ function startSubGameDirectly() {
 
     // Era del tronco directamente
     const eraIdx = ERA_ORDER.indexOf(sel);
-    if (eraIdx !== -1) { _bootEra(eraIdx); return; }
+    if (eraIdx !== -1) { session.maxEraIdx = eraIdx + 1; _bootEra(eraIdx); launchEra(); return; }
 
     // Rama de investigación directamente
     if (INVESTIGATIONS[sel]) {

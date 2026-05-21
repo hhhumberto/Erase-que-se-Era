@@ -83,6 +83,24 @@
 </div>
 
 <!-- ═══════════════════════════════════════════
+     CONFIRMACIÓN INICIO DE ERA (nueva)
+════════════════════════════════════════════ -->
+<div id="era-confirm-overlay">
+    <div id="era-confirm-box">
+        <h2 id="era-confirm-title">¿Comenzar ERA?</h2>
+        <div class="era-confirm-buttons">
+            <button id="era-confirm-btn" class="btn-start" style="background:var(--title-color);padding:14px 30px;">
+                Sí, comenzar
+            </button>
+            <button onclick="closeEraConfirm()"
+                    class="btn-start" style="background:#555;padding:14px 30px;">
+                Cancelar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
      SELECTOR DE ERA (replay / galería)
 ════════════════════════════════════════════ -->
 <div id="era-options-overlay"
