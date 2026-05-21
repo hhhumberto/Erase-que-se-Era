@@ -271,3 +271,16 @@ body.era-homo .era-slot-locked { border-color: rgba(0,0,0,0.08); color: rgba(0,0
     font-weight: 900; letter-spacing: 2px; margin: 0;
 }
 .era-confirm-buttons { display: flex; gap: 15px; justify-content: center; }
+
+/* ── Placeholder de imagen de ficha ─────────────────────── */
+.tile-placeholder {
+    position: absolute;
+    font-size: 2rem; font-weight: bold; color: #ccc;
+    z-index: 1; pointer-events: none;
+    transition: opacity 0.15s;
+}
+.tile img[src]:not([src=""]) ~ .tile-placeholder {
+    /* La imagen ya tiene src asignado: ocultar placeholder en cuanto cargue */
+    opacity: 1;
+}
+.tile img { position: relative; z-index: 2; }

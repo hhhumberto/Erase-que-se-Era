@@ -221,8 +221,11 @@ class InvestigationState {
 
                         setTimeout(() => {
                             dead.element.remove();
-                            el.innerHTML = `<img src="${snap.data[nv].img}" onerror="this.style.opacity='0';">`;
+                            el.innerHTML = _tileImgHTML(snap.data[nv].img);
                             el.setAttribute('data-value', nv);
+                            // Lanzar carga de imagen ahora que el elemento está en el DOM
+                            const img = el.querySelector('img[data-src]');
+                            if (img) img.src = img.dataset.src;
 
                             if (!snap.hasDiscovered(nv)) snap.cb.onDiscover(nv, snap);
                             else if (nv === snap.winTile) snap.cb.onWin(snap);
@@ -255,11 +258,26 @@ function _createTile(val, pos, state) {
     const el = document.createElement('div');
     el.className = 'tile';
     el.setAttribute('data-value', val);
-    el.innerHTML = `<img src="${state.data[val].img}" onerror="this.style.opacity='0';">`;
+    el.innerHTML = _tileImgHTML(state.data[val].img);
     const tile = { val, pos, element: el, merged: false };
     state.dom.gridContainer.appendChild(el);
     _updateTilePos(tile);
+    // Disparar carga de imagen ahora que el elemento está en el DOM
+    const img = el.querySelector('img[data-src]');
+    if (img) img.src = img.dataset.src;
     return tile;
+}
+
+// Devuelve el HTML de la imagen de una ficha.
+// Muestra un '?' mientras la imagen no está cargada, sin residuos de la anterior.
+function _tileImgHTML(src) {
+    // La imagen empieza invisible con src vacío para evitar residuos.
+    // El span '?' actúa de placeholder hasta que onload lo elimina.
+    return `<span class="tile-placeholder">?</span>
+            <img src="" data-src="${src}"
+                 style="opacity:0;position:relative;z-index:2;"
+                 onload="this.style.opacity='1'; const ph=this.parentElement.querySelector('.tile-placeholder'); if(ph) ph.style.opacity='0';"
+                 onerror="this.style.opacity='0';">`;
 }
 
 function _updateTilePos(tile) {
@@ -385,7 +403,8 @@ function _eraAsDef(eraKey) {
 
 function startGame() {
     document.getElementById('start-screen').style.display = 'none';
-    session.maxEraIdx = 1;   // la primera era ya está disponible
+    // maxEraIdx=0 significa "ninguna completada, era 0 disponible para empezar"
+    session.maxEraIdx = 0;
     _bootEra(0);
 }
 
@@ -437,17 +456,17 @@ function nextEra() {
     document.getElementById('era-overlay').classList.remove('active');
 
     const nextIdx = session.eraIdx + 1;
+
+    // La era actual queda marcada como completada
+    session.maxEraIdx = nextIdx;   // = número de eras completadas
+
     if (nextIdx >= ERA_ORDER.length) {
-        // No hay más eras: actualizar maxEraIdx y reconstruir sidebar
-        if (nextIdx > session.maxEraIdx) session.maxEraIdx = nextIdx;
+        // No hay más eras
         rebuildEraSidebar();
         return;
     }
 
-    // Desbloquear la siguiente sin arrancarla: el jugador decide cuándo
-    if (nextIdx > session.maxEraIdx) session.maxEraIdx = nextIdx;
-    rebuildEraSidebar();
-    // Preparar la siguiente era en segundo plano (tablero vacío, sin fichas)
+    // Preparar la siguiente (tablero vacío): el jugador decide cuándo pinchar
     _bootEra(nextIdx);
 }
 
@@ -660,13 +679,24 @@ function rebuildEraSidebar() {
     col.innerHTML =
         '<div style="font-size:.8rem;font-weight:bold;opacity:.8;letter-spacing:2px;">HISTORIA</div>';
 
+    // session.maxEraIdx = número de eras COMPLETADAS
+    // Estado de cada slot i:
+    //   i < maxEraIdx          → COMPLETADA  (miniatura clicable)
+    //   i === maxEraIdx        → DISPONIBLE  (? pulsante, clicable para empezar)
+    //   i === maxEraIdx + 1... → BLOQUEADA   (? apagado)
+
     const slots = Math.max(ERA_ORDER.length, 5);
     for (let i = 0; i < slots; i++) {
         const slot = document.createElement('div');
         slot.id    = `era-slot-${i}`;
 
-        if (i < ERA_ORDER.length && i < session.maxEraIdx - 1) {
-            // COMPLETADA: miniatura clicable (replay / galería)
+        if (i >= ERA_ORDER.length) {
+            // Slot de relleno visual (más allá de las eras existentes)
+            slot.className = 'era-slot era-slot-locked';
+            slot.innerHTML = '?';
+
+        } else if (i < session.maxEraIdx) {
+            // COMPLETADA
             const key      = ERA_ORDER[i];
             slot.className = 'era-slot completed';
             slot.innerHTML = `<img src="${ERAS[key].data[2].img}" onerror="this.style.display='none'">
@@ -675,32 +705,18 @@ function rebuildEraSidebar() {
             const cap      = i;
             slot.onclick   = () => confirmReplayEra(cap);
 
-        } else if (i < ERA_ORDER.length && i === session.maxEraIdx - 1) {
-            // DISPONIBLE ACTUAL (jugando ahora mismo): ? clicable si no ha arrancado aún
-            const key = ERA_ORDER[i];
-            if (session.main && session.main.discovered.length > 0) {
-                // Ya está en curso: mostrar miniatura sin replay
-                slot.className = 'era-slot completed';
-                slot.innerHTML = `<img src="${ERAS[key].data[2].img}" onerror="this.style.display='none'">
-                                  <div style="font-weight:bold;">${ERAS[key].title}</div>`;
-            } else {
-                // Disponible pero no iniciada: ? pulsante
-                slot.className = 'era-slot era-slot-available';
-                slot.innerHTML = '?';
-                slot.title     = 'Comenzar ' + ERAS[key].title;
-                slot.onclick   = () => confirmStartEra(i);
-            }
-
-        } else if (i < ERA_ORDER.length && i === session.maxEraIdx) {
-            // PRÓXIMA DESBLOQUEADA: ? clicable
+        } else if (i === session.maxEraIdx) {
+            // DISPONIBLE: miniatura clicable para iniciar
             const key      = ERA_ORDER[i];
-            slot.className = 'era-slot era-slot-available';
-            slot.innerHTML = '?';
+            slot.className = 'era-slot completed era-slot-available';
+            slot.innerHTML = `<img src="${ERAS[key].data[2].img}" onerror="this.style.display='none'">
+                              <div style="font-weight:bold;">${ERAS[key].title}</div>`;
             slot.title     = 'Comenzar ' + ERAS[key].title;
-            slot.onclick   = () => confirmStartEra(i);
+            const cap      = i;
+            slot.onclick   = () => confirmStartEra(cap);
 
         } else {
-            // BLOQUEADA: ? apagado
+            // BLOQUEADA
             slot.className = 'era-slot era-slot-locked';
             slot.innerHTML = '?';
         }
@@ -728,7 +744,7 @@ function closeEraConfirm() {
 }
 
 function confirmReplayEra(idx) {
-    if (idx >= session.maxEraIdx) return;
+    if (idx >= session.maxEraIdx) return;   // solo eras completadas
     const era = ERAS[ERA_ORDER[idx]];
     document.getElementById('era-options-title').textContent = era.title;
     document.getElementById('era-options-img').src           = era.data[2].img;
@@ -799,7 +815,7 @@ function startSubGameDirectly() {
 
     // Era del tronco directamente
     const eraIdx = ERA_ORDER.indexOf(sel);
-    if (eraIdx !== -1) { session.maxEraIdx = eraIdx + 1; _bootEra(eraIdx); launchEra(); return; }
+    if (eraIdx !== -1) { session.maxEraIdx = eraIdx; _bootEra(eraIdx); launchEra(); return; }
 
     // Rama de investigación directamente
     if (INVESTIGATIONS[sel]) {
