@@ -325,6 +325,7 @@ const uiState = {
     catalogSnap      : null,   // {discovered, data, branchId} snapshot activo
     catalogIsBranch  : false,
     catalogStack     : [],     // pila de snapshots para navegar rama→sub-rama (atrás)
+    eraReviewSnap    : null,   // snapshot de la era que se está revisando (o null)
 };
 
 
@@ -502,13 +503,34 @@ function triggerEraEnd(reviewIdx = null) {
     const nextBtn = document.getElementById('era-overlay-next-btn');
     if (nextBtn) nextBtn.style.display = isReview ? 'none' : '';
 
+    // En modo revisión guardamos el snapshot para que el catálogo sepa qué datos mostrar
+    if (isReview) {
+        uiState.eraReviewSnap = { discovered, data, eraKey };
+    } else {
+        uiState.eraReviewSnap = null;
+    }
+
     document.getElementById('sequence-container').innerHTML =
         _buildSequenceHTML(discovered, data, eraPortals, {
             overlayToClose : 'era-overlay',
-            cardClick      : (idx) => `openCatalog(${idx}, false)`,
+            cardClick      : isReview
+                ? (idx) => `openCatalogFromEraReview(${idx})`
+                : (idx) => `openCatalog(${idx}, false)`,
         });
 
     document.getElementById('era-overlay').classList.add('active');
+}
+
+// Abre el catálogo usando el snapshot de la era en revisión
+function openCatalogFromEraReview(idx) {
+    if (!uiState.eraReviewSnap) return;
+    const { discovered, data, eraKey } = uiState.eraReviewSnap;
+    uiState.catalogSnap     = { discovered, data, branchId: null, eraKey };
+    uiState.catalogIsBranch = false;
+    uiState.catalogStack    = [];
+    uiState.catalogIdx      = idx;
+    _renderCatalog();
+    document.getElementById('catalog-overlay').classList.add('active');
 }
 
 
@@ -720,11 +742,12 @@ function _renderCatalogBranchPortals(contextBranchId, val) {
     // Determinar qué tabla de portales aplica:
     // Si estamos viendo el catálogo de una rama, mirar PORTALS.__subgame__[branchId]
     // Si estamos viendo el catálogo de una era, mirar PORTALS[eraKey]
+    // El eraKey puede venir del snapshot de revisión o de la era activa
     let portals = {};
     if (contextBranchId) {
         portals = PORTALS.__subgame__?.[contextBranchId] ?? {};
     } else {
-        const eraKey = ERA_ORDER[session.eraIdx];
+        const eraKey = uiState.catalogSnap?.eraKey ?? ERA_ORDER[session.eraIdx];
         portals = PORTALS[eraKey] ?? {};
     }
 
