@@ -86,8 +86,8 @@ body.era-vida .era-slot, body.era-homo .era-slot { border-color: rgba(0,0,0,0.2)
 #score-container { font-size: 1.1rem; margin-bottom: 15px; font-weight: bold; opacity: 0.7; }
 .grid-container {
     position: relative; width: var(--grid-size); height: var(--grid-size);
+    background: transparent; border: none;
 }
-body.era-vida .grid-container, body.era-homo .grid-container { background: rgba(0, 0, 0, 0.05); border-color: rgba(0, 0, 0, 0.1); }
 
 .tile {
     position: absolute; width: var(--tile-size); height: var(--tile-size);
@@ -221,7 +221,7 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
 .m-top-layout { display: flex; width: 100%; flex: 1; gap: 20px; min-height: 0; margin-top: 10px; }
 .m-game-area { flex: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
-#m-grid-container { position: relative; width: var(--grid-size); height: var(--grid-size); transform: scale(0.85); }
+#m-grid-container { position: relative; width: var(--grid-size); height: var(--grid-size); transform: scale(0.85); background: transparent; border: none; }
 
 #m-info-panel { flex: 1; background: rgba(0, 0, 0, 0.3); border-radius: 20px; border-left: 2px solid var(--subgame-color, #2ecc71); padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: border-color 0.5s;}
 
