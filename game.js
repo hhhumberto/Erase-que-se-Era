@@ -302,10 +302,11 @@ function _boardIsBlocked(board) {
 // ═══════════════════════════════════════════════════════════════
 
 const session = {
-    eraIdx    : 0,      // índice de la era que se está jugando
-    maxEraIdx : 0,      // máximo índice alcanzado (para el sidebar)
-    main      : null,   // InvestigationState del tronco activo
-    branch    : null,   // InvestigationState de la rama activa (o null)
+    eraIdx           : 0,      // índice de la era que se está jugando
+    maxEraIdx        : 0,      // máximo índice alcanzado (para el sidebar)
+    main             : null,   // InvestigationState del tronco activo
+    branch           : null,   // InvestigationState de la rama activa (o null)
+    completedBranches: new Set(), // ids de ramas superadas en esta sesión
 };
 
 // La instancia que recibe los inputs en cada momento
@@ -321,8 +322,9 @@ const uiState = {
     pendingEndEra    : false,
     pendingBranchEnd : false,
     catalogIdx       : 0,
-    catalogSnap      : null,   // {discovered, data} snapshot, o null para usar estado vivo
+    catalogSnap      : null,   // {discovered, data, branchId} snapshot activo
     catalogIsBranch  : false,
+    catalogStack     : [],     // pila de snapshots para navegar rama→sub-rama (atrás)
 };
 
 
@@ -544,6 +546,8 @@ function showBranchComplete() {
 }
 
 function closeSubgameComplete() {
+    // Registrar la rama como superada antes de cerrar
+    if (session.branch) session.completedBranches.add(session.branch.def.id);
     document.getElementById('subgame-complete-overlay').classList.remove('active');
     closeInvestigacion();
 }
@@ -646,7 +650,8 @@ function openCatalogWithData(idx, snapDiscovered, snapData) {
 
 function closeCatalog() {
     document.getElementById('catalog-overlay').classList.remove('active');
-    uiState.catalogSnap = null;
+    uiState.catalogSnap  = null;
+    uiState.catalogStack = [];
 }
 
 function changeCatalog(dir) { uiState.catalogIdx += dir; _renderCatalog(); }
@@ -661,7 +666,14 @@ function _renderCatalog() {
     const val = src.discovered[uiState.catalogIdx];
     const d   = src.data[val];
 
-    document.getElementById('catalog-img').src           = d.img;
+    // Limpiar imagen antes de asignar (evita residuo visual)
+    const catImg = document.getElementById('catalog-img');
+    catImg.style.opacity = '0';
+    catImg.src = '';
+    catImg.onload  = () => { catImg.style.opacity = '1'; };
+    catImg.onerror = () => { catImg.style.opacity = '0'; };
+    requestAnimationFrame(() => { catImg.src = d.img; });
+
     document.getElementById('catalog-title').textContent = d.n;
     document.getElementById('catalog-desc').textContent  = d.d;
     document.getElementById('catalog-ext').textContent   = d.ext ?? '';
@@ -674,6 +686,72 @@ function _renderCatalog() {
         uiState.catalogIdx === 0                          ? 'hidden' : 'visible';
     document.getElementById('cat-btn-right').style.visibility =
         uiState.catalogIdx === src.discovered.length - 1 ? 'hidden' : 'visible';
+
+    // Portales a ramas superadas asociadas a esta carta
+    _renderCatalogBranchPortals(src.branchId ?? null, val);
+
+    // Botón "atrás" si hay pila de navegación
+    const backBtn = document.getElementById('cat-btn-back');
+    if (backBtn) backBtn.style.display = uiState.catalogStack.length > 0 ? 'block' : 'none';
+}
+
+// Muestra (o limpia) los botones de portal a ramas superadas desde el catálogo
+function _renderCatalogBranchPortals(contextBranchId, val) {
+    const container = document.getElementById('catalog-branch-portals');
+    if (!container) return;
+    container.innerHTML = '';
+
+    // Determinar qué tabla de portales aplica:
+    // Si estamos viendo el catálogo de una rama, mirar PORTALS.__subgame__[branchId]
+    // Si estamos viendo el catálogo de una era, mirar PORTALS[eraKey]
+    let portals = {};
+    if (contextBranchId) {
+        portals = PORTALS.__subgame__?.[contextBranchId] ?? {};
+    } else {
+        const eraKey = ERA_ORDER[session.eraIdx];
+        portals = PORTALS[eraKey] ?? {};
+    }
+
+    const targets = portals[val] ?? [];
+    targets.forEach(branchId => {
+        if (!session.completedBranches.has(branchId)) return;
+        const inv = INVESTIGATIONS[branchId];
+        const btn = document.createElement('div');
+        btn.className = 'catalog-branch-portal';
+        btn.style.cssText = `border-color:${inv.color};color:${inv.color};`;
+        btn.innerHTML = `<span style="font-size:.7rem;opacity:.8;">📖 VER GALERÍA</span>
+                         <span style="font-weight:bold;">${inv.panelTitle}</span>`;
+        btn.onclick = () => _openBranchCatalog(branchId);
+        container.appendChild(btn);
+    });
+}
+
+// Abre el catálogo de solo lectura de una rama superada, apilando el estado actual
+function _openBranchCatalog(branchId) {
+    const inv  = INVESTIGATIONS[branchId];
+    const disc = Object.keys(inv.data).map(Number).sort((a, b) => a - b);
+
+    // Apilar el estado actual para poder volver
+    uiState.catalogStack.push({
+        snap     : uiState.catalogSnap,
+        idx      : uiState.catalogIdx,
+        isBranch : uiState.catalogIsBranch,
+    });
+
+    uiState.catalogSnap     = { discovered: disc, data: inv.data, branchId };
+    uiState.catalogIsBranch = false;
+    uiState.catalogIdx      = 0;
+    _renderCatalog();
+}
+
+// Vuelve al catálogo anterior (desapila)
+function _catalogGoBack() {
+    if (!uiState.catalogStack.length) return;
+    const prev = uiState.catalogStack.pop();
+    uiState.catalogSnap     = prev.snap;
+    uiState.catalogIdx      = prev.idx;
+    uiState.catalogIsBranch = prev.isBranch;
+    _renderCatalog();
 }
 
 
@@ -895,6 +973,7 @@ function startSubGameDirectly() {
         openBranch(type);
         session.branch.discovered = Object.keys(inv.data).map(Number).sort((a,b) => a - b);
         session.branch.updateProgressBar();
+        session.completedBranches.add(type);
         setTimeout(showBranchComplete, 150);
         return;
     }

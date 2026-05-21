@@ -74,7 +74,13 @@
         <div class="close-btn" onclick="closeCatalog()">X</div>
         <button class="nav-btn left"  id="cat-btn-left"  onclick="changeCatalog(-1)">&#10094;</button>
         <button class="nav-btn right" id="cat-btn-right" onclick="changeCatalog(1)">&#10095;</button>
+        <button id="cat-btn-back" onclick="_catalogGoBack()"
+                style="display:none;position:absolute;top:15px;left:20px;background:transparent;
+                       border:2px solid #aaa;color:#aaa;padding:6px 14px;border-radius:20px;
+                       cursor:pointer;font-size:.85rem;z-index:100;"
+                title="Volver al catálogo anterior">← Atrás</button>
         <div class="card-content-scroll">
+            <div id="catalog-branch-portals" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:10px;"></div>
             <img id="catalog-img" src="">
             <h2 id="catalog-title" style="color: var(--title-color); font-size: 2.2rem; margin: 5px 0;"></h2>
             <div id="catalog-desc"       class="card-subtitle"></div>
