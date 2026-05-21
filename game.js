@@ -326,6 +326,7 @@ const uiState = {
     catalogIsBranch  : false,
     catalogStack     : [],     // pila de snapshots para navegar rama→sub-rama (atrás)
     eraReviewSnap    : null,   // snapshot de la era que se está revisando (o null)
+    eraOverlayWasOpen: false,  // true si el catálogo se abrió desde era-overlay en revisión
 };
 
 
@@ -529,6 +530,10 @@ function openCatalogFromEraReview(idx) {
     uiState.catalogIsBranch = false;
     uiState.catalogStack    = [];
     uiState.catalogIdx      = idx;
+    // Ocultar era-overlay para que el catálogo no quede tapado
+    // (se restaura al cerrar el catálogo)
+    uiState.eraOverlayWasOpen = true;
+    document.getElementById('era-overlay').classList.remove('active');
     _renderCatalog();
     document.getElementById('catalog-overlay').classList.add('active');
 }
@@ -690,6 +695,11 @@ function closeCatalog() {
     document.getElementById('catalog-overlay').classList.remove('active');
     uiState.catalogSnap  = null;
     uiState.catalogStack = [];
+    // Si el catálogo se abrió desde la pantalla de victoria en revisión, restaurarla
+    if (uiState.eraOverlayWasOpen) {
+        uiState.eraOverlayWasOpen = false;
+        document.getElementById('era-overlay').classList.add('active');
+    }
 }
 
 function changeCatalog(dir) { uiState.catalogIdx += dir; _renderCatalog(); }
@@ -925,6 +935,34 @@ window.addEventListener('keydown', e => {
 // PANEL DE DESARROLLO  (saltar a cualquier estado del árbol)
 // ═══════════════════════════════════════════════════════════════
 
+
+// Dado un id de rama, devuelve { eraIdx, parentBranchIds[] }
+// buscando recursivamente en PORTALS
+function _resolveBranchOrigin(branchId) {
+    // Buscar en portales de era (rama primaria)
+    for (const [eKey, portals] of Object.entries(PORTALS)) {
+        if (eKey === '__subgame__') continue;
+        for (const targets of Object.values(portals)) {
+            if (targets.includes(branchId)) {
+                return { eraIdx: ERA_ORDER.indexOf(eKey), parentBranchIds: [] };
+            }
+        }
+    }
+    // Buscar en __subgame__ (sub-rama)
+    if (PORTALS.__subgame__) {
+        for (const [parentId, portals] of Object.entries(PORTALS.__subgame__)) {
+            for (const targets of Object.values(portals)) {
+                if (targets.includes(branchId)) {
+                    // Resolver recursivamente el padre
+                    const origin = _resolveBranchOrigin(parentId);
+                    return { eraIdx: origin.eraIdx, parentBranchIds: [...origin.parentBranchIds, parentId] };
+                }
+            }
+        }
+    }
+    return { eraIdx: 0, parentBranchIds: [] };
+}
+
 function startSubGameDirectly() {
     const sel = document.getElementById('dev-subgame-select').value;
 
@@ -940,9 +978,8 @@ function startSubGameDirectly() {
     // ── CASO 1: Era del tronco ──────────────────────────────────
     const eraIdx = ERA_ORDER.indexOf(sel);
     if (eraIdx !== -1) {
-        session.maxEraIdx = eraIdx;   // eras anteriores "ya completadas"
+        session.maxEraIdx = eraIdx;
         _bootEra(eraIdx);
-        // Lanzar sin modal ni theatre del primer tile
         const pos = Math.floor(Math.random() * 16);
         session.main.board[pos] = _createTile(2, pos, session.main);
         session.main.discover(2);
@@ -951,37 +988,13 @@ function startSubGameDirectly() {
         return;
     }
 
-    // ── CASO 2: Rama de investigación ───────────────────────────
+    // ── CASO 2: Rama de investigación (abre la rama lista para jugar) ──
     if (INVESTIGATIONS[sel]) {
-        // Buscar en qué era vive este portal para marcarla como completada
-        let eraForBranch = 0;
-        for (const [eKey, portals] of Object.entries(PORTALS)) {
-            if (eKey === '__subgame__') continue;
-            if (Object.values(portals).some(arr => arr.includes(sel))) {
-                eraForBranch = ERA_ORDER.indexOf(eKey);
-                break;
-            }
-        }
-        // Si no está en PORTALS de era (es sub-rama), buscar en __subgame__
-        if (eraForBranch === 0 && PORTALS.__subgame__) {
-            for (const parentBranch of Object.values(PORTALS.__subgame__)) {
-                if (Object.values(parentBranch).some(arr => arr.includes(sel))) {
-                    // Es sub-rama: buscar la era de la rama padre
-                    for (const [eKey, portals] of Object.entries(PORTALS)) {
-                        if (eKey === '__subgame__') continue;
-                        const parentId = Object.keys(PORTALS.__subgame__).find(k => PORTALS.__subgame__[k] === parentBranch);
-                        if (parentId && Object.values(portals).some(arr => arr.includes(parentId))) {
-                            eraForBranch = ERA_ORDER.indexOf(eKey);
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-        }
+        const { eraIdx: eraForBranch, parentBranchIds } = _resolveBranchOrigin(sel);
         session.maxEraIdx = eraForBranch + 1;
+        // Marcar ramas padre como completadas para que los portales aparezcan
+        parentBranchIds.forEach(id => session.completedBranches.add(id));
         _bootEra(eraForBranch);
-        // Lanzar tronco sin theatre
         const pos = Math.floor(Math.random() * 16);
         session.main.board[pos] = _createTile(2, pos, session.main);
         session.main.discover(2);
@@ -991,27 +1004,20 @@ function startSubGameDirectly() {
         return;
     }
 
-    // ── CASO 3: Final de una rama ───────────────────────────────
+    // ── CASO 3: Final de una rama (muestra pantalla de completado) ──
     if (sel.startsWith('end-sub-')) {
-        const type    = sel.replace('end-sub-', '');
-        const inv     = INVESTIGATIONS[type];
+        const type = sel.replace('end-sub-', '');
+        const inv  = INVESTIGATIONS[type];
         if (!inv) return;
-        // Buscar en qué era aparece este portal para arrancar el tronco correcto
-        let eraForBranch = 0;
-        for (const [eKey, portals] of Object.entries(PORTALS)) {
-            if (eKey === '__subgame__') continue;
-            if (Object.values(portals).some(arr => arr.includes(type))) {
-                eraForBranch = ERA_ORDER.indexOf(eKey);
-                break;
-            }
-        }
-        // La era que contiene el portal debe aparecer como completada
+        const { eraIdx: eraForBranch, parentBranchIds } = _resolveBranchOrigin(type);
         session.maxEraIdx = eraForBranch + 1;
+        // Marcar ramas padre y la rama actual como completadas
+        parentBranchIds.forEach(id => session.completedBranches.add(id));
+        session.completedBranches.add(type);
         _bootEra(eraForBranch);
         openBranch(type);
         session.branch.discovered = Object.keys(inv.data).map(Number).sort((a,b) => a - b);
         session.branch.updateProgressBar();
-        session.completedBranches.add(type);
         setTimeout(showBranchComplete, 150);
         return;
     }
@@ -1021,7 +1027,7 @@ function startSubGameDirectly() {
         const key = sel.replace('end-', '');
         const idx = ERA_ORDER.indexOf(key);
         if (idx === -1) return;
-        session.maxEraIdx = idx;
+        session.maxEraIdx = idx + 1;   // era completada = idx+1 completadas
         _bootEra(idx);
         session.main.discovered = Object.keys(ERAS[ERA_ORDER[idx]].data).map(Number).sort((a,b) => a - b);
         session.main.updateProgressBar();
