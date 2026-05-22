@@ -182,7 +182,7 @@ const INVESTIGATIONS = {
         panelTitle: "FLORA TERRESTRE",
         color: '#27ae60', // Un tono verde bosque
         completeDesc: "Has formado un ecosistema completo y completado la ramificación vegetal.",
-        branches: [],
+        branches: ['suelo_a_bosque'],
         data: {
             2:   { n: 'Algas Unicelulares', img: 'img/2_algas.png',           d: 'El origen de la fotosíntesis eucariota.',            adap: 'Células flotantes que desarrollaron cloroplastos para aprovechar la energía solar en los océanos primigenios.' },
             4:   { n: 'Algas Verdes',       img: 'img/4_algas_verdes.png',    d: 'Agrupación y multicelularidad.',                     adap: 'Clorofitas que comenzaron a formar filamentos y colonias en aguas someras, precursoras directas de las plantas terrestres.' },
@@ -194,7 +194,26 @@ const INVESTIGATIONS = {
             256: { n: 'Planta con Fruto',   img: 'img/256_frutos.png',        d: 'Recompensas para el transporte.',                    adap: 'El ovario de la flor madura y se vuelve carnoso o nutritivo, sobornando a los animales terrestres y aves para que dispersen sus semillas a grandes distancias.' },
             512: { n: 'Bosque Maduro',      img: 'img/512_bosque.png',        d: 'El ecosistema clímax.',                              adap: 'Compleja red de coexistencia donde algas, musgos, helechos y árboles con frutos conviven, conectados subterráneamente por redes micorrícicas.' }
         }
-    }
+    },
+    suelo_a_bosque: {
+        id: 'suelo_a_bosque',
+        title: "INVESTIGACIÓN: DE SUELO A BOSQUE",
+        panelTitle: "SUCESIÓN ECOLÓGICA",
+        color: '#795548', // Marrón tierra
+        completeDesc: "Has alcanzado el estado de Bosque Clímax, el equilibrio perfecto del ecosistema.",
+        branches: [],
+        data: {
+            2:   { n: 'Roca Desnuda',       img: 'img/2_suelo.png',   d: 'Mineral expuesto sin vida.',              adap: 'Entorno de estrés máximo donde solo los organismos más resistentes pueden iniciar la colonización física.' },
+            4:   { n: 'Líquenes',           img: 'img/4_suelo.png',   d: 'Los pioneros químicos.',                  adap: 'Simbiosis que secreta ácidos para meteorizar la roca, liberando minerales y creando las primeras trazas orgánicas.' },
+            8:   { n: 'Musgos',             img: 'img/8_suelo.png',   d: 'Alfombras de humedad.',                   adap: 'Estructuras simples que atrapan polvo y agua, engrosando la capa de suelo y fragmentando mecánicamente la roca.' },
+            16:  { n: 'Hierbas Anuales',    img: 'img/16_suelo.png',  d: 'Colonizadores veloces.',                  adap: 'Plantas de ciclo corto que producen grandes cantidades de semillas y biomasa, enriqueciendo rápidamente el suelo con humus.' },
+            32:  { n: 'Gramíneas',          img: 'img/32_suelo.png',  d: 'Suelo estabilizado.',                     adap: 'Raíces densas que evitan la erosión y mejoran la estructura del suelo, permitiendo la retención de nutrientes a largo plazo.' },
+            64:  { n: 'Matorrales',         img: 'img/64_suelo.png',  d: 'Sombra y refugio.',                       adap: 'Plantas leñosas que transforman el microclima, atrayendo fauna que actúa como vector para semillas de árboles.' },
+            128: { n: 'Árboles Pioneros',   img: 'img/128_suelo.png', d: 'Conquistadores de luz.',                  adap: 'Crecimiento rápido en exposición solar plena, creando la primera bóveda forestal que protege a las especies de sombra.' },
+            256: { n: 'Bosque Mixto',       img: 'img/256_suelo.png', d: 'Transición a la madurez.',                adap: 'Suelo profundo y maduro con gran biodiversidad; las especies de crecimiento lento comienzan a superar a las pioneras.' },
+            512: { n: 'Bosque Clímax',      img: 'img/512_suelo.png', d: 'El equilibrio dinámico.',                 adap: 'Ecosistema estable y autosuficiente donde la sustitución de especies se detiene en favor de una comunidad resiliente.' }
+        }
+},
 
 
 };
@@ -225,8 +244,13 @@ const PORTALS = {
         anfibios: {
             512: ['ranitas']
         },
+
         pioneros: {
             32: ['flora'] // <--- El nuevo portal que se abre al llegar a 32 en pioneros
+        },
+
+    flora: {
+            512: ['suelo_a_bosque'] // <--- El portal que se abre al llegar a 512 en flora
         }
     }
 };
