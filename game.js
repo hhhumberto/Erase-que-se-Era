@@ -583,8 +583,8 @@ function triggerEraEnd(reviewIdx = null) {
     // y mostramos el botón "Cerrar galería" en su lugar.
     const nextBtn  = document.getElementById('era-overlay-next-btn');
     const closeBtn = document.getElementById('era-overlay-close-btn');
-    if (nextBtn)  nextBtn.style.display  = isReview ? 'none' : '';
-    if (closeBtn) closeBtn.style.display = isReview ? ''     : 'none';
+    if (nextBtn)  nextBtn.style.display  = isReview ? 'none'         : 'inline-block';
+    if (closeBtn) closeBtn.style.display = isReview ? 'inline-block' : 'none';
 
     // En modo revisión guardamos el snapshot para que el catálogo sepa qué datos mostrar
     if (isReview) {
