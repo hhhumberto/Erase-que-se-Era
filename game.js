@@ -69,6 +69,7 @@ class InvestigationState {
         this.board      = Array(16).fill(null);
         this.score      = 0;
         this.discovered = [];   // valores descubiertos, en orden
+        this._moving    = false; // true mientras hay animaciones en vuelo
     }
 
     // ── Descubrimientos ───────────────────────────────────────
@@ -92,6 +93,7 @@ class InvestigationState {
         this.board      = Array(16).fill(null);
         this.score      = 0;
         this.discovered = [];
+        this._moving    = false;
         this.dom.scoreEl.textContent = '0';
         this.dom.infoPanel.innerHTML =
             `<div style="opacity:.5;text-align:center;">${
@@ -172,7 +174,7 @@ class InvestigationState {
         }
 
         setTimeout(() => {
-            if (!this.board.includes(null) && _boardIsBlocked(this.board)) {
+            if (!this._moving && !this.board.includes(null) && _boardIsBlocked(this.board)) {
                 this.cb.onGameOver(this);
             }
         }, 300);
@@ -184,6 +186,7 @@ class InvestigationState {
         const isVert = dir === 'UP'    || dir === 'DOWN';
         const isRev  = dir === 'RIGHT' || dir === 'DOWN';
         let   moved  = false;
+        this._moving = true;
 
         for (let i = 0; i < 4; i++) {
             const line = [];
@@ -244,7 +247,9 @@ class InvestigationState {
         if (moved) {
             this.board.forEach(t => t && (t.merged = false));
             this.dom.scoreEl.textContent = this.score;
-            setTimeout(() => this.addTile(), 180);
+            setTimeout(() => { this._moving = false; this.addTile(); }, 180);
+        } else {
+            this._moving = false;
         }
     }
 }
@@ -280,15 +285,32 @@ function _tileImgHTML(src) {
                  onerror="this.style.opacity='0';">`;
 }
 
+// Paso en píxeles entre celdas, derivado de las variables CSS para mantenerse
+// sincronizado si se cambia --tile-size o --tile-gap.
+// Se calcula una vez al arrancar y se recalcula si cambia el tamaño de ventana.
+let _cachedTileStep = null;
+function _tileStep() {
+    if (_cachedTileStep !== null) return _cachedTileStep;
+    const style = getComputedStyle(document.documentElement);
+    const size  = parseInt(style.getPropertyValue('--tile-size'), 10) || 138;
+    const gap   = parseInt(style.getPropertyValue('--tile-gap'),  10) || 18;
+    _cachedTileStep = size + gap;
+    return _cachedTileStep;
+}
+window.addEventListener('resize', () => { _cachedTileStep = null; });
+
 function _updateTilePos(tile) {
+    const step = _tileStep();
     tile.element.style.transform =
-        `translate(${(tile.pos % 4) * 156}px, ${Math.floor(tile.pos / 4) * 156}px)`;
+        `translate(${(tile.pos % 4) * step}px, ${Math.floor(tile.pos / 4) * step}px)`;
 }
 
 function _boardIsBlocked(board) {
     for (let i = 0; i < 4; i++) {
         for (let j = 0; j < 4; j++) {
-            const v = board[i * 4 + j].val;
+            const cell = board[i * 4 + j];
+            if (!cell) return false;   // celda vacía → hay espacio, no bloqueado
+            const v = cell.val;
             if (j < 3 && board[i * 4 + j + 1]?.val === v) return false;
             if (i < 3 && board[(i + 1) * 4 + j]?.val === v) return false;
         }
@@ -574,6 +596,9 @@ function triggerEraEnd(reviewIdx = null) {
             cardClick      : isReview
                 ? (idx) => `openCatalogFromEraReview(${idx})`
                 : (idx) => `openCatalog(${idx}, false)`,
+            openBranch     : isReview
+                ? (targetId) => `openBranchFromEraReview('${targetId}')`
+                : (targetId) => `openBranch('${targetId}')`,
         });
 
     document.getElementById('era-overlay').classList.add('active');
@@ -593,6 +618,15 @@ function openCatalogFromEraReview(idx) {
     document.getElementById('era-overlay').classList.remove('active');
     _renderCatalog();
     document.getElementById('catalog-overlay').classList.add('active');
+}
+
+// Abre una rama desde el era-overlay en modo revisión.
+// Activa eraOverlayWasOpen para que al cerrar la investigación se pueda
+// restaurar el era-overlay correctamente si el usuario lo necesita.
+function openBranchFromEraReview(type) {
+    uiState.eraOverlayWasOpen = true;
+    document.getElementById('era-overlay').classList.remove('active');
+    openBranch(type);
 }
 
 
@@ -623,6 +657,11 @@ function openInvestigacion(type) { openBranch(type); }   // alias HTML
 function closeInvestigacion() {
     session.branch = null;
     document.getElementById('investigacion-overlay').classList.remove('active');
+    // Si la investigación se abrió desde el era-overlay en modo revisión, restaurarlo
+    if (uiState.eraOverlayWasOpen) {
+        uiState.eraOverlayWasOpen = false;
+        document.getElementById('era-overlay').classList.add('active');
+    }
 }
 
 function restartSubgame() {
@@ -662,7 +701,10 @@ function closeSubgameComplete() {
 // Usada tanto en triggerEraEnd como en showBranchComplete.
 // ═══════════════════════════════════════════════════════════════
 
-function _buildSequenceHTML(discovered, data, portals, { overlayToClose, cardClick }) {
+function _buildSequenceHTML(discovered, data, portals, { overlayToClose, cardClick, openBranch: openBranchFn }) {
+    // Si no se pasa openBranchFn, usar el comportamiento por defecto
+    const branchCall = openBranchFn ?? ((id) => `openBranch('${id}')`);
+
     return discovered.map((val, idx) => {
         const d       = data[val];
         const targets = portals[val] ?? [];
@@ -673,7 +715,7 @@ function _buildSequenceHTML(discovered, data, portals, { overlayToClose, cardCli
                          style="border-color:${inv.color};color:${inv.color};"
                          onclick="event.stopPropagation();
                                   document.getElementById('${overlayToClose}').classList.remove('active');
-                                  openBranch('${targetId}');">
+                                  ${branchCall(targetId)};">
                         <span style="color:white;">INVESTIGAR</span>
                         <span>${inv.panelTitle}</span>
                     </div>`;
@@ -814,7 +856,8 @@ function _renderCatalog() {
 
     // Botón "atrás" si hay pila de navegación
     const backBtn = document.getElementById('cat-btn-back');
-    if (backBtn) backBtn.style.display = uiState.catalogStack.length > 0 ? 'block' : 'none';
+    if (backBtn) backBtn.style.display =
+        (uiState.catalogStack.length > 0 || uiState.eraOverlayWasOpen) ? 'block' : 'none';
 }
 
 // Muestra (o limpia) los botones de portal a ramas superadas desde el catálogo
@@ -869,9 +912,13 @@ function _openBranchCatalog(branchId) {
     _renderCatalog();
 }
 
-// Vuelve al catálogo anterior (desapila)
+// Vuelve al catálogo anterior (desapila), o al era-overlay si no hay pila
 function _catalogGoBack() {
-    if (!uiState.catalogStack.length) return;
+    if (!uiState.catalogStack.length) {
+        // Pila vacía pero venimos del era-overlay de revisión → cerrarlo equivale a volver
+        if (uiState.eraOverlayWasOpen) closeCatalog();
+        return;
+    }
     const prev = uiState.catalogStack.pop();
     uiState.catalogSnap     = prev.snap;
     uiState.catalogIdx      = prev.idx;
