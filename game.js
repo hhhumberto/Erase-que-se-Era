@@ -306,8 +306,14 @@ const session = {
     maxEraIdx        : 0,      // máximo índice alcanzado (para el sidebar)
     main             : null,   // InvestigationState del tronco activo
     branch           : null,   // InvestigationState de la rama activa (o null)
-    completedBranches: new Set(), // ids de ramas superadas en esta sesión
+    // Mapas id → discovered[]  (permiten reconstruir galerías tras recargar)
+    completedEras    : {},     // { 'astronomica': [2,4,8,...], ... }
+    completedBranches: {},     // { 'anfibios': [2,4,8,...], ... }
 };
+
+// Helpers de acceso uniforme
+const hasCompletedBranch = id => id in session.completedBranches;
+const hasCompletedEra    = id => id in session.completedEras;
 
 // La instancia que recibe los inputs en cada momento
 const activeState = () => session.branch ?? session.main;
@@ -409,43 +415,43 @@ function _eraAsDef(eraKey) {
 // El estado de la partida de cartas NO se guarda.
 // ═══════════════════════════════════════════════════════════════
 
-const SAVE_KEY = 'erase_progress_v1';
+const SAVE_KEY = 'erase_progress_v2';
 
 function saveProgress() {
     try {
-        const data = {
+        localStorage.setItem(SAVE_KEY, JSON.stringify({
             maxEraIdx        : session.maxEraIdx,
-            completedBranches: [...session.completedBranches],
-        };
-        localStorage.setItem(SAVE_KEY, JSON.stringify(data));
-    } catch (e) {
-        // localStorage no disponible (modo privado, etc.) — ignorar silenciosamente
-    }
+            completedEras    : session.completedEras,
+            completedBranches: session.completedBranches,
+        }));
+    } catch (e) { /* localStorage no disponible — ignorar */ }
 }
 
 function loadProgress() {
     try {
         const raw = localStorage.getItem(SAVE_KEY);
         if (!raw) return;
-        const data = JSON.parse(raw);
-        if (typeof data.maxEraIdx === 'number') {
-            session.maxEraIdx = Math.min(data.maxEraIdx, ERA_ORDER.length);
+        const saved = JSON.parse(raw);
+        if (typeof saved.maxEraIdx === 'number')
+            session.maxEraIdx = Math.min(saved.maxEraIdx, ERA_ORDER.length);
+        if (saved.completedEras && typeof saved.completedEras === 'object') {
+            Object.entries(saved.completedEras).forEach(([id, disc]) => {
+                if (ERAS[id] && Array.isArray(disc)) session.completedEras[id] = disc;
+            });
         }
-        if (Array.isArray(data.completedBranches)) {
-            // Solo cargar ramas que existan en INVESTIGATIONS (robustez ante cambios de datos)
-            data.completedBranches
-                .filter(id => INVESTIGATIONS[id])
-                .forEach(id => session.completedBranches.add(id));
+        if (saved.completedBranches && typeof saved.completedBranches === 'object') {
+            Object.entries(saved.completedBranches).forEach(([id, disc]) => {
+                if (INVESTIGATIONS[id] && Array.isArray(disc)) session.completedBranches[id] = disc;
+            });
         }
-    } catch (e) {
-        // Datos corruptos — ignorar y empezar limpio
-    }
+    } catch (e) { /* datos corruptos — empezar limpio */ }
 }
 
 function resetProgress() {
     try { localStorage.removeItem(SAVE_KEY); } catch (e) {}
-    session.maxEraIdx = 0;
-    session.completedBranches.clear();
+    session.maxEraIdx         = 0;
+    session.completedEras     = {};
+    session.completedBranches = {};
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -509,8 +515,9 @@ function nextEra() {
 
     const nextIdx = session.eraIdx + 1;
 
-    // La era actual queda marcada como completada
-    session.maxEraIdx = nextIdx;   // = número de eras completadas
+    // La era actual queda marcada como completada con sus fichas descubiertas
+    session.maxEraIdx = nextIdx;
+    session.completedEras[ERA_ORDER[session.eraIdx]] = [...session.main.discovered];
     saveProgress();
 
     if (nextIdx >= ERA_ORDER.length) {
@@ -537,10 +544,11 @@ function triggerEraEnd(reviewIdx = null) {
     const eraKey     = ERA_ORDER[idx];
     const eraPortals = PORTALS[eraKey] ?? {};
 
-    // Datos a mostrar: si es revisión usamos todas las fichas de la era; si es victoria, las descubiertas
     const isReview   = reviewIdx !== null;
+    // En revisión: usar los discovered guardados si existen, si no todas las fichas
     const discovered = isReview
-        ? Object.keys(ERAS[eraKey].data).map(Number).sort((a, b) => a - b)
+        ? (session.completedEras[eraKey]
+            ?? Object.keys(ERAS[eraKey].data).map(Number).sort((a, b) => a - b))
         : session.main.discovered;
     const data       = ERAS[eraKey].data;
 
@@ -640,7 +648,7 @@ function showBranchComplete() {
 function closeSubgameComplete() {
     // Registrar la rama como superada antes de cerrar
     if (session.branch) {
-        session.completedBranches.add(session.branch.def.id);
+        session.completedBranches[session.branch.def.id] = [...session.branch.discovered];
         saveProgress();
     }
     document.getElementById('subgame-complete-overlay').classList.remove('active');
@@ -829,7 +837,7 @@ function _renderCatalogBranchPortals(contextBranchId, val) {
 
     const targets = portals[val] ?? [];
     targets.forEach(branchId => {
-        if (!session.completedBranches.has(branchId)) return;
+        if (!hasCompletedBranch(branchId)) return;
         const inv = INVESTIGATIONS[branchId];
         const btn = document.createElement('div');
         btn.className = 'catalog-branch-portal';
@@ -844,7 +852,9 @@ function _renderCatalogBranchPortals(contextBranchId, val) {
 // Abre el catálogo de solo lectura de una rama superada, apilando el estado actual
 function _openBranchCatalog(branchId) {
     const inv  = INVESTIGATIONS[branchId];
-    const disc = Object.keys(inv.data).map(Number).sort((a, b) => a - b);
+    // Usar los discovered guardados si existen; si no, mostrar todas las fichas
+    const disc = session.completedBranches[branchId]
+        ?? Object.keys(inv.data).map(Number).sort((a, b) => a - b);
 
     // Apilar el estado actual para poder volver
     uiState.catalogStack.push({
@@ -1058,7 +1068,7 @@ function startSubGameDirectly() {
         const { eraIdx: eraForBranch, parentBranchIds } = _resolveBranchOrigin(sel);
         session.maxEraIdx = eraForBranch + 1;
         // Marcar ramas padre como completadas para que los portales aparezcan
-        parentBranchIds.forEach(id => session.completedBranches.add(id));
+        parentBranchIds.forEach(id => { session.completedBranches[id] = Object.keys(INVESTIGATIONS[id].data).map(Number).sort((a,b)=>a-b); });
         _bootEra(eraForBranch);
         const pos = Math.floor(Math.random() * 16);
         session.main.board[pos] = _createTile(2, pos, session.main);
@@ -1077,8 +1087,8 @@ function startSubGameDirectly() {
         const { eraIdx: eraForBranch, parentBranchIds } = _resolveBranchOrigin(type);
         session.maxEraIdx = eraForBranch + 1;
         // Marcar ramas padre y la rama actual como completadas
-        parentBranchIds.forEach(id => session.completedBranches.add(id));
-        session.completedBranches.add(type);
+        parentBranchIds.forEach(id => { session.completedBranches[id] = Object.keys(INVESTIGATIONS[id].data).map(Number).sort((a,b)=>a-b); });
+        session.completedBranches[type] = Object.keys(INVESTIGATIONS[type].data).map(Number).sort((a,b)=>a-b);
         _bootEra(eraForBranch);
         openBranch(type);
         session.branch.discovered = Object.keys(inv.data).map(Number).sort((a,b) => a - b);
