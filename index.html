@@ -16,10 +16,11 @@
 
     <div class="start-buttons-container">
         <button class="btn-start" onclick="startGame()">Comenzar la Historia</button>
+        <button onclick="resetProgress()" style="background:transparent;border:none;color:#555;
+                cursor:pointer;font-size:0.85rem;margin-top:-10px;">↺ Borrar progreso guardado</button>
 
         <div class="dev-panel">
-            <div style="font-size: 0.8rem; color: #aaa; text-transform: uppercase;">Pruebas de Desarrollo</div>
-            <div style="display: flex; gap: 10px;">
+            <div style="font-size: 0.8rem; color: #aaa; text-transform: uppercase;">Pruebas de Desarrollo</div>            <div style="display: flex; gap: 10px;">
                 <select id="dev-subgame-select">
                     <option value="astronomica">Iniciar ERA ASTRO</option>
                     <option value="vida">Iniciar ERA VIDA</option>

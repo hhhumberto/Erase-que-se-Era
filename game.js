@@ -402,14 +402,62 @@ function _eraAsDef(eraKey) {
 
 
 // ═══════════════════════════════════════════════════════════════
+// PERSISTENCIA DE PROGRESO  (localStorage)
+// Solo se guarda lo que permite acceder a galerías ya superadas:
+//   · maxEraIdx        → eras completadas
+//   · completedBranches → ramas completadas
+// El estado de la partida de cartas NO se guarda.
+// ═══════════════════════════════════════════════════════════════
+
+const SAVE_KEY = 'erase_progress_v1';
+
+function saveProgress() {
+    try {
+        const data = {
+            maxEraIdx        : session.maxEraIdx,
+            completedBranches: [...session.completedBranches],
+        };
+        localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+    } catch (e) {
+        // localStorage no disponible (modo privado, etc.) — ignorar silenciosamente
+    }
+}
+
+function loadProgress() {
+    try {
+        const raw = localStorage.getItem(SAVE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (typeof data.maxEraIdx === 'number') {
+            session.maxEraIdx = Math.min(data.maxEraIdx, ERA_ORDER.length);
+        }
+        if (Array.isArray(data.completedBranches)) {
+            // Solo cargar ramas que existan en INVESTIGATIONS (robustez ante cambios de datos)
+            data.completedBranches
+                .filter(id => INVESTIGATIONS[id])
+                .forEach(id => session.completedBranches.add(id));
+        }
+    } catch (e) {
+        // Datos corruptos — ignorar y empezar limpio
+    }
+}
+
+function resetProgress() {
+    try { localStorage.removeItem(SAVE_KEY); } catch (e) {}
+    session.maxEraIdx = 0;
+    session.completedBranches.clear();
+}
+
+// ═══════════════════════════════════════════════════════════════
 // ARRANQUE Y NAVEGACIÓN DE ERAS
 // ═══════════════════════════════════════════════════════════════
 
 function startGame() {
     document.getElementById('start-screen').style.display = 'none';
-    // maxEraIdx=0 significa "ninguna completada, era 0 disponible para empezar"
-    session.maxEraIdx = 0;
-    _bootEra(0);
+    loadProgress();   // carga maxEraIdx y completedBranches si hay guardado
+    // Arrancar en la era más avanzada completada (o la 0 si no hay progreso)
+    const startIdx = Math.min(session.maxEraIdx, ERA_ORDER.length - 1);
+    _bootEra(startIdx);
 }
 
 function _bootEra(idx) {
@@ -463,6 +511,7 @@ function nextEra() {
 
     // La era actual queda marcada como completada
     session.maxEraIdx = nextIdx;   // = número de eras completadas
+    saveProgress();
 
     if (nextIdx >= ERA_ORDER.length) {
         // No hay más eras
@@ -590,7 +639,10 @@ function showBranchComplete() {
 
 function closeSubgameComplete() {
     // Registrar la rama como superada antes de cerrar
-    if (session.branch) session.completedBranches.add(session.branch.def.id);
+    if (session.branch) {
+        session.completedBranches.add(session.branch.def.id);
+        saveProgress();
+    }
     document.getElementById('subgame-complete-overlay').classList.remove('active');
     closeInvestigacion();
 }
@@ -706,10 +758,24 @@ function changeCatalog(dir) { uiState.catalogIdx += dir; _renderCatalog(); }
 
 function _renderCatalog() {
     // Fuente de datos: snapshot > branch > main
-    const src = uiState.catalogSnap
-        ?? (uiState.catalogIsBranch
-            ? { discovered: session.branch.discovered, data: session.branch.data }
-            : { discovered: session.main.discovered,   data: session.main.data });
+    let src;
+    if (uiState.catalogSnap) {
+        src = uiState.catalogSnap;
+    } else if (uiState.catalogIsBranch && session.branch) {
+        // Catálogo en vivo de una rama: incluir branchId para que los portales sean correctos
+        src = {
+            discovered : session.branch.discovered,
+            data       : session.branch.data,
+            branchId   : session.branch.def.id,
+        };
+    } else {
+        src = {
+            discovered : session.main.discovered,
+            data       : session.main.data,
+            branchId   : null,
+            eraKey     : ERA_ORDER[session.eraIdx],
+        };
+    }
 
     const val = src.discovered[uiState.catalogIdx];
     const d   = src.data[val];
@@ -911,11 +977,10 @@ window.addEventListener('keydown', e => {
 
     if (_anyModalOpen()) {
         if (catalogOpen) {
-            const src = uiState.catalogSnap
-                ?? (uiState.catalogIsBranch
-                    ? { discovered: session.branch?.discovered ?? [] }
-                    : { discovered: session.main?.discovered   ?? [] });
-            const len = src.discovered.length;
+            const disc = uiState.catalogSnap?.discovered
+                ?? (uiState.catalogIsBranch ? session.branch?.discovered : session.main?.discovered)
+                ?? [];
+            const len = disc.length;
             if (e.key === 'ArrowLeft'  && uiState.catalogIdx > 0)       changeCatalog(-1);
             if (e.key === 'ArrowRight' && uiState.catalogIdx < len - 1)  changeCatalog(1);
             if (e.key === 'Escape') closeCatalog();
