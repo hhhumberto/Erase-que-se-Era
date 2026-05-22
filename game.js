@@ -580,8 +580,11 @@ function triggerEraEnd(reviewIdx = null) {
         : 'Has completado la ' + ERAS[eraKey].title;
 
     // En modo revisión, el botón "Siguiente Era" no tiene sentido: lo ocultamos
-    const nextBtn = document.getElementById('era-overlay-next-btn');
-    if (nextBtn) nextBtn.style.display = isReview ? 'none' : '';
+    // y mostramos el botón "Cerrar galería" en su lugar.
+    const nextBtn  = document.getElementById('era-overlay-next-btn');
+    const closeBtn = document.getElementById('era-overlay-close-btn');
+    if (nextBtn)  nextBtn.style.display  = isReview ? 'none' : '';
+    if (closeBtn) closeBtn.style.display = isReview ? ''     : 'none';
 
     // En modo revisión guardamos el snapshot para que el catálogo sepa qué datos mostrar
     if (isReview) {
@@ -1015,6 +1018,13 @@ function closeEraOptions()  { document.getElementById('era-options-overlay').sty
 function reviewEraGallery(idx) {
     // Abrir la pantalla de victoria de esa era en modo solo lectura
     triggerEraEnd(idx);
+}
+
+// Cierra el era-overlay cuando se está en modo revisión (botón "Cerrar galería")
+function closeEraOverlay() {
+    document.getElementById('era-overlay').classList.remove('active');
+    uiState.eraReviewSnap     = null;
+    uiState.eraOverlayWasOpen = false;
 }
 
 
