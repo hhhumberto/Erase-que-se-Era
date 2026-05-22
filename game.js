@@ -95,7 +95,7 @@ class InvestigationState {
         this.dom.scoreEl.textContent = '0';
         this.dom.infoPanel.innerHTML =
             `<div style="opacity:.5;text-align:center;">${
-                this.def.isMain ? 'Usa las flechas para jugar…' : 'Explora la ramificación…'
+                this.def.isMain ? 'Pincha una ERA de la columna para jugar o explorar' : 'Explora la ramificación…'
             }</div>`;
         this._initProgressBar();
     }
