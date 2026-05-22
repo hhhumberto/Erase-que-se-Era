@@ -63,9 +63,9 @@ body {
 
 /* 1. COLUMNA IZQUIERDA (HISTORIA) */
 #era-progress-column {
-    flex: 0 0 175px; background: rgba(0,0,0,0.3); border-right: 2px solid var(--title-color);
+    flex: 0 0 175px; background: transparent; border-right: none;
     display: flex; flex-direction: column; align-items: center;
-    padding: 20px 10px; gap: 15px; transition: border-color 1s; overflow-y: auto;
+    padding: 20px 10px; gap: 15px; overflow-y: auto;
 }
 .era-slot {
     width: 125px; height: 138px; flex-shrink: 0; border: 2px dashed rgba(255,255,255,0.2);
@@ -99,11 +99,9 @@ body.era-vida .era-slot, body.era-homo .era-slot { border-color: rgba(0,0,0,0.2)
 
 /* 3. PANEL DERECHO */
 #info-panel {
-    flex: 1; background: var(--panel-bg); padding: 20px;
+    flex: 1; background: transparent; padding: 20px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    border-left: 2px solid rgba(255,255,255,0.1); transition: background 1s;
 }
-body.era-vida #info-panel, body.era-homo #info-panel { border-left: 2px solid rgba(0,0,0,0.1); }
 .evolution-card {
     background: white; color: #333; border-radius: 20px; padding: 25px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.2); width: 85%; max-width: 375px;
 }
@@ -111,7 +109,7 @@ body.era-vida #info-panel, body.era-homo #info-panel { border-left: 2px solid rg
 
 /* ZONA INFERIOR */
 #progress-bar {
-    flex: 0 0 170px; background: rgba(0,0,0,0.2); border-top: 3px solid var(--title-color);
+    flex: 0 0 170px; background: transparent; border-top: none;
     display: flex; align-items: center; justify-content: center; gap: 15px; padding: 0 20px; overflow-x: auto;
 }
 .progress-slot {
@@ -135,7 +133,7 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
 #theatre-overlay.active, #era-overlay.active, #game-over-overlay.active, #subgame-game-over-overlay.active, #subgame-complete-overlay.active, #catalog-overlay.active { display: flex; }
 
 #game-over-overlay, #era-overlay { z-index: 8000; background: rgba(0,0,0,0.95); flex-direction: column; text-align: center; }
-#investigacion-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 8100; backdrop-filter: blur(10px); background: rgba(0, 20, 0, 0.8); }
+#investigacion-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 8100; background: var(--bg-body); }
 #investigacion-overlay.active { display: flex; }
 #subgame-game-over-overlay, #subgame-complete-overlay { z-index: 8200; background: rgba(0,0,0,0.95); flex-direction: column; text-align: center; }
 #theatre-overlay { z-index: 8300; }
@@ -211,10 +209,9 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
 
 /* ESTILOS DE INVESTIGACIÓN DINÁMICA */
 .m-container {
-    width: 95%; height: 95%; background: #1a2f1a; border: 4px solid var(--subgame-color, #2ecc71);
+    width: 95%; height: 95%; background: transparent; border: none;
     border-radius: 20px; position: relative; display: flex; flex-direction: column;
     align-items: center; padding: 20px 20px 0 20px; color: white; overflow: hidden;
-    transition: border-color 0.5s;
 }
 .close-investigacion { position: absolute; top: 15px; right: 20px; background: #e74c3c; border: none; color: white; padding: 10px 15px; cursor: pointer; border-radius: 5px; font-weight: bold; z-index: 10; font-size: 1.1rem; }
 
@@ -223,11 +220,11 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
 
 #m-grid-container { position: relative; width: var(--grid-size); height: var(--grid-size); transform: scale(0.85); background: transparent; border: none; }
 
-#m-info-panel { flex: 1; background: rgba(0, 0, 0, 0.3); border-radius: 20px; border-left: 2px solid var(--subgame-color, #2ecc71); padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: border-color 0.5s;}
+#m-info-panel { flex: 1; background: transparent; border-radius: 20px; border: none; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
 #m-progress-bar {
-    width: 100%; flex: 0 0 160px; background: rgba(0,0,0,0.4); border-top: 3px solid var(--subgame-color, #2ecc71);
-    margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 15px; padding: 0 20px; overflow-x: auto; border-radius: 0 0 15px 15px; transition: border-color 0.5s;
+    width: 100%; flex: 0 0 160px; background: transparent; border-top: none;
+    margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 15px; padding: 0 20px; overflow-x: auto;
 }
 .progress-slot.subgame-slot { border-color: rgba(255, 255, 255, 0.2); color: var(--subgame-color, #2ecc71); transition: color 0.5s;}
 
