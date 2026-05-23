@@ -163,11 +163,11 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
 .card-content-scroll::-webkit-scrollbar-thumb { background: #dcdcdc; border-radius: 10px; }
 .card-content-scroll::-webkit-scrollbar-thumb:hover { background: #bbb; }
 
-.theatre-card img { width: 325px; height: 325px; object-fit: contain; margin-bottom: 15px; margin-top: 10px; background: white; }
+.theatre-card img { width: 325px; height: 325px; object-fit: contain; margin: 10px auto 15px; background: white; display: block; }
 /* Placeholder cuando la carta no está conseguida */
 .theatre-img-blank {
     width: 325px; height: 325px; background: #f0f0f0; border-radius: 16px;
-    margin: 10px auto 15px; flex-shrink: 0;
+    margin: 10px auto 15px; display: block;
 }
 .theatre-title--blank  { color: #bbb !important; }
 .theatre-text--blank   { color: #ccc !important; }
@@ -292,14 +292,12 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
     z-index: 7500;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 30px 40px 50px;   /* padding-bottom generoso para scroll cómodo */
+    padding: 30px 40px 50px;
     flex-direction: column;
     gap: 28px;
-    /* El contenido puede crecer más que la pantalla → scroll activo */
-    align-items: flex-start;
+    /* NO align-items:flex-start — dejar que cada bloque ocupe el ancho completo */
 }
 #album-panel.active { display: flex; }
-/* Scrollbar discreta */
 #album-panel::-webkit-scrollbar { width: 6px; }
 #album-panel::-webkit-scrollbar-track { background: transparent; }
 #album-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
@@ -313,12 +311,20 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
     transition: filter .3s, opacity .3s;
 }
 
+.album-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-shrink: 0;
+}
+
 .album-strip-label {
     font-size: 1.1rem;
     font-weight: 900;
     letter-spacing: 3px;
     text-transform: uppercase;
     margin-bottom: 8px;
+    width: 100%;
 }
 
 /* Tira horizontal de 9 cromos */
@@ -327,8 +333,12 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
     gap: 14px;
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding-bottom: 6px;
+    padding-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
 }
+.album-strip::-webkit-scrollbar { height: 4px; }
+.album-strip::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
 
 /* Wrapper de cada cromo (cromo + subíndice de rama debajo) */
 .album-card-wrapper {

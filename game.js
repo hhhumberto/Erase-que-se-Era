@@ -578,12 +578,13 @@ function _albumRenderPanel() {
     const era    = ERAS[eraKey];
     const vals   = Object.keys(era.data).map(Number).sort((a,b) => a-b);
 
-    let html = `<div class="album-strip-label" style="color:var(--title-color);">${era.title}</div>`;
-    html += '<div class="album-strip">';
-    html += vals.slice(0, 9).map(v => _albumCardHTML(eraKey, v, era.data[v])).join('');
-    html += '</div>';
+    let html = `<div class="album-section">
+        <div class="album-strip-label" style="color:var(--title-color);">${era.title}</div>
+        <div class="album-strip">
+            ${vals.slice(0, 9).map(v => _albumCardHTML(eraKey, v, era.data[v])).join('')}
+        </div>
+    </div>`;
 
-    // Subtiras de ramas (si las hay desplegadas)
     if (album.openBranchId) {
         html += _albumBranchStripHTML(album.openBranchId);
         if (album.openSubBranchId) {
@@ -597,11 +598,12 @@ function _albumRenderPanel() {
 function _albumBranchStripHTML(branchId) {
     const inv  = INVESTIGATIONS[branchId];
     const vals = Object.keys(inv.data).map(Number).sort((a,b) => a-b);
-    let html = `<div class="album-strip-label" style="color:${inv.color};">↳ ${inv.title}</div>`;
-    html += '<div class="album-strip">';
-    html += vals.slice(0, 9).map(v => _albumCardHTML(branchId, v, inv.data[v])).join('');
-    html += '</div>';
-    return html;
+    return `<div class="album-section">
+        <div class="album-strip-label" style="color:${inv.color};">↳ ${inv.title}</div>
+        <div class="album-strip">
+            ${vals.slice(0, 9).map(v => _albumCardHTML(branchId, v, inv.data[v])).join('')}
+        </div>
+    </div>`;
 }
 
 function _albumCardHTML(collectionId, val, d) {
