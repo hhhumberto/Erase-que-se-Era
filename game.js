@@ -686,15 +686,16 @@ function albumToggleBranch(branchId, parentCollectionId) {
 
     _albumRenderPanel();
 
-    // Al abrir → scroll hacia abajo para ver la nueva tira
-    // Al cerrar → scroll suave hacia arriba para ver lo que queda
-    requestAnimationFrame(() => {
+    // Doble RAF: el primero deja que el DOM se actualice,
+    // el segundo espera a que el navegador haya recalculado el layout
+    // (scrollHeight correcto) antes de hacer el scroll.
+    requestAnimationFrame(() => requestAnimationFrame(() => {
         if (closing) {
             panel.scrollTo({ top: Math.max(0, panel.scrollTop - 300), behavior: 'smooth' });
         } else {
             panel.scrollTo({ top: panel.scrollHeight, behavior: 'smooth' });
         }
-    });
+    }));
 }
 
 // ── Click en una carta ────────────────────────────────────────
