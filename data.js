@@ -142,7 +142,7 @@ const INVESTIGATIONS = {
         panelTitle: "RANAS EXTRAORDINARIAS",
         color: '#0984e3',
         completeDesc: "Has alcanzado a la Rana Dardo y completado la ramificación.",
-        branches: [],
+        branches: ['ranitas_dardo'],
         data: {
             2:   { n: 'Rana de Darwin', img: 'img/2_rana_darwin.png',  d: 'Rhinoderma darwinii.',         adap: 'El macho incuba los renacuajos dentro de su saco vocal hasta que se desarrollan completamente.' },
             4:   { n: 'Rana Cornuda',   img: 'img/4_rana_cornuda.png', d: 'Ceratophrys ornata, el escuerzo.', adap: 'Boca enorme y apetito voraz; se camufla en la hojarasca esperando emboscar a sus presas.' },
@@ -214,6 +214,25 @@ const INVESTIGATIONS = {
             512: { n: 'Bosque Clímax',      img: 'img/512_suelo.png', d: 'El equilibrio dinámico.',                 adap: 'Ecosistema estable y autosuficiente donde la sustitución de especies se detiene en favor de una comunidad resiliente.' }
         }
 },
+    ranitas_dardo: {
+        id: 'ranitas_dardo',
+        title: "INVESTIGACIÓN: RANITAS DARDO",
+        panelTitle: "DENDROBATIDAE",
+        color: '#7fff00', // Verde neón/lima
+        completeDesc: "Has descubierto los morphos más raros y completado la ramificación de las Ranitas Dardo.",
+        branches: [],
+        data: {
+            2:   { n: 'Phyllobates vittatus', img: 'img/2_dardo.png',   d: 'Rana de franjas de oro.',                adap: 'Desarrolló franjas aposemáticas brillantes para advertir de sus alcaloides en el suelo de Costa Rica.' },
+            4:   { n: 'D. leucomelas (Bolívar)', img: 'img/4_dardo.png',   d: 'Morpho de bandas anchas.',             adap: 'Adaptación cromática extrema para maximizar el contraste visual en la penumbra del sotobosque.' },
+            8:   { n: 'Oophaga sylvatica',    img: 'img/8_dardo.png',   d: 'El pequeño diablo.',                    adap: 'Especialización en cuidado parental donde la hembra provee huevos tróficos cargados de nutrientes y defensas.' },
+            16:  { n: 'D. auratus (Mint)',    img: 'img/16_dardo.png',  d: 'Morpho verde menta.',                  adap: 'Variación de coloración disruptiva que ofrece un equilibrio entre advertencia y camuflaje en helechos claros.' },
+            32:  { n: 'Ranitomeya summersi',  img: 'img/32_dardo.png',  d: 'Joya naranja y negra.',                adap: 'Cuerpo miniaturizado para habitar exclusivamente en las axilas de bromelias y pequeñas fitotelmata.' },
+            64:  { n: 'Epipedobates tricolor',img: 'img/64_dardo.png',  d: 'Fuente de epibatidina.',                adap: 'Producción de alcaloides analgésicos únicos que han revolucionado el estudio de la medicina farmacológica.' },
+            128: { n: 'Oophaga lehmanni',     img: 'img/128_dardo.png', d: 'Morpho de bandas rojas.',              adap: 'Especie en peligro crítico con una dieta altamente especializada que le permite secretar toxinas pumiliotoxinas.' },
+            256: { n: 'Ranitomeya variabilis', img: 'img/256_dardo.png', d: 'Rana de espalda salpicada.',          adap: 'Patrón de manchas irregulares que rompe la silueta del animal, dificultando su detección por aves depredadoras.' },
+            512: { n: 'D. leucomelas (El Cope)', img: 'img/512_dardo.png', d: 'Bumblebee de Panamá.',                adap: 'Aislada geográficamente, ha desarrollado una resistencia metabólica superior y un canto territorial distintivo.' }
+        }
+    },
 
 
 };
@@ -249,8 +268,11 @@ const PORTALS = {
             32: ['flora'] // <--- El nuevo portal que se abre al llegar a 32 en pioneros
         },
 
-    flora: {
+        flora: {
             512: ['suelo_a_bosque'] // <--- El portal que se abre al llegar a 512 en flora
+        },
+        ranitas: {
+            512: ['ranitas_dardo'] // <--- Se abre al completar la rama de ranitas original
         }
     }
 };
