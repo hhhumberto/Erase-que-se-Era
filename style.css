@@ -285,16 +285,22 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
 /* Panel álbum: flex-item dentro de #top-section, scroll propio */
 #album-panel {
     display: none;
-    flex: 1;                /* ocupa el espacio del juego */
-    min-width: 0;
     overflow-y: auto;
     overflow-x: hidden;
     background: rgba(10, 10, 20, 0.97);
     padding: 30px 40px 50px;
     box-sizing: border-box;
-    height: 100%;           /* hereda la altura de #top-section */
 }
-#album-panel.active { display: block; }
+/* Cuando activo: flex-item que ocupa todo el espacio disponible y scrollea */
+#top-section.album-open #album-panel {
+    display: block;
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    /* Sin height explícito — el flex-item recibe su altura del padre (top-section)
+       que ya tiene min-height:0, lo que activa el scroll correctamente */
+    align-self: stretch;
+}
 #album-panel::-webkit-scrollbar { width: 6px; }
 #album-panel::-webkit-scrollbar-track { background: transparent; }
 #album-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
