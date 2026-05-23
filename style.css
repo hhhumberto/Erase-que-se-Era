@@ -282,33 +282,27 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
    ÁLBUM DE CROMOS
    ════════════════════════════════════════════ */
 
-/* Panel que se despliega sobre el juego al pinchar una era */
+/* Panel álbum: flex-item dentro de #top-section, scroll propio */
 #album-panel {
     display: none;
-    position: fixed;
-    top: 0; left: 175px; right: 0; bottom: 0;
-    background: rgba(10, 10, 20, 0.97);
-    backdrop-filter: blur(12px);
-    z-index: 7500;
-    overflow-y: scroll;   /* scroll siempre visible, evita reflow al aparecer */
+    flex: 1;                /* ocupa el espacio del juego */
+    min-width: 0;
+    overflow-y: auto;
     overflow-x: hidden;
-    overscroll-behavior: contain;  /* aísla el scroll del body */
-    -webkit-overflow-scrolling: touch;  /* iOS momentum scroll */
+    background: rgba(10, 10, 20, 0.97);
     padding: 30px 40px 50px;
     box-sizing: border-box;
+    height: 100%;           /* hereda la altura de #top-section */
 }
 #album-panel.active { display: block; }
 #album-panel::-webkit-scrollbar { width: 6px; }
 #album-panel::-webkit-scrollbar-track { background: transparent; }
 #album-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
 
-/* Bloquea input al juego cuando el álbum está abierto */
+/* Cuando álbum abierto: ocultar juego e info-panel */
 #top-section.album-open #game-area,
 #top-section.album-open #info-panel {
-    pointer-events: none;
-    filter: blur(4px);
-    opacity: 0.3;
-    transition: filter .3s, opacity .3s;
+    display: none;
 }
 
 .album-section {

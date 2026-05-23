@@ -562,15 +562,13 @@ function albumToggleEra(idx) {
         panel.innerHTML      = '';
         panel.classList.remove('active');
         document.getElementById('top-section').classList.remove('album-open');
-        document.body.style.overflow = '';
-        return;
+            return;
     }
     album.openEraIdx      = idx;
     album.openBranchId    = null;
     album.openSubBranchId = null;
     panel.classList.add('active');
     document.getElementById('top-section').classList.add('album-open');
-    document.body.style.overflow = 'visible';   // liberar scroll para el panel
     _albumRenderPanel();
 }
 
@@ -882,7 +880,6 @@ function albumClose() {
     panel.innerHTML = '';
     panel.classList.remove('active');
     document.getElementById('top-section').classList.remove('album-open');
-    document.body.style.overflow = '';
 }
 
 
