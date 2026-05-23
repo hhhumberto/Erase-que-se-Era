@@ -20,7 +20,8 @@
                 cursor:pointer;font-size:0.85rem;margin-top:-10px;">↺ Borrar progreso guardado</button>
 
         <div class="dev-panel">
-            <div style="font-size: 0.8rem; color: #aaa; text-transform: uppercase;">Pruebas de Desarrollo</div>            <div style="display: flex; gap: 10px;">
+            <div style="font-size: 0.8rem; color: #aaa; text-transform: uppercase;">Pruebas de Desarrollo</div>
+            <div style="display: flex; gap: 10px;">
                 <select id="dev-subgame-select">
                     <option value="astronomica">Iniciar ERA ASTRO</option>
                     <option value="vida">Iniciar ERA VIDA</option>
@@ -33,9 +34,10 @@
                     <option value="pluricelulares">Investigar: PLURICELULARES</option>
                     <option value="flora">Investigar: FLORA</option>
                     <option value="suelo_a_bosque">Investigar: SUELO A BOSQUE</option>
+                    <option value="ranitas_dardo">Investigar: RANITAS DARDO</option>
                     <option disabled>───────────</option>
                     <option value="end-astronomica">FINAL Era Astro</option>
-                    <option value="end-vida">FINAL Era Vida (Accesos)</option>
+                    <option value="end-vida">FINAL Era Vida</option>
                     <option value="end-homo">FINAL Era Homo</option>
                     <option disabled>───────────</option>
                     <option value="end-sub-pioneros">FINAL Investigar: PIONEROS</option>
@@ -45,6 +47,7 @@
                     <option value="end-sub-pluricelulares">FINAL Investigar: PLURICELULARES</option>
                     <option value="end-sub-flora">FINAL Investigar: FLORA</option>
                     <option value="end-sub-suelo_a_bosque">FINAL Investigar: SUELO A BOSQUE</option>
+                    <option value="end-sub-ranitas_dardo">FINAL Investigar: RANITAS DARDO</option>
                 </select>
                 <button class="btn-start" onclick="startSubGameDirectly()"
                         style="background: #2ecc71; padding: 10px 20px; font-size: 1rem;">Ir</button>
@@ -54,10 +57,16 @@
 </div>
 
 <!-- ═══════════════════════════════════════════
-     THEATRE (tarjeta de descubrimiento)
+     THEATRE (tarjeta de descubrimiento / álbum)
 ════════════════════════════════════════════ -->
 <div id="theatre-overlay" onclick="closeTheatre()">
     <div class="theatre-card" onclick="event.stopPropagation()">
+        <!-- Botones de navegación (álbum) -->
+        <button id="theatre-nav-left"  class="nav-btn left"  onclick="theatreAlbumNav(-1)"
+                style="visibility:hidden;">&#10094;</button>
+        <button id="theatre-nav-right" class="nav-btn right" onclick="theatreAlbumNav(1)"
+                style="visibility:hidden;">&#10095;</button>
+
         <div class="card-content-scroll">
             <img id="theatre-img" src="">
             <h2 id="theatre-title" style="color: var(--title-color); font-size: 2.2rem; margin: 5px 0;"></h2>
@@ -70,80 +79,38 @@
 </div>
 
 <!-- ═══════════════════════════════════════════
-     CATÁLOGO
+     PANEL ÁLBUM (se despliega sobre el juego)
 ════════════════════════════════════════════ -->
-<div id="catalog-overlay" onclick="closeCatalog()">
-    <div class="theatre-card" onclick="event.stopPropagation()">
-        <div class="close-btn" onclick="closeCatalog()">X</div>
-        <button class="nav-btn left"  id="cat-btn-left"  onclick="changeCatalog(-1)">&#10094;</button>
-        <button class="nav-btn right" id="cat-btn-right" onclick="changeCatalog(1)">&#10095;</button>
-        <button id="cat-btn-back" onclick="_catalogGoBack()"
-                style="display:none;position:absolute;top:15px;left:20px;background:transparent;
-                       border:2px solid #aaa;color:#aaa;padding:6px 14px;border-radius:20px;
-                       cursor:pointer;font-size:.85rem;z-index:100;"
-                title="Volver al catálogo anterior">← Atrás</button>
-        <div class="card-content-scroll">
-            <div id="catalog-branch-portals" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:10px;"></div>
-            <img id="catalog-img" src="">
-            <h2 id="catalog-title" style="color: var(--title-color); font-size: 2.2rem; margin: 5px 0;"></h2>
-            <div id="catalog-desc"       class="card-subtitle"></div>
-            <div id="catalog-adaptation" class="card-adaptation-text"></div>
-            <div id="catalog-ext"        class="card-scientific-text"></div>
-        </div>
-    </div>
-</div>
-
+<div id="album-panel"></div>
 
 <!-- ═══════════════════════════════════════════
-     SELECTOR DE INVESTIGACIÓN (replay / galería)
+     MODAL DE CARTA
 ════════════════════════════════════════════ -->
-<div id="branch-options-overlay"
-     style="position:fixed;inset:0;z-index:9200;display:none;align-items:center;justify-content:center;
-            background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);">
-    <div id="branch-options-box"
-         style="background:#1a1a2e;border:2px solid #aaa;border-radius:24px;padding:40px;
-                text-align:center;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
-        <img id="branch-options-img" src=""
-             style="width:90px;height:90px;object-fit:contain;margin-bottom:10px;"
-             onerror="this.style.display='none'">
-        <h2 id="branch-options-title"
-            style="margin:0 0 8px;font-size:1.6rem;letter-spacing:2px;"></h2>
-        <p id="branch-options-subtitle"
-           style="color:#aaa;margin:0 0 24px;font-size:1rem;"></p>
-        <div style="display:flex;flex-direction:column;gap:14px;">
-            <button id="branch-opt-gallery" class="btn-start"
-                    style="background:#6c5ce7;font-size:1rem;padding:15px 20px;display:none;">📖 Revisar galería</button>
-            <button id="branch-opt-replay"  class="btn-start"
-                    style="background:#d35400;font-size:1rem;padding:15px 20px;">🔁 Jugar investigación</button>
-            <button onclick="closeBranchOptions()"
-                    style="background:transparent;border:none;color:#777;cursor:pointer;font-size:0.95rem;margin-top:4px;">Cancelar</button>
+<div id="card-modal-overlay" onclick="closeCardModal()" style="display:none;">
+    <div class="card-modal-box" onclick="event.stopPropagation()">
+        <button class="close-btn" onclick="closeCardModal()">✕</button>
+        <img id="card-modal-img" src="" style="width:160px;height:160px;object-fit:contain;margin-bottom:10px;">
+        <h2 id="card-modal-title" style="margin:0 0 6px;font-size:1.8rem;"></h2>
+        <div id="card-modal-status" style="font-size:.9rem;margin-bottom:12px;"></div>
+        <p  id="card-modal-desc"   style="font-size:1rem;color:#555;margin-bottom:20px;max-width:280px;text-align:center;"></p>
+        <div style="display:flex;flex-direction:column;gap:12px;width:100%;">
+            <button id="card-modal-theatre-btn" class="btn-start"
+                    style="background:#6c5ce7;font-size:1rem;padding:12px;">🔍 Explorar colección</button>
+            <button id="card-modal-play-btn" class="btn-start"
+                    style="background:#d35400;font-size:1rem;padding:12px;">🎮 Jugar</button>
         </div>
     </div>
 </div>
 
 <!-- ═══════════════════════════════════════════
-     SELECTOR DE ERA (replay / galería)
+     ERA OVERLAY (victoria de era)
 ════════════════════════════════════════════ -->
-<div id="era-options-overlay"
-     style="position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;
-            background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);">
-    <div style="background:#1a1a2e;border:2px solid var(--title-color);border-radius:24px;padding:40px;
-                text-align:center;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
-        <img id="era-options-img" src=""
-             style="width:90px;height:90px;object-fit:contain;margin-bottom:10px;"
-             onerror="this.style.display='none'">
-        <h2 id="era-options-title"
-            style="color:var(--title-color);margin:0 0 8px;font-size:1.8rem;letter-spacing:3px;"></h2>
-        <p style="color:#aaa;margin:0 0 30px;font-size:1rem;">¿Qué quieres hacer con esta era?</p>
-        <div style="display:flex;flex-direction:column;gap:14px;">
-            <button id="era-opt-gallery" class="btn-start"
-                    style="background:#6c5ce7;font-size:1rem;padding:15px 20px;">📖 Revisar galería</button>
-            <button id="era-opt-replay"  class="btn-start"
-                    style="background:#d35400;font-size:1rem;padding:15px 20px;">🔁 Volver a jugar esta era</button>
-            <button onclick="closeEraOptions()"
-                    style="background:transparent;border:none;color:#777;cursor:pointer;font-size:0.95rem;margin-top:4px;">Cancelar</button>
-        </div>
-    </div>
+<div id="era-overlay">
+    <h1 id="overlay-title" style="color: var(--title-color); font-size: 3rem;">¡ERA SUPERADA!</h1>
+    <p id="overlay-text" style="font-size: 1.2rem;"></p>
+    <button id="era-overlay-next-btn"  class="btn-start" style="margin-top:20px;">Siguiente Era</button>
+    <button id="era-overlay-close-btn" class="btn-start" onclick="closeEraOverlay()"
+            style="margin-top:10px;background:#555;">✕ Cerrar</button>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -163,24 +130,12 @@
 
 <div id="subgame-complete-overlay">
     <h1 id="subgame-complete-title" style="color: #2ecc71; font-size: 3rem;">¡INVESTIGACIÓN COMPLETADA!</h1>
-    <p id="subgame-complete-desc"   style="font-size: 1.2rem; color: #ddd; margin-bottom: 10px;">Has completado la ramificación.</p>
-    <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 20px;">
-        (Pincha en las tarjetas para repasar la ficha técnica y adaptaciones)
+    <p id="subgame-complete-desc"   style="font-size: 1.2rem; color: #ddd; margin-bottom: 20px;"></p>
+    <p style="color:#aaa;font-size:.9rem;margin-bottom:20px;">
+        Abre el álbum para explorar las cartas conseguidas.
     </p>
-    <div id="m-sequence-container"></div>
-    <button id="subgame-complete-close-btn" class="btn-start" onclick="closeSubgameComplete()" style="background:#d35400;">Volver al Juego Principal</button>
-</div>
-
-<div id="era-overlay">
-    <h1 id="overlay-title" style="color: var(--title-color); font-size: 3rem;">¡ERA SUPERADA!</h1>
-    <p id="overlay-text"   style="font-size: 1.2rem;"></p>
-    <p style="color: #aaa; font-size: 0.9rem; margin-top: 15px;">
-        (Pincha en las tarjetas para repasar la ficha técnica en el catálogo)
-    </p>
-    <div id="sequence-container"></div>
-    <button id="era-overlay-next-btn" class="btn-start" onclick="nextEra()" style="margin-top: 10px;">Siguiente Era</button>
-    <button id="era-overlay-close-btn" class="btn-start" onclick="closeEraOverlay()"
-            style="margin-top: 10px; background: #555;">✕ Cerrar galería</button>
+    <button id="subgame-complete-close-btn" class="btn-start"
+            onclick="closeSubgameComplete()" style="background:#d35400;">Volver al Juego Principal</button>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -240,13 +195,7 @@
 
 <div id="progress-bar"></div>
 
-<!-- ═══════════════════════════════════════════
-     SCRIPTS (orden importante)
-     1. Datos   — define ERAS, INVESTIGATIONS, PORTALS, ERA_ORDER
-     2. Motor   — consume los datos anteriores
-════════════════════════════════════════════ -->
 <script src="data.js"></script>
 <script src="game.js"></script>
-
 </body>
 </html>
