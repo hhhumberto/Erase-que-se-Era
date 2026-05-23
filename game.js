@@ -354,6 +354,7 @@ const uiState = {
     catalogIsBranch      : false,
     catalogStack         : [],     // pila de snapshots para navegar rama→sub-rama (atrás)
     eraReviewSnap        : null,   // snapshot de la era que se está revisando (o null)
+    branchReviewSnap     : null,   // snapshot de la rama que se está revisando (o null)
     eraOverlayWasOpen    : false,  // true si el catálogo se abrió desde era-overlay en revisión
     pendingOverlayRestore: null,   // id del overlay a restaurar al cerrar el catálogo (o null)
 };
@@ -624,6 +625,21 @@ function openCatalogFromEraReview(idx) {
     document.getElementById('catalog-overlay').classList.add('active');
 }
 
+// Abre el catálogo desde la pantalla de victoria de una rama en revisión
+function openCatalogFromBranchReview(idx, branchId) {
+    const snap = uiState.branchReviewSnap;
+    if (!snap) return;
+    uiState.catalogSnap     = { discovered: snap.discovered, data: snap.data, branchId: snap.branchId };
+    uiState.catalogIsBranch = false;
+    uiState.catalogStack    = [];
+    uiState.catalogIdx      = idx;
+    // El subgame-complete-overlay se restaura al cerrar el catálogo
+    uiState.pendingOverlayRestore = 'subgame-complete-overlay';
+    document.getElementById('subgame-complete-overlay').classList.remove('active');
+    _renderCatalog();
+    document.getElementById('catalog-overlay').classList.add('active');
+}
+
 // Abre una rama desde el era-overlay en modo revisión.
 // Activa eraOverlayWasOpen para que al cerrar la investigación se pueda
 // restaurar el era-overlay correctamente si el usuario lo necesita.
@@ -716,39 +732,15 @@ function _buildSequenceHTML(discovered, data, portals, { overlayToClose, cardCli
         const gatewayHTML = targets.map(targetId => {
             const inv       = INVESTIGATIONS[targetId];
             const completed = hasCompletedBranch(targetId);
+            const label     = completed ? inv.panelTitle : inv.panelTitle;
 
-            if (completed) {
-                // Rama ya superada: dos botones — ver galería y rejugar
-                return `<div class="subgame-gateway-above"
-                             style="border-color:${inv.color};color:${inv.color};gap:4px;">
-                            <span style="font-weight:bold;">${inv.panelTitle}</span>
-                            <div style="display:flex;gap:6px;margin-top:2px;">
-                                <div style="flex:1;padding:3px 6px;border:1px solid ${inv.color};border-radius:6px;
-                                            font-size:0.7rem;cursor:pointer;color:white;"
-                                     onclick="event.stopPropagation();
-                                              _openBranchCatalogFromOverlay('${overlayToClose}','${targetId}');">
-                                    📖 Galería
-                                </div>
-                                <div style="flex:1;padding:3px 6px;border:1px solid ${inv.color};border-radius:6px;
-                                            font-size:0.7rem;cursor:pointer;color:white;"
-                                     onclick="event.stopPropagation();
-                                              document.getElementById('${overlayToClose}').classList.remove('active');
-                                              ${branchCall(targetId)};">
-                                    🔁 Jugar
-                                </div>
-                            </div>
-                        </div>`;
-            } else {
-                // Rama pendiente: botón de investigar (arranca el juego)
-                return `<div class="subgame-gateway-above"
-                             style="border-color:${inv.color};color:${inv.color};"
-                             onclick="event.stopPropagation();
-                                      document.getElementById('${overlayToClose}').classList.remove('active');
-                                      ${branchCall(targetId)};">
-                            <span style="color:white;">INVESTIGAR</span>
-                            <span>${inv.panelTitle}</span>
-                        </div>`;
-            }
+            return `<div class="subgame-gateway-above"
+                         style="border-color:${inv.color};color:${inv.color};"
+                         onclick="event.stopPropagation();
+                                  confirmBranchAction('${overlayToClose}','${targetId}');">
+                        <span style="color:white;">${completed ? '📖' : '🔬'} INVESTIGAR</span>
+                        <span>${label}</span>
+                    </div>`;
         }).join('');
 
         return `<div class="sequence-card-wrapper">
@@ -1081,6 +1073,102 @@ function closeEraOverlay() {
     document.getElementById('era-overlay').classList.remove('active');
     uiState.eraReviewSnap     = null;
     uiState.eraOverlayWasOpen = false;
+}
+
+// ── Modal de opciones de investigación ───────────────────────
+
+// overlayToClose: el overlay desde el que se pulsa el gateway
+// branchId: id de la investigación
+function confirmBranchAction(overlayToClose, branchId) {
+    const inv       = INVESTIGATIONS[branchId];
+    const completed = hasCompletedBranch(branchId);
+    const box       = document.getElementById('branch-options-box');
+    const img       = document.getElementById('branch-options-img');
+    const title     = document.getElementById('branch-options-title');
+    const subtitle  = document.getElementById('branch-options-subtitle');
+    const galleryBtn= document.getElementById('branch-opt-gallery');
+    const replayBtn = document.getElementById('branch-opt-replay');
+
+    // Estilo dinámico según la rama
+    box.style.borderColor   = inv.color;
+    title.style.color       = inv.color;
+    title.textContent       = inv.title;
+    img.src                 = inv.data[2]?.img ?? '';
+    subtitle.textContent    = completed
+        ? '¿Qué quieres hacer con esta investigación?'
+        : 'Esta investigación aún no ha sido completada.';
+
+    galleryBtn.style.display = completed ? 'block' : 'none';
+    galleryBtn.onclick = () => {
+        closeBranchOptions();
+        reviewBranchGallery(overlayToClose, branchId);
+    };
+
+    replayBtn.onclick = () => {
+        closeBranchOptions();
+        document.getElementById(overlayToClose).classList.remove('active');
+        // Usar openBranchFromEraReview si venimos del era-overlay en revisión
+        if (overlayToClose === 'era-overlay' && uiState.eraReviewSnap) {
+            openBranchFromEraReview(branchId);
+        } else {
+            openBranch(branchId);
+        }
+    };
+
+    document.getElementById('branch-options-overlay').style.display = 'flex';
+}
+
+function closeBranchOptions() {
+    document.getElementById('branch-options-overlay').style.display = 'none';
+}
+
+// Abre la pantalla de victoria de una investigación en modo revisión (solo lectura)
+function reviewBranchGallery(originOverlay, branchId) {
+    const inv  = INVESTIGATIONS[branchId];
+    const disc = session.completedBranches[branchId]
+        ?? Object.keys(inv.data).map(Number).sort((a, b) => a - b);
+    const subPortals = PORTALS.__subgame__?.[branchId] ?? {};
+
+    // Ocultar el overlay de origen y marcarlo para restaurar al cerrar
+    document.getElementById(originOverlay).classList.remove('active');
+    if (originOverlay === 'era-overlay') {
+        uiState.eraOverlayWasOpen = true;
+    } else {
+        uiState.pendingOverlayRestore = originOverlay;
+    }
+
+    // Reconstruir la pantalla de victoria de la rama con los datos guardados
+    document.getElementById('subgame-complete-title').style.color = inv.color;
+    document.getElementById('subgame-complete-title').textContent  = '¡INVESTIGACIÓN COMPLETADA!';
+    document.getElementById('subgame-complete-desc').textContent   = inv.completeDesc;
+    document.getElementById('m-sequence-container').innerHTML =
+        _buildSequenceHTML(disc, inv.data, subPortals, {
+            overlayToClose : 'subgame-complete-overlay',
+            cardClick      : (idx) => `openCatalogFromBranchReview(${idx},'${branchId}')`,
+        });
+
+    // Guardar snapshot de la rama en revisión
+    uiState.branchReviewSnap = { discovered: disc, data: inv.data, branchId };
+
+    // Cambiar el botón "Volver" para que restaure el overlay de origen
+    const closeBtn = document.getElementById('subgame-complete-close-btn');
+    if (closeBtn) {
+        closeBtn.textContent = '← Volver';
+        closeBtn.onclick = () => {
+            document.getElementById('subgame-complete-overlay').classList.remove('active');
+            uiState.branchReviewSnap = null;
+            // Restaurar overlay de origen
+            if (uiState.eraOverlayWasOpen) {
+                uiState.eraOverlayWasOpen = false;
+                document.getElementById('era-overlay').classList.add('active');
+            } else if (uiState.pendingOverlayRestore) {
+                document.getElementById(uiState.pendingOverlayRestore).classList.add('active');
+                uiState.pendingOverlayRestore = null;
+            }
+        };
+    }
+
+    document.getElementById('subgame-complete-overlay').classList.add('active');
 }
 
 
