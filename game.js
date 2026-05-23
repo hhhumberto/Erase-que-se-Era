@@ -494,9 +494,8 @@ function closeTheatre() {
 // ═══════════════════════════════════════════════════════════════
 
 const album = {
-    openEraIdx    : null,   // índice de ERA desplegada (o null)
-    openBranchId  : null,   // rama desplegada (o null)
-    openSubBranchId: null,  // sub-rama desplegada (o null)
+    openEraIdx  : null,   // índice de ERA desplegada (o null)
+    openBranches: [],     // stack de branchIds abiertos, profundidad arbitraria
 };
 
 // ── Construcción del sidebar ──────────────────────────────────
@@ -555,18 +554,15 @@ function albumRefreshCard(collectionId, val) {
 function albumToggleEra(idx) {
     const panel = document.getElementById('album-panel');
     if (album.openEraIdx === idx) {
-        // Cerrar
-        album.openEraIdx     = null;
-        album.openBranchId   = null;
-        album.openSubBranchId= null;
-        panel.innerHTML      = '';
+        album.openEraIdx   = null;
+        album.openBranches = [];
+        panel.innerHTML    = '';
         panel.classList.remove('active');
         document.getElementById('top-section').classList.remove('album-open');
-            return;
+        return;
     }
-    album.openEraIdx      = idx;
-    album.openBranchId    = null;
-    album.openSubBranchId = null;
+    album.openEraIdx   = idx;
+    album.openBranches = [];
     panel.classList.add('active');
     document.getElementById('top-section').classList.add('album-open');
     _albumRenderPanel();
@@ -587,7 +583,6 @@ function _albumRenderPanel() {
     const era    = ERAS[eraKey];
     const vals   = Object.keys(era.data).map(Number).sort((a,b) => a-b);
 
-    // Reconstruir todo desde cero como bloques independientes
     panel.innerHTML = '';
 
     // Sección de era
@@ -601,16 +596,9 @@ function _albumRenderPanel() {
         </div>`;
     panel.appendChild(eraSection);
 
-    // Sección de rama
-    if (album.openBranchId) {
-        const branchSection = _albumMakeBranchSection(album.openBranchId);
-        panel.appendChild(branchSection);
-
-        // Sección de sub-rama
-        if (album.openSubBranchId) {
-            const subSection = _albumMakeBranchSection(album.openSubBranchId);
-            panel.appendChild(subSection);
-        }
+    // Secciones de ramas abiertas — profundidad arbitraria
+    for (const branchId of album.openBranches) {
+        panel.appendChild(_albumMakeBranchSection(branchId));
     }
 }
 
@@ -688,32 +676,25 @@ function _collectionData(collectionId) {
 // ── Toggle de subtiras ────────────────────────────────────────
 
 function albumToggleBranch(branchId, parentCollectionId) {
-    const panel       = document.getElementById('album-panel');
-    const isSubBranch = parentCollectionId && ERA_ORDER.indexOf(parentCollectionId) === -1;
-    let   closing     = false;
+    const panel    = document.getElementById('album-panel');
+    const existing = album.openBranches.indexOf(branchId);
 
-    if (isSubBranch) {
-        closing = album.openSubBranchId === branchId;
-        album.openSubBranchId = closing ? null : branchId;
+    if (existing !== -1) {
+        // Ya está abierta: cerrar esta y todas las que vienen después
+        album.openBranches = album.openBranches.slice(0, existing);
     } else {
-        closing = album.openBranchId === branchId;
-        if (closing) {
-            album.openBranchId    = null;
-            album.openSubBranchId = null;
-        } else {
-            album.openBranchId    = branchId;
-            album.openSubBranchId = null;
+        // Nueva: truncar desde el padre hacia adelante y añadir esta
+        const parentIdx = album.openBranches.indexOf(parentCollectionId);
+        if (parentIdx !== -1) {
+            // Cerrar cualquier rama que colgaba del mismo padre
+            album.openBranches = album.openBranches.slice(0, parentIdx + 1);
         }
+        album.openBranches.push(branchId);
     }
 
     _albumRenderPanel();
 
-    // Scroll: leer scrollHeight DESPUÉS de que appendChild haya actualizado el layout.
-    // setTimeout(0) garantiza que el navegador ha procesado el nuevo DOM.
-    // Forzar reflow leyendo offsetHeight antes de leer scrollHeight.
-    // Esto garantiza que el navegador ha recalculado el layout completo
-    // (alturas flex, imágenes, etc.) antes de intentar el scroll.
-    void panel.offsetHeight;
+    void panel.offsetHeight;   // forzar reflow
     panel.scrollTop = panel.scrollHeight;
 }
 
@@ -872,9 +853,8 @@ function closeTheatre() {
 // ── Cerrar álbum ──────────────────────────────────────────────
 
 function albumClose() {
-    album.openEraIdx      = null;
-    album.openBranchId    = null;
-    album.openSubBranchId = null;
+    album.openEraIdx   = null;
+    album.openBranches = [];
     const panel = document.getElementById('album-panel');
     panel.innerHTML = '';
     panel.classList.remove('active');
