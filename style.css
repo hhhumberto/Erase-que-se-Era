@@ -285,30 +285,31 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
 /* Panel álbum: flex-item dentro de #top-section, scroll propio */
 #album-panel {
     display: none;
+}
+
+/* Cuando activo: overlay fijo que cubre todo excepto la columna de eras */
+#top-section.album-open #album-panel {
+    display: block;
+    position: fixed;
+    top: 0; bottom: 0; right: 0;
+    left: 175px;           /* deja libre la columna de eras */
+    z-index: 500;
     overflow-y: auto;
     overflow-x: hidden;
     background: rgba(10, 10, 20, 0.97);
-    padding: 30px 40px 50px;
+    padding: 30px 50px 60px;
     box-sizing: border-box;
-}
-/* Cuando activo: flex-item que ocupa todo el espacio disponible y scrollea */
-#top-section.album-open #album-panel {
-    display: block;
-    flex: 1;
-    min-width: 0;
-    min-height: 0;
-    /* Sin height explícito — el flex-item recibe su altura del padre (top-section)
-       que ya tiene min-height:0, lo que activa el scroll correctamente */
-    align-self: stretch;
 }
 #album-panel::-webkit-scrollbar { width: 6px; }
 #album-panel::-webkit-scrollbar-track { background: transparent; }
 #album-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
 
-/* Cuando álbum abierto: ocultar juego e info-panel */
+/* Cuando álbum abierto: desfocar el juego detrás */
 #top-section.album-open #game-area,
 #top-section.album-open #info-panel {
-    display: none;
+    filter: blur(4px);
+    pointer-events: none;
+    user-select: none;
 }
 
 .album-section {
@@ -463,4 +464,30 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
     flex-direction: column;
     align-items: center;
     box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+/* ════════════════════════════════════════════
+   ÁLBUM — tamaño ampliado (overlay ocupa más espacio)
+   ════════════════════════════════════════════ */
+#top-section.album-open .album-card {
+    width: 148px;
+    height: 188px;
+}
+#top-section.album-open .album-card--unlocked img {
+    width: 110px;
+    height: 110px;
+}
+#top-section.album-open .album-card__img-blank {
+    width: 110px;
+    height: 110px;
+}
+#top-section.album-open .album-card__name {
+    font-size: .8rem;
+}
+#top-section.album-open .album-subindex {
+    width: 148px;
+    height: 47px;   /* ~1/4 de 188px */
+}
+#top-section.album-open .album-subindex--active {
+    height: 94px;
 }

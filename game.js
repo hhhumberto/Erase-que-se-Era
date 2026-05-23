@@ -405,6 +405,8 @@ function restartEra() {
 
 function closeEraOverlay() {
     document.getElementById('era-overlay').classList.remove('active');
+    // Abrir álbum mostrando la era recién completada
+    _openAlbumOnEra(session.eraIdx);
 }
 
 
@@ -457,7 +459,10 @@ function showBranchComplete() {
 
 function closeSubgameComplete() {
     document.getElementById('subgame-complete-overlay').classList.remove('active');
+    const completedBranchId = session.branch?.def?.id ?? null;
     closeInvestigacion();
+    // Abrir álbum mostrando la rama recién completada
+    if (completedBranchId) _openAlbumOnBranch(completedBranchId);
 }
 
 
@@ -860,6 +865,30 @@ function albumClose() {
     panel.innerHTML = '';
     panel.classList.remove('active');
     document.getElementById('top-section').classList.remove('album-open');
+}
+
+// Abrir álbum directamente en una era (por índice)
+function _openAlbumOnEra(idx) {
+    album.openEraIdx   = idx;
+    album.openBranches = [];
+    const panel = document.getElementById('album-panel');
+    panel.classList.add('active');
+    document.getElementById('top-section').classList.add('album-open');
+    _albumRenderPanel();
+}
+
+// Abrir álbum en la era que contiene la rama y desplegar esa rama
+function _openAlbumOnBranch(branchId) {
+    const { eraIdx, parentBranchIds } = _resolveBranchOrigin(branchId);
+    album.openEraIdx   = eraIdx;
+    // Reconstruir la cadena de ramas hasta la completada
+    album.openBranches = [...parentBranchIds, branchId];
+    const panel = document.getElementById('album-panel');
+    panel.classList.add('active');
+    document.getElementById('top-section').classList.add('album-open');
+    _albumRenderPanel();
+    void panel.offsetHeight;
+    panel.scrollTop = panel.scrollHeight;
 }
 
 
