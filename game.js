@@ -520,11 +520,12 @@ function albumRebuild() {
         slot.onclick   = () => albumToggleEra(i);
 
         if (hasAny) {
+            slot.className = 'era-slot completed';
             slot.innerHTML = `<img src="${coverImg}" style="background:white;" onerror="this.style.display='none'">
                               <div style="font-weight:bold;font-size:.8rem;">${era.title}</div>`;
         } else {
-            // Sin cartas: mismo formato pero imagen en gris y texto discreto
-            slot.innerHTML = `<div style="width:75px;height:75px;background:#e0e0e0;border-radius:8px;margin-bottom:5px;"></div>
+            slot.className = 'era-slot era-blank';
+            slot.innerHTML = `<div class="era-slot__img-blank"></div>
                               <div style="font-weight:bold;font-size:.8rem;color:#aaa;">${era.title}</div>`;
         }
 
@@ -663,13 +664,16 @@ function _collectionData(collectionId) {
 // ── Toggle de subtiras ────────────────────────────────────────
 
 function albumToggleBranch(branchId, parentCollectionId) {
-    // Determinar si es rama primaria o sub-rama
+    const panel       = document.getElementById('album-panel');
     const isSubBranch = parentCollectionId && ERA_ORDER.indexOf(parentCollectionId) === -1;
+    let   closing     = false;
 
     if (isSubBranch) {
-        album.openSubBranchId = album.openSubBranchId === branchId ? null : branchId;
+        closing = album.openSubBranchId === branchId;
+        album.openSubBranchId = closing ? null : branchId;
     } else {
-        if (album.openBranchId === branchId) {
+        closing = album.openBranchId === branchId;
+        if (closing) {
             album.openBranchId    = null;
             album.openSubBranchId = null;
         } else {
@@ -677,7 +681,18 @@ function albumToggleBranch(branchId, parentCollectionId) {
             album.openSubBranchId = null;
         }
     }
+
     _albumRenderPanel();
+
+    // Al abrir → scroll hacia abajo para ver la nueva tira
+    // Al cerrar → scroll suave hacia arriba para ver lo que queda
+    requestAnimationFrame(() => {
+        if (closing) {
+            panel.scrollTo({ top: Math.max(0, panel.scrollTop - 300), behavior: 'smooth' });
+        } else {
+            panel.scrollTo({ top: panel.scrollHeight, behavior: 'smooth' });
+        }
+    });
 }
 
 // ── Click en una carta ────────────────────────────────────────
@@ -753,14 +768,66 @@ function _renderTheatreAlbum() {
     const val      = vals[idx];
     const unlocked = isCardUnlocked(collectionId, val);
     const d        = data[val];
+    const scroll   = document.querySelector('#theatre-overlay .card-content-scroll');
 
-    document.getElementById('theatre-img').src           = unlocked ? d.img : '';
-    document.getElementById('theatre-title').textContent = unlocked ? d.n   : '???';
-    document.getElementById('theatre-desc').textContent  = unlocked ? (d.d   ?? '') : '';
-    document.getElementById('theatre-ext').textContent   = unlocked ? (d.ext ?? '') : '';
-    const adapDiv = document.getElementById('theatre-adaptation');
-    adapDiv.style.display = (unlocked && d.adap) ? 'block' : 'none';
-    if (unlocked && d.adap) adapDiv.textContent = d.adap;
+    if (unlocked) {
+        // Carta conseguida — formato normal
+        const img = document.getElementById('theatre-img');
+        img.style.display = 'block';
+        img.style.background = 'white';
+        img.src = d.img;
+
+        const blankDiv = document.getElementById('theatre-img-blank');
+        if (blankDiv) blankDiv.remove();
+
+        document.getElementById('theatre-title').textContent = d.n;
+        document.getElementById('theatre-title').className   = '';
+        document.getElementById('theatre-desc').textContent  = d.d  ?? '';
+        document.getElementById('theatre-desc').className    = 'card-subtitle';
+        document.getElementById('theatre-ext').textContent   = d.ext ?? '';
+        document.getElementById('theatre-ext').className     = 'card-scientific-text';
+
+        const notFound = document.getElementById('theatre-not-found');
+        if (notFound) notFound.remove();
+
+        const adapDiv = document.getElementById('theatre-adaptation');
+        adapDiv.style.display = d.adap ? 'block' : 'none';
+        if (d.adap) adapDiv.textContent = d.adap;
+    } else {
+        // Carta no conseguida — formato en blanco
+        const img = document.getElementById('theatre-img');
+        img.style.display = 'none';
+        img.src = '';
+
+        // Insertar/reutilizar rectángulo gris
+        let blankDiv = document.getElementById('theatre-img-blank');
+        if (!blankDiv) {
+            blankDiv = document.createElement('div');
+            blankDiv.id        = 'theatre-img-blank';
+            blankDiv.className = 'theatre-img-blank';
+            img.parentNode.insertBefore(blankDiv, img.nextSibling);
+        }
+
+        document.getElementById('theatre-title').textContent = d.n;
+        document.getElementById('theatre-title').className   = 'theatre-title--blank';
+        document.getElementById('theatre-desc').textContent  = '';
+        document.getElementById('theatre-desc').className    = '';
+        document.getElementById('theatre-ext').textContent   = '';
+        document.getElementById('theatre-ext').className     = '';
+        document.getElementById('theatre-adaptation').style.display = 'none';
+
+        // Texto "no conseguida"
+        let notFound = document.getElementById('theatre-not-found');
+        if (!notFound) {
+            notFound = document.createElement('p');
+            notFound.id        = 'theatre-not-found';
+            notFound.className = 'theatre-not-found';
+            notFound.textContent = 'Carta no conseguida aún';
+            blankDiv.insertAdjacentElement('afterend', notFound);
+        }
+    }
+
+    if (scroll) scroll.scrollTop = 0;
 
     // Nav buttons
     document.getElementById('theatre-nav-left').style.visibility  = idx > 0              ? 'visible' : 'hidden';

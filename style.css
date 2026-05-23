@@ -73,12 +73,23 @@ body {
     color: #555; font-size: 1.8rem; font-weight: bold; transition: transform 0.2s;
 }
 body.era-vida .era-slot, body.era-homo .era-slot { border-color: rgba(0,0,0,0.2); color: #aaa; }
+/* Toda era clicable tiene fondo blanco */
 .era-slot.completed {
     background: white; border: none; color: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     animation: dropIn 0.5s ease; font-size: 0.9rem; cursor: pointer; text-align: center;
 }
 .era-slot.completed:hover { transform: scale(1.05); border: 2px solid var(--title-color); }
-.era-slot.completed img { width: 75px; height: 75px; object-fit: contain; margin-bottom: 5px; }
+.era-slot.completed img { width: 75px; height: 75px; object-fit: contain; margin-bottom: 5px; background: white; }
+/* Era sin cartas: misma tarjeta blanca, rectángulo gris */
+.era-slot.era-blank {
+    background: white; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: dropIn 0.5s ease; font-size: 0.9rem; cursor: pointer; text-align: center;
+}
+.era-slot.era-blank:hover { transform: scale(1.05); border: 2px solid var(--title-color); }
+.era-slot__img-blank {
+    width: 75px; height: 75px; background: #e8e8e8; border-radius: 8px;
+    margin: 0 auto 5px;
+}
 
 /* 2. ÁREA CENTRAL */
 #game-area { flex: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
@@ -152,7 +163,17 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
 .card-content-scroll::-webkit-scrollbar-thumb { background: #dcdcdc; border-radius: 10px; }
 .card-content-scroll::-webkit-scrollbar-thumb:hover { background: #bbb; }
 
-.theatre-card img { width: 325px; height: 325px; object-fit: contain; margin-bottom: 15px; margin-top: 10px;}
+.theatre-card img { width: 325px; height: 325px; object-fit: contain; margin-bottom: 15px; margin-top: 10px; background: white; }
+/* Placeholder cuando la carta no está conseguida */
+.theatre-img-blank {
+    width: 325px; height: 325px; background: #f0f0f0; border-radius: 16px;
+    margin: 10px auto 15px; flex-shrink: 0;
+}
+.theatre-title--blank  { color: #bbb !important; }
+.theatre-text--blank   { color: #ccc !important; }
+.theatre-not-found {
+    font-size: .9rem; color: #ccc; font-style: italic; margin-top: 8px;
+}
 .card-subtitle { font-size: 1.3rem; color: #444; font-weight: 600; margin-bottom: 15px; }
 .card-scientific-text { color: #3498db; font-size: 1.05rem; line-height: 1.5; text-align: justify; border-top: 1px solid #eee; padding-top: 15px; margin-top: 15px; }
 .card-adaptation-text { color: #5dade2; font-size: 1.05rem; line-height: 1.4; text-align: justify; font-style: italic; border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px; }
