@@ -293,11 +293,9 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
     overflow-y: auto;
     overflow-x: hidden;
     padding: 30px 40px 50px;
-    flex-direction: column;
-    gap: 28px;
-    /* NO align-items:flex-start — dejar que cada bloque ocupe el ancho completo */
+    box-sizing: border-box;
 }
-#album-panel.active { display: flex; }
+#album-panel.active { display: block; }
 #album-panel::-webkit-scrollbar { width: 6px; }
 #album-panel::-webkit-scrollbar-track { background: transparent; }
 #album-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
@@ -312,10 +310,9 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
 }
 
 .album-section {
-    display: flex;
-    flex-direction: column;
+    display: block;
     width: 100%;
-    flex-shrink: 0;
+    margin-bottom: 28px;
 }
 
 .album-strip-label {
