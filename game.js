@@ -520,11 +520,12 @@ function albumRebuild() {
         slot.onclick   = () => albumToggleEra(i);
 
         if (hasAny) {
-            slot.innerHTML = `<img src="${coverImg}" onerror="this.style.display='none'">
+            slot.innerHTML = `<img src="${coverImg}" style="background:white;" onerror="this.style.display='none'">
                               <div style="font-weight:bold;font-size:.8rem;">${era.title}</div>`;
         } else {
-            slot.innerHTML = `<div style="font-size:1.5rem;opacity:.3;">?</div>
-                              <div style="font-weight:bold;font-size:.8rem;opacity:.4;">${era.title}</div>`;
+            // Sin cartas: mismo formato pero imagen en gris y texto discreto
+            slot.innerHTML = `<div style="width:75px;height:75px;background:#e0e0e0;border-radius:8px;margin-bottom:5px;"></div>
+                              <div style="font-weight:bold;font-size:.8rem;color:#aaa;">${era.title}</div>`;
         }
 
         col.appendChild(slot);
@@ -630,8 +631,15 @@ function _albumCardHTML(collectionId, val, d) {
 }
 
 function _albumCardInner(collectionId, val, d, unlocked) {
-    if (!unlocked) return `<div class="album-card__blank">?</div>`;
-    return `<img src="${d.img}" onerror="this.style.display='none'">
+    if (!unlocked) {
+        return `<div class="album-card__img-blank"></div>
+                <div class="album-card__name" style="color:#ccc;">${d.n}</div>
+                <div class="album-card__not-found">no conseguida</div>`;
+    }
+    // La imagen arranca con fondo blanco explícito para evitar residuos durante la carga
+    return `<img src="${d.img}"
+                 style="background:white;"
+                 onerror="this.style.display='none'">
             <div class="album-card__name">${d.n}</div>`;
 }
 
