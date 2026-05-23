@@ -686,8 +686,11 @@ function albumToggleBranch(branchId, parentCollectionId) {
         // Nueva: truncar desde el padre hacia adelante y añadir esta
         const parentIdx = album.openBranches.indexOf(parentCollectionId);
         if (parentIdx !== -1) {
-            // Cerrar cualquier rama que colgaba del mismo padre
+            // El padre es una rama abierta: cerrar todo lo que colgaba de él
             album.openBranches = album.openBranches.slice(0, parentIdx + 1);
+        } else {
+            // El padre es una era (o rama no visible): limpiar todo el stack
+            album.openBranches = [];
         }
         album.openBranches.push(branchId);
     }
