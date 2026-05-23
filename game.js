@@ -346,15 +346,16 @@ const activeState = () => session.branch ?? session.main;
 // ═══════════════════════════════════════════════════════════════
 
 const uiState = {
-    theatreOpen      : false,
-    pendingEndEra    : false,
-    pendingBranchEnd : false,
-    catalogIdx       : 0,
-    catalogSnap      : null,   // {discovered, data, branchId} snapshot activo
-    catalogIsBranch  : false,
-    catalogStack     : [],     // pila de snapshots para navegar rama→sub-rama (atrás)
-    eraReviewSnap    : null,   // snapshot de la era que se está revisando (o null)
-    eraOverlayWasOpen: false,  // true si el catálogo se abrió desde era-overlay en revisión
+    theatreOpen          : false,
+    pendingEndEra        : false,
+    pendingBranchEnd     : false,
+    catalogIdx           : 0,
+    catalogSnap          : null,   // {discovered, data, branchId} snapshot activo
+    catalogIsBranch      : false,
+    catalogStack         : [],     // pila de snapshots para navegar rama→sub-rama (atrás)
+    eraReviewSnap        : null,   // snapshot de la era que se está revisando (o null)
+    eraOverlayWasOpen    : false,  // true si el catálogo se abrió desde era-overlay en revisión
+    pendingOverlayRestore: null,   // id del overlay a restaurar al cerrar el catálogo (o null)
 };
 
 
@@ -713,15 +714,41 @@ function _buildSequenceHTML(discovered, data, portals, { overlayToClose, cardCli
         const targets = portals[val] ?? [];
 
         const gatewayHTML = targets.map(targetId => {
-            const inv = INVESTIGATIONS[targetId];
-            return `<div class="subgame-gateway-above"
-                         style="border-color:${inv.color};color:${inv.color};"
-                         onclick="event.stopPropagation();
-                                  document.getElementById('${overlayToClose}').classList.remove('active');
-                                  ${branchCall(targetId)};">
-                        <span style="color:white;">INVESTIGAR</span>
-                        <span>${inv.panelTitle}</span>
-                    </div>`;
+            const inv       = INVESTIGATIONS[targetId];
+            const completed = hasCompletedBranch(targetId);
+
+            if (completed) {
+                // Rama ya superada: dos botones — ver galería y rejugar
+                return `<div class="subgame-gateway-above"
+                             style="border-color:${inv.color};color:${inv.color};gap:4px;">
+                            <span style="font-weight:bold;">${inv.panelTitle}</span>
+                            <div style="display:flex;gap:6px;margin-top:2px;">
+                                <div style="flex:1;padding:3px 6px;border:1px solid ${inv.color};border-radius:6px;
+                                            font-size:0.7rem;cursor:pointer;color:white;"
+                                     onclick="event.stopPropagation();
+                                              _openBranchCatalogFromOverlay('${overlayToClose}','${targetId}');">
+                                    📖 Galería
+                                </div>
+                                <div style="flex:1;padding:3px 6px;border:1px solid ${inv.color};border-radius:6px;
+                                            font-size:0.7rem;cursor:pointer;color:white;"
+                                     onclick="event.stopPropagation();
+                                              document.getElementById('${overlayToClose}').classList.remove('active');
+                                              ${branchCall(targetId)};">
+                                    🔁 Jugar
+                                </div>
+                            </div>
+                        </div>`;
+            } else {
+                // Rama pendiente: botón de investigar (arranca el juego)
+                return `<div class="subgame-gateway-above"
+                             style="border-color:${inv.color};color:${inv.color};"
+                             onclick="event.stopPropagation();
+                                      document.getElementById('${overlayToClose}').classList.remove('active');
+                                      ${branchCall(targetId)};">
+                            <span style="color:white;">INVESTIGAR</span>
+                            <span>${inv.panelTitle}</span>
+                        </div>`;
+            }
         }).join('');
 
         return `<div class="sequence-card-wrapper">
@@ -800,10 +827,13 @@ function closeCatalog() {
     document.getElementById('catalog-overlay').classList.remove('active');
     uiState.catalogSnap  = null;
     uiState.catalogStack = [];
-    // Si el catálogo se abrió desde la pantalla de victoria en revisión, restaurarla
+    // Restaurar el overlay de origen si procede
     if (uiState.eraOverlayWasOpen) {
         uiState.eraOverlayWasOpen = false;
         document.getElementById('era-overlay').classList.add('active');
+    } else if (uiState.pendingOverlayRestore) {
+        document.getElementById(uiState.pendingOverlayRestore).classList.add('active');
+        uiState.pendingOverlayRestore = null;
     }
 }
 
@@ -857,10 +887,11 @@ function _renderCatalog() {
     // Portales a ramas superadas asociadas a esta carta
     _renderCatalogBranchPortals(src.branchId ?? null, val);
 
-    // Botón "atrás" si hay pila de navegación
+    // Botón "atrás" si hay pila de navegación o overlay de origen pendiente
     const backBtn = document.getElementById('cat-btn-back');
     if (backBtn) backBtn.style.display =
-        (uiState.catalogStack.length > 0 || uiState.eraOverlayWasOpen) ? 'block' : 'none';
+        (uiState.catalogStack.length > 0 || uiState.eraOverlayWasOpen || uiState.pendingOverlayRestore)
+            ? 'block' : 'none';
 }
 
 // Muestra (o limpia) los botones de portal a ramas superadas desde el catálogo
@@ -915,18 +946,43 @@ function _openBranchCatalog(branchId) {
     _renderCatalog();
 }
 
-// Vuelve al catálogo anterior (desapila), o al era-overlay si no hay pila
+// Versión llamada desde los botones "VER GALERÍA" dentro de los overlays de fin de era/rama.
+// Oculta el overlay de origen y abre el catálogo con el botón "atrás" activo.
+function _openBranchCatalogFromOverlay(overlayToClose, branchId) {
+    const inv  = INVESTIGATIONS[branchId];
+    const disc = session.completedBranches[branchId]
+        ?? Object.keys(inv.data).map(Number).sort((a, b) => a - b);
+
+    document.getElementById(overlayToClose).classList.remove('active');
+
+    // Guardar el overlay de origen para restaurarlo al cerrar el catálogo
+    if (overlayToClose === 'era-overlay') {
+        uiState.eraOverlayWasOpen     = true;
+        uiState.pendingOverlayRestore = null;   // era-overlay tiene su propio mecanismo
+    } else {
+        uiState.pendingOverlayRestore = overlayToClose;
+    }
+
+    uiState.catalogSnap     = { discovered: disc, data: inv.data, branchId };
+    uiState.catalogIsBranch = false;
+    uiState.catalogStack    = [];
+    uiState.catalogIdx      = 0;
+    _renderCatalog();
+    document.getElementById('catalog-overlay').classList.add('active');
+}
+
+// Vuelve al catálogo anterior (desapila), o al overlay de origen si no hay pila
 function _catalogGoBack() {
-    if (!uiState.catalogStack.length) {
-        // Pila vacía pero venimos del era-overlay de revisión → cerrarlo equivale a volver
-        if (uiState.eraOverlayWasOpen) closeCatalog();
+    if (uiState.catalogStack.length) {
+        const prev = uiState.catalogStack.pop();
+        uiState.catalogSnap     = prev.snap;
+        uiState.catalogIdx      = prev.idx;
+        uiState.catalogIsBranch = prev.isBranch;
+        _renderCatalog();
         return;
     }
-    const prev = uiState.catalogStack.pop();
-    uiState.catalogSnap     = prev.snap;
-    uiState.catalogIdx      = prev.idx;
-    uiState.catalogIsBranch = prev.isBranch;
-    _renderCatalog();
+    // Pila vacía: cerrar catálogo y restaurar overlay de origen
+    closeCatalog();
 }
 
 
