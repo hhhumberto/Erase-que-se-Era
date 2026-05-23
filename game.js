@@ -572,38 +572,60 @@ function albumToggleEra(idx) {
     _albumRenderPanel();
 }
 
+function _albumSectionHTML(collectionId, label, color, data, vals) {
+    return `<div class="album-section" data-collection-id="${collectionId}">
+        <div class="album-strip-label" style="color:${color};">${label}</div>
+        <div class="album-strip">
+            ${vals.slice(0, 9).map(v => _albumCardHTML(collectionId, v, data[v])).join('')}
+        </div>
+    </div>`;
+}
+
 function _albumRenderPanel() {
     const panel  = document.getElementById('album-panel');
     const eraKey = ERA_ORDER[album.openEraIdx];
     const era    = ERAS[eraKey];
     const vals   = Object.keys(era.data).map(Number).sort((a,b) => a-b);
 
-    let html = `<div class="album-section">
+    // Reconstruir todo desde cero como bloques independientes
+    panel.innerHTML = '';
+
+    // Sección de era
+    const eraSection = document.createElement('div');
+    eraSection.className = 'album-section';
+    eraSection.setAttribute('data-collection-id', eraKey);
+    eraSection.innerHTML = `
         <div class="album-strip-label" style="color:var(--title-color);">${era.title}</div>
         <div class="album-strip">
             ${vals.slice(0, 9).map(v => _albumCardHTML(eraKey, v, era.data[v])).join('')}
-        </div>
-    </div>`;
+        </div>`;
+    panel.appendChild(eraSection);
 
+    // Sección de rama
     if (album.openBranchId) {
-        html += _albumBranchStripHTML(album.openBranchId);
+        const branchSection = _albumMakeBranchSection(album.openBranchId);
+        panel.appendChild(branchSection);
+
+        // Sección de sub-rama
         if (album.openSubBranchId) {
-            html += _albumBranchStripHTML(album.openSubBranchId);
+            const subSection = _albumMakeBranchSection(album.openSubBranchId);
+            panel.appendChild(subSection);
         }
     }
-
-    panel.innerHTML = html;
 }
 
-function _albumBranchStripHTML(branchId) {
-    const inv  = INVESTIGATIONS[branchId];
-    const vals = Object.keys(inv.data).map(Number).sort((a,b) => a-b);
-    return `<div class="album-section">
+function _albumMakeBranchSection(branchId) {
+    const inv     = INVESTIGATIONS[branchId];
+    const vals    = Object.keys(inv.data).map(Number).sort((a,b) => a-b);
+    const section = document.createElement('div');
+    section.className = 'album-section';
+    section.setAttribute('data-collection-id', branchId);
+    section.innerHTML = `
         <div class="album-strip-label" style="color:${inv.color};">↳ ${inv.title}</div>
         <div class="album-strip">
             ${vals.slice(0, 9).map(v => _albumCardHTML(branchId, v, inv.data[v])).join('')}
-        </div>
-    </div>`;
+        </div>`;
+    return section;
 }
 
 function _albumCardHTML(collectionId, val, d) {
@@ -686,16 +708,15 @@ function albumToggleBranch(branchId, parentCollectionId) {
 
     _albumRenderPanel();
 
-    // Doble RAF: el primero deja que el DOM se actualice,
-    // el segundo espera a que el navegador haya recalculado el layout
-    // (scrollHeight correcto) antes de hacer el scroll.
-    requestAnimationFrame(() => requestAnimationFrame(() => {
+    // Scroll: leer scrollHeight DESPUÉS de que appendChild haya actualizado el layout.
+    // setTimeout(0) garantiza que el navegador ha procesado el nuevo DOM.
+    setTimeout(() => {
         if (closing) {
-            panel.scrollTo({ top: Math.max(0, panel.scrollTop - 300), behavior: 'smooth' });
+            panel.scrollTo({ top: Math.max(0, panel.scrollHeight - panel.clientHeight - 100), behavior: 'smooth' });
         } else {
             panel.scrollTo({ top: panel.scrollHeight, behavior: 'smooth' });
         }
-    }));
+    }, 0);
 }
 
 // ── Click en una carta ────────────────────────────────────────
