@@ -930,7 +930,7 @@ document.addEventListener('keydown', e => {
 
 
 // ═══════════════════════════════════════════════════════════════
-// PANEL DE DESARROLLO
+// UTILIDADES INTERNAS
 // ═══════════════════════════════════════════════════════════════
 
 function _resolveBranchOrigin(branchId) {
@@ -953,52 +953,3 @@ function _resolveBranchOrigin(branchId) {
     return { eraIdx: 0, parentBranchIds: [] };
 }
 
-function startSubGameDirectly() {
-    const sel = document.getElementById('dev-subgame-select').value;
-    document.querySelectorAll('.active').forEach(el => el.classList.remove('active'));
-    document.getElementById('era-options-overlay').style.display = 'none';
-    document.getElementById('start-screen').style.display        = 'none';
-    albumClose();
-    session.branch = null;
-
-    const eraIdx = ERA_ORDER.indexOf(sel);
-    if (eraIdx !== -1) { _bootEra(eraIdx); return; }
-
-    if (INVESTIGATIONS[sel]) {
-        const { eraIdx: ei, parentBranchIds } = _resolveBranchOrigin(sel);
-        parentBranchIds.forEach(id => {
-            Object.keys(INVESTIGATIONS[id].data).map(Number).forEach(v => unlockCard(id, v));
-        });
-        _bootEra(ei);
-        openBranch(sel);
-        return;
-    }
-
-    if (sel.startsWith('end-sub-')) {
-        const type = sel.replace('end-sub-', '');
-        const inv  = INVESTIGATIONS[type];
-        if (!inv) return;
-        const { eraIdx: ei, parentBranchIds } = _resolveBranchOrigin(type);
-        parentBranchIds.forEach(id => {
-            Object.keys(INVESTIGATIONS[id].data).map(Number).forEach(v => unlockCard(id, v));
-        });
-        Object.keys(inv.data).map(Number).forEach(v => unlockCard(type, v));
-        _bootEra(ei);
-        openBranch(type);
-        session.branch.discovered = Object.keys(inv.data).map(Number).sort((a,b) => a-b);
-        session.branch.updateProgressBar();
-        setTimeout(showBranchComplete, 150);
-        return;
-    }
-
-    if (sel.startsWith('end-')) {
-        const key = sel.replace('end-', '');
-        const idx = ERA_ORDER.indexOf(key);
-        if (idx === -1) return;
-        Object.keys(ERAS[key].data).map(Number).forEach(v => unlockCard(key, v));
-        _bootEra(idx);
-        session.main.discovered = Object.keys(ERAS[key].data).map(Number).sort((a,b) => a-b);
-        session.main.updateProgressBar();
-        onEraWin(idx);
-    }
-}

@@ -5,7 +5,6 @@
    Estructura prevista a futuro:
    ─ ERAS              → historia troncal (astronomica → vida → homo → ...)
    ─ INVESTIGATIONS    → ramas primarias colgadas de nodos del tronco
-     └─ cada rama puede apuntar a sub-ramas (campo "branches")
 
    Por ahora se mantiene fiel al original para que el motor
    no necesite cambios en este paso.
@@ -69,8 +68,6 @@ const ERAS = {
 //   panelTitle: subtítulo del panel lateral
 //   color    : color temático (CSS hex)
 //   completeDesc: texto al finalizar la investigación
-//   branches : [] → sub-ramas que se desbloquean al completar
-//              (campo de futuro; vacío por ahora)
 //   data     : fichas 2→512 igual que en ERAS
 // ─────────────────────────────────────────────
 
@@ -81,8 +78,7 @@ const INVESTIGATIONS = {
         title: "INVESTIGACIÓN: PIONEROS",
         panelTitle: "MICROCOSMOS",
         color: '#e84393',
-        completeDesc: "Has alcanzado a los Coanoflagelados y completado la ramificación.",
-        branches: ['flora'], 
+        completeDesc: "Has alcanzado a los Coanoflagelados y completado la ramificación.", 
         data: {
             2:   { n: 'LUCA',             img: 'img/2_luca.png',             d: 'El último ancestro común universal.',          adap: 'Organismo procariota primitivo adaptado a las fuentes hidrotermales oceánicas ricas en minerales.' },
             4:   { n: 'Cianobacterias',   img: 'img/4_cloroplastos.png',     d: 'Los motores de la fotosíntesis oxigénica.',    adap: 'Bacterias pioneras libres que provocaron la Gran Oxidación y revolucionaron la atmósfera mucho antes de convertirse en orgánulos vegetales.' },
@@ -102,7 +98,6 @@ const INVESTIGATIONS = {
         panelTitle: "PRIMATES",
         color: '#2ecc71',
         completeDesc: "Has alcanzado al Chimpancé y completado la ramificación.",
-        branches: [],
         data: {
             2:   { n: 'Lémur',         img: 'img/2_lemur.png',        d: 'Primates de Madagascar.',         adap: 'Desarrollaron garras de aseo y una "peineta dental" inferior, adaptaciones clave para la higiene y el forrajeo en los densos bosques de Madagascar.' },
             4:   { n: 'Tarsero',       img: 'img/4_tarsero.png',      d: 'Pequeños de ojos enormes.',       adap: 'Sus ojos, más grandes que su cerebro, son adaptaciones nocturnas perfectas. Sus huesos tarsales alargados permiten saltos explosivos para cazar insectos.' },
@@ -121,8 +116,7 @@ const INVESTIGATIONS = {
         title: "INVESTIGACIÓN: ANFIBIOS",
         panelTitle: "ANFIBIOS",
         color: '#00cec9',
-        completeDesc: "Has alcanzado a la Rana y completado la ramificación.",
-        branches: ['ranitas'],   // sub-rama que se desbloquea en val 512
+        completeDesc: "Has alcanzado a la Rana y completado la ramificación.",   // sub-rama que se desbloquea en val 512
         data: {
             2:   { n: 'Proteo',              img: 'img/2_proteo.png',            d: 'Cazador ciego de las cavernas (Proteus anguinus).',              adap: 'Pérdida de visión y pigmentación. Branquias externas permanentes (neotenia) para vivir siempre bajo el agua en la oscuridad total.' },
             4:   { n: 'Cecilia',             img: 'img/4_cecilia.png',           d: 'Anfibio sin patas que vive bajo tierra (Caecilia thomsoni).',    adap: 'Cuerpo fusiforme y cráneo osificado para excavar. Sentido del olfato y tacto hiperdesarrollados para compensar su ceguera.' },
@@ -142,7 +136,6 @@ const INVESTIGATIONS = {
         panelTitle: "RANAS EXTRAORDINARIAS",
         color: '#0984e3',
         completeDesc: "Has alcanzado a la Rana Dardo y completado la ramificación.",
-        branches: ['ranitas_dardo'],
         data: {
             2:   { n: 'Rana de Darwin', img: 'img/2_rana_darwin.png',  d: 'Rhinoderma darwinii.',         adap: 'El macho incuba los renacuajos dentro de su saco vocal hasta que se desarrollan completamente.' },
             4:   { n: 'Rana Cornuda',   img: 'img/4_rana_cornuda.png', d: 'Ceratophrys ornata, el escuerzo.', adap: 'Boca enorme y apetito voraz; se camufla en la hojarasca esperando emboscar a sus presas.' },
@@ -162,7 +155,6 @@ const INVESTIGATIONS = {
         panelTitle: "EVOLUCIÓN MULTICELULAR",
         color: '#9b59b6',
         completeDesc: "Has alcanzado a los Equinodermos y completado la ramificación.",
-        branches: [],
         data: {
             2:   { n: 'Placozoos',    img: 'img/2_placozoo.png',    d: 'Trichoplax.',             adap: 'El animal multicelular más simple conocido, compuesto por muy pocos tipos celulares.' },
             4:   { n: 'Ctenóforas',   img: 'img/4_ctenoforo.png',   d: 'Medusas peine.',          adap: 'Depredadores marinos primitivos que nadan rítmicamente mediante hileras de cilios.' },
@@ -182,7 +174,6 @@ const INVESTIGATIONS = {
         panelTitle: "FLORA TERRESTRE",
         color: '#27ae60', // Un tono verde bosque
         completeDesc: "Has formado un ecosistema completo y completado la ramificación vegetal.",
-        branches: ['suelo_a_bosque'],
         data: {
             2:   { n: 'Algas Unicelulares', img: 'img/2_algas.png',           d: 'El origen de la fotosíntesis eucariota.',            adap: 'Células flotantes que desarrollaron cloroplastos para aprovechar la energía solar en los océanos primigenios.' },
             4:   { n: 'Algas Verdes',       img: 'img/4_algas_verdes.png',    d: 'Agrupación y multicelularidad.',                     adap: 'Clorofitas que comenzaron a formar filamentos y colonias en aguas someras, precursoras directas de las plantas terrestres.' },
@@ -201,7 +192,6 @@ const INVESTIGATIONS = {
         panelTitle: "SUCESIÓN ECOLÓGICA",
         color: '#795548', // Marrón tierra
         completeDesc: "Has alcanzado el estado de Bosque Clímax, el equilibrio perfecto del ecosistema.",
-        branches: [],
         data: {
             2:   { n: 'Roca Desnuda',       img: 'img/2_suelo.png',   d: 'Mineral expuesto sin vida.',              adap: 'Entorno de estrés máximo donde solo los organismos más resistentes pueden iniciar la colonización física.' },
             4:   { n: 'Líquenes',           img: 'img/4_suelo.png',   d: 'Los pioneros químicos.',                  adap: 'Simbiosis que secreta ácidos para meteorizar la roca, liberando minerales y creando las primeras trazas orgánicas.' },
@@ -220,7 +210,6 @@ const INVESTIGATIONS = {
         panelTitle: "DENDROBATIDAE",
         color: '#7fff00', // Verde neón/lima
         completeDesc: "Has descubierto los morphos más raros y completado la ramificación de las Ranitas Dardo.",
-        branches: [],
         data: {
             2:   { n: 'Phyllobates vittatus', img: 'img/2_dardo.png',   d: 'Rana de franjas de oro.',                adap: 'Desarrolló franjas aposemáticas brillantes para advertir de sus alcaloides en el suelo de Costa Rica.' },
             4:   { n: 'D. leucomelas (Bolívar)', img: 'img/4_dardo.png',   d: 'Morpho de bandas anchas.',             adap: 'Adaptación cromática extrema para maximizar el contraste visual en la penumbra del sotobosque.' },
@@ -234,6 +223,24 @@ const INVESTIGATIONS = {
         }
     },
 
+    nace_un_planeta: {
+        id: 'nace_un_planeta',
+        title: "INVESTIGACIÓN: NACE UN PLANETA",
+        panelTitle: "FORMACIÓN TERRESTRE",
+        color: '#ff9f43',
+        completeDesc: "Has presenciado la formación de la Tierra y la deriva de sus continentes.",
+        data: {
+            2:   { n: 'Polvo y hielo',       img: 'img/2_planeta.png',   d: 'Nebulosa solar.',          adap: 'Agregación inicial de partículas de polvo y hielos volátiles en el disco protoplanetario.' },
+            4:   { n: 'Planetesimales',      img: 'img/4_planeta.png',   d: 'Embriones planetarios.',   adap: 'Colisiones a baja velocidad que comienzan a formar cuerpos rocosos de gran tamaño.' },
+            8:   { n: 'Océanos de magma',    img: 'img/8_planeta.png',   d: 'Tierra incandescente.',    adap: 'La energía de las colisiones mantiene la superficie fundida, permitiendo la diferenciación del núcleo.' },
+            16:  { n: 'Impacto con Theia',   img: 'img/16_planeta.png',  d: 'La gran colisión.',        adap: 'El impacto de un protoplaneta del tamaño de Marte que reconfigura la estructura terrestre.' },
+            32:  { n: 'Formación de la Luna',img: 'img/32_planeta.png',  d: 'El satélite nace.',        adap: 'Los escombros del impacto de Theia orbitan y se aglutinan para formar nuestra Luna.' },
+            64:  { n: 'Enfriamiento',        img: 'img/64_planeta.png',  d: 'Corteza primitiva.',      adap: 'La emisión de calor al espacio permite la formación de una corteza basáltica estable.' },
+            128: { n: 'Bombardeo asteroides',img: 'img/128_planeta.png', d: 'Aporte de agua.',          adap: 'El Bombardeo Intenso Tardío trae los compuestos volátiles necesarios para los futuros océanos.' },
+            256: { n: 'Pangea',              img: 'img/256_planeta.png', d: 'Primer supercontinente.',  adap: 'La tectónica de placas une las masas continentales en un único bloque colosal.' },
+            512: { n: 'Continentes actuales',img: 'img/512_planeta.png', d: 'Deriva continental.',     adap: 'La fragmentación de Pangea y la configuración actual de la geografía terrestre.' }
+        }
+    },
 
 };
 
@@ -251,14 +258,18 @@ const INVESTIGATIONS = {
 // ─────────────────────────────────────────────
 
 const PORTALS = {
-    // Portales en la pantalla de fin de ERA VIDA
+    // Portales en las ERAs
+    astronomica: {
+        128: ['nace_un_planeta'] // <--- Aquí se activa al llegar a Tierra Primitiva
+    },
+
     vida: {
         2:   ['pioneros'],
         4:   ['pluricelulares'],
         32:  ['anfibios'],
         512: ['monitos']
     },
-    // Portales en la pantalla de fin de una INVESTIGACIÓN
+    // Portales en las INVESTIGACIÓNes
     __subgame__: {
         anfibios: {
             512: ['ranitas']
