@@ -623,9 +623,10 @@ function _albumCardHTML(collectionId, val, d) {
     // ¿Tiene portales a ramas desde esta carta?
     const portals      = _portalsForCard(collectionId, val);
     const subindexHTML = portals.map(targetId => {
-        const inv = INVESTIGATIONS[targetId];
-        return `<div class="album-subindex" 
-                     style="border-color:${inv.color};color:${inv.color};"
+        const inv    = INVESTIGATIONS[targetId];
+        const active = album.openBranches.includes(targetId) ? ' album-subindex--active' : '';
+        return `<div class="album-subindex${active}" 
+                     style="border-color:${inv.color};"
                      onclick="event.stopPropagation(); albumToggleBranch('${targetId}', '${collectionId}');"
                      title="${inv.title}">
                     <span>${inv.panelTitle}</span>
@@ -686,11 +687,8 @@ function albumToggleBranch(branchId, parentCollectionId) {
         // Nueva: truncar desde el padre hacia adelante y añadir esta
         const parentIdx = album.openBranches.indexOf(parentCollectionId);
         if (parentIdx !== -1) {
-            // El padre es una rama abierta: cerrar todo lo que colgaba de él
+            // Cerrar cualquier rama que colgaba del mismo padre
             album.openBranches = album.openBranches.slice(0, parentIdx + 1);
-        } else {
-            // El padre es una era (o rama no visible): limpiar todo el stack
-            album.openBranches = [];
         }
         album.openBranches.push(branchId);
     }

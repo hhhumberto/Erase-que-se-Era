@@ -406,7 +406,7 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
     font-style: italic;
 }
 
-/* Subíndice de rama */
+/* Subíndice de rama — lengüeta de mapa */
 .album-subindexes {
     display: flex;
     gap: 4px;
@@ -414,19 +414,31 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
     flex-wrap: wrap;
 }
 .album-subindex {
-    padding: 3px 8px;
-    border: 2px solid;
-    border-radius: 8px;
-    font-size: .65rem;
+    width: 110px;          /* mismo ancho que el cromo */
+    height: 35px;          /* un cuarto de 140px */
+    box-sizing: border-box;
+    background: white;
+    border-radius: 0 0 10px 10px;   /* recto arriba, redondeado abajo */
+    border: 2px solid transparent;
+    border-top: none;
+    font-size: .62rem;
     font-weight: bold;
+    color: #111;
     cursor: pointer;
-    transition: background .2s, transform .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    max-width: 100px;
+    padding: 0 6px;
+    transition: height .2s ease, box-shadow .2s;
+    overflow: hidden;
 }
 .album-subindex:hover {
-    background: rgba(255,255,255,0.1);
-    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+.album-subindex--active {
+    height: 70px;          /* el doble cuando está abierta */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
 
 /* ════════════════════════════════════════════
