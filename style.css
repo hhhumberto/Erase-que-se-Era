@@ -290,8 +290,10 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
     background: rgba(10, 10, 20, 0.97);
     backdrop-filter: blur(12px);
     z-index: 7500;
-    overflow-y: auto;
+    overflow-y: scroll;   /* scroll siempre visible, evita reflow al aparecer */
     overflow-x: hidden;
+    overscroll-behavior: contain;  /* aísla el scroll del body */
+    -webkit-overflow-scrolling: touch;  /* iOS momentum scroll */
     padding: 30px 40px 50px;
     box-sizing: border-box;
 }

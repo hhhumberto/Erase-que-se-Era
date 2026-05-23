@@ -711,12 +711,11 @@ function albumToggleBranch(branchId, parentCollectionId) {
     // Scroll: leer scrollHeight DESPUÉS de que appendChild haya actualizado el layout.
     // setTimeout(0) garantiza que el navegador ha procesado el nuevo DOM.
     setTimeout(() => {
-        if (closing) {
-            panel.scrollTo({ top: Math.max(0, panel.scrollHeight - panel.clientHeight - 100), behavior: 'smooth' });
-        } else {
-            panel.scrollTo({ top: panel.scrollHeight, behavior: 'smooth' });
-        }
-    }, 0);
+        const target = closing
+            ? Math.max(0, panel.scrollHeight - panel.clientHeight - 50)
+            : panel.scrollHeight;
+        panel.scrollTop = target;   // salto inmediato — si esto no funciona es CSS
+    }, 50);
 }
 
 // ── Click en una carta ────────────────────────────────────────
