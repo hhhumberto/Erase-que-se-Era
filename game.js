@@ -472,7 +472,9 @@ function closeSubgameComplete() {
 
 function showTheatre(val, state) {
     const d = state.data[val];
-    document.getElementById('theatre-img').src           = d.img;
+    const _ti = document.getElementById('theatre-img');
+    _ti.src = ''; _ti.style.background = 'white';
+    setTimeout(() => { _ti.src = d.img; }, 0);
     document.getElementById('theatre-title').textContent = d.n;
     document.getElementById('theatre-desc').textContent  = d.d  ?? '';
     document.getElementById('theatre-ext').textContent   = d.ext ?? '';
@@ -787,7 +789,8 @@ function _renderTheatreAlbum() {
         const img = document.getElementById('theatre-img');
         img.style.display = 'block';
         img.style.background = 'white';
-        img.src = d.img;
+        img.src = '';
+        setTimeout(() => { img.src = d.img; }, 0);
 
         const blankDiv = document.getElementById('theatre-img-blank');
         if (blankDiv) blankDiv.remove();
