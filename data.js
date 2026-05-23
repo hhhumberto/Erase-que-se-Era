@@ -229,8 +229,8 @@ const INVESTIGATIONS = {
             32:  { n: 'Ranitomeya summersi',  img: 'img/32_dardo.png',  d: 'Joya naranja y negra.',                adap: 'Cuerpo miniaturizado para habitar exclusivamente en las axilas de bromelias y pequeñas fitotelmata.' },
             64:  { n: 'Epipedobates tricolor',img: 'img/64_dardo.png',  d: 'Fuente de epibatidina.',                adap: 'Producción de alcaloides analgésicos únicos que han revolucionado el estudio de la medicina farmacológica.' },
             128: { n: 'Oophaga lehmanni',     img: 'img/128_dardo.png', d: 'Morpho de bandas rojas.',              adap: 'Especie en peligro crítico con una dieta altamente especializada que le permite secretar toxinas pumiliotoxinas.' },
-            256: { n: 'Ranitomeya variabilis', img: 'img/256_dardo.png', d: 'Rana de espalda salpicada.',          adap: 'Patrón de manchas irregulares que rompe la silueta del animal, dificultando su detección por aves depredadoras.' },
-            512: { n: 'D. leucomelas (El Cope)', img: 'img/512_dardo.png', d: 'Bumblebee de Panamá.',                adap: 'Aislada geográficamente, ha desarrollado una resistencia metabólica superior y un canto territorial distintivo.' }
+            256: { n: 'Oophaga histrionica',  img: 'img/256_dardo.png', d: 'Rana arlequín del Chocó.',             adap: 'Sintetiza histrionicotoxinas únicas en su tipo y presenta un polimorfismo extremo con innumerables variaciones de color y patrón.' },
+            512: { n: 'Oophaga pumilio',      img: 'img/512_dardo.png', d: 'Rana dardo fresa (Blue Jeans).',       adap: 'Lleva el cuidado parental al límite: la madre memoriza dónde escondió cada renacuajo en las bromelias y regresa a alimentarlos con huevos no fecundados.' }
         }
     },
 
