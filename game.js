@@ -710,12 +710,11 @@ function albumToggleBranch(branchId, parentCollectionId) {
 
     // Scroll: leer scrollHeight DESPUÉS de que appendChild haya actualizado el layout.
     // setTimeout(0) garantiza que el navegador ha procesado el nuevo DOM.
-    setTimeout(() => {
-        const target = closing
-            ? Math.max(0, panel.scrollHeight - panel.clientHeight - 50)
-            : panel.scrollHeight;
-        panel.scrollTop = target;   // salto inmediato — si esto no funciona es CSS
-    }, 50);
+    // Forzar reflow leyendo offsetHeight antes de leer scrollHeight.
+    // Esto garantiza que el navegador ha recalculado el layout completo
+    // (alturas flex, imágenes, etc.) antes de intentar el scroll.
+    void panel.offsetHeight;
+    panel.scrollTop = panel.scrollHeight;
 }
 
 // ── Click en una carta ────────────────────────────────────────
