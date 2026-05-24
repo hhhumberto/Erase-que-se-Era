@@ -315,6 +315,7 @@ const PORTALS = {
         nace_un_planeta: {
             256: ['piel_con_historia'] // <--- Se abre al llegar a Pangea en la rama Nace un Planeta
         }
+    }
 };
 
 // Orden canónico de las eras del tronco
