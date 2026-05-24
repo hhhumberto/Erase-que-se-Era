@@ -110,7 +110,7 @@ const INVESTIGATIONS = {
         title: "INVESTIGACIÓN: ANFIBIOS",
         panelTitle: "ANFIBIOS",
         color: '#00cec9',
-        completeDesc: "Has alcanzado a la Rana y completado la ramificación.",   // sub-rama que se desbloquea en val 512
+        completeDesc: "Has alcanzado a la Rana y completado la ranificación.",   // sub-rama que se desbloquea en val 512
         data: {
             2:   { n: 'Proteo',              img: 'img/2_proteo.png',            d: 'Cazador ciego de las cavernas (Proteus anguinus).',              adap: 'Pérdida de visión y pigmentación. Branquias externas permanentes (neotenia) para vivir siempre bajo el agua en la oscuridad total.' },
             4:   { n: 'Cecilia',             img: 'img/4_cecilia.png',           d: 'Anfibio sin patas que vive bajo tierra (Caecilia thomsoni).',    adap: 'Cuerpo fusiforme y cráneo osificado para excavar. Sentido del olfato y tacto hiperdesarrollados para compensar su ceguera.' },
@@ -129,7 +129,7 @@ const INVESTIGATIONS = {
         title: "INVESTIGACIÓN: RANITAS",
         panelTitle: "RANAS EXTRAORDINARIAS",
         color: '#0984e3',
-        completeDesc: "Has alcanzado a la Rana Dardo y completado la ramificación.",
+        completeDesc: "Has alcanzado a la Rana Dardo y completado la ranificación.",
         data: {
             2:   { n: 'Rana de Darwin', img: 'img/2_rana_darwin.png',  d: 'Rhinoderma darwinii.',         adap: 'El macho incuba los renacuajos dentro de su saco vocal hasta que se desarrollan completamente.' },
             4:   { n: 'Rana Cornuda',   img: 'img/4_rana_cornuda.png', d: 'Ceratophrys ornata, el escuerzo.', adap: 'Boca enorme y apetito voraz; se camufla en la hojarasca esperando emboscar a sus presas.' },
@@ -203,7 +203,7 @@ const INVESTIGATIONS = {
         title: "INVESTIGACIÓN: RANITAS DARDO",
         panelTitle: "DENDROBATIDAE",
         color: '#7fff00', // Verde neón/lima
-        completeDesc: "Has descubierto los morphos más raros y completado la ramificación de las Ranitas Dardo.",
+        completeDesc: "Has descubierto los morphos más raros y completado a las Ranitas Dardo.",
         data: {
             2:   { n: 'Phyllobates vittatus', img: 'img/2_dardo.png',   d: 'Rana de franjas de oro.',                adap: 'Desarrolló franjas aposemáticas brillantes para advertir de sus alcaloides en el suelo de Costa Rica.' },
             4:   { n: 'D. leucomelas (Bolívar)', img: 'img/4_dardo.png',   d: 'Morpho de bandas anchas.',             adap: 'Adaptación cromática extrema para maximizar el contraste visual en la penumbra del sotobosque.' },
@@ -222,7 +222,7 @@ const INVESTIGATIONS = {
         title: "INVESTIGACIÓN: NACE UN PLANETA",
         panelTitle: "FORMACIÓN TERRESTRE",
         color: '#ff9f43',
-        completeDesc: "Has presenciado la formation de la Tierra y la deriva de sus continentes.",
+        completeDesc: "Has presenciado la formación de la Tierra y la deriva de sus continentes.",
         data: {
             2:   { n: 'Polvo y hielo',       img: 'img/2_planeta.png',   d: 'Nebulosa solar.',          adap: 'Agregación inicial de partículas de polvo y hielos volátiles en el disco protoplanetario.' },
             4:   { n: 'Planetesimales',      img: 'img/4_planeta.png',   d: 'Embriones planetarios.',   adap: 'Colisiones a baja velocidad que comienzan a formar cuerpos rocosos de gran tamaño.' },
@@ -241,19 +241,38 @@ const INVESTIGATIONS = {
         title: "INVESTIGACIÓN: PRIMEROS ARTISTAS",
         panelTitle: "ARTE PREHISTÓRICO",
         color: '#e67e22', // Un tono ocre/arcilla
-        completeDesc: "Has admirado la bóveda de Altamira y completado la evolución del arte rupestre.",
+        completeDesc: "Has admirado la bóveda de Altamira y completado la evolución del primer arte.",
         data: {
             2:   { n: 'Cerdo de Sulawesi',       img: 'img/2_artepri.png',     d: 'Una de las pinturas figurativas más antiguas.',              adap: 'Uso temprano de pigmentos ocres para representar la fauna local, evidenciando una profunda necesidad de plasmar el entorno.' },
-            4:   { n: 'Leones de Hohlenstein',     img: 'img/4_artepri.png',  d: 'Escultura zoomorfa en marfil de mamut.',                     adap: 'Primeras muestras de imaginación y pensamiento mítico, fusionando características humanas y animales en una sola figura tridimensional.' },
+            4:   { n: 'Hombre-León de Hohlenstein',     img: 'img/4_artepri.png',  d: 'Escultura zoomorfa en marfil de mamut.',                     adap: 'Primeras muestras de imaginación y pensamiento mítico, fusionando características humanas y animales en una sola figura tridimensional.' },
             8:   { n: 'Leones de Chauvet',       img: 'img/8_artepri.png',      d: 'Escenas dinámicas de depredadores.',                         adap: 'Uso magistral del relieve natural de la roca y el sombreado difuminado para dar sensación de movimiento y profundidad a las manadas.' },
             16:  { n: 'Venus de Willendorf',     img: 'img/16_artepri.png',  d: 'Estatuilla femenina de formas exageradas.',                  adap: 'Símbolo portátil de fertilidad o abundancia tallado en caliza oolítica, reflejando los primeros cánones estéticos o religiosos universales.' },
             32:  { n: 'Venus de Brassempouy',    img: 'img/32_artepri.png', d: 'El primer rostro humano detallado.',                         adap: 'Talla minuciosa en marfil que destaca por la representación esquemática del peinado o tocado, omitiendo los rasgos faciales individualizados.' },
             64:  { n: 'Bisontes de d\'Audoubert',img: 'img/64_artepri.png',  d: 'Relieves modelados en arcilla cruda.',                       adap: 'Dominio de la técnica de modelado tridimensional en el interior profundo y oscuro de las cavernas, probablemente con fines rituales.' },
             128: { n: 'Bóvidos de Lascaux',      img: 'img/128_artepri.png',    d: 'La Capilla Sixtina de la prehistoria.',                      adap: 'Uso incipiente de andamiajes de madera y técnicas de pulverización de pigmentos para crear composiciones monumentales en los altos techos.' },
             256: { n: 'Pinturas de Tassili',     img: 'img/256_artepri.png',    d: 'Arte rupestre en el corazón del Sahara.',                    adap: 'Registro visual de un antiguo Sahara verde, mostrando escenas sociales complejas de pastoreo, caza y danzas rituales al aire libre.' },
-            512: { n: 'Bisontes de Altamira',    img: 'img/512_artepri.png',   d: 'El cénit del arte parietal policromado.',                    adap: 'Aprovechamiento genio de las protuberancias naturales de la cueva para dotar de un realismo y volumen tridimensional inigualable a las bestias.' }
+            512: { n: 'Bisontes de Altamira',    img: 'img/512_artepri.png',   d: 'El cénit del arte parietal policromado.',                    adap: 'Aprovechamiento genial de las protuberancias naturales de la cueva para dotar de un realismo y volumen tridimensional inigualable a las bestias.' }
         }
-    }
+    },
+
+    piel_con_historia: {
+        id: 'piel_con_historia',
+        title: "INVESTIGACIÓN: PIEL CON HISTORIA",
+        panelTitle: "CORTEZA TERRESTRE",
+        color: '#d35400', // Un tono arcilla/magma profundo
+        completeDesc: "Has sobrevivido a la furia de Toba y completado la evolución geológica moderna.",
+        data: {
+            2:   { n: 'Pangea Máximo',               img: 'img/2_piel.png',   d: 'El apogeo del supercontinente.',                    adap: 'Todas las masas terrestres unidas en un único bloque colosal, rodeado por el inmenso océano Panthalassa, provocando un clima interior extremadamente árido.' },
+            4:   { n: 'Formación del Atlántico',     img: 'img/4_piel.png',   d: 'La grieta que separó mundos.',                      adap: 'Pangea comienza a fracturarse. El magma asciende creando nueva corteza oceánica y abriendo un estrecho mar entre América y África/Europa.' },
+            8:   { n: 'Rotura de Gondwana',          img: 'img/8_piel.png',   d: 'El sur se fragmenta.',                              adap: 'El supercontinente meridional se divide, separando Sudamérica, África, Antártida, India y Australia, aislando sus floras y faunas para siempre.' },
+            16:  { n: 'Impacto de Chicxulub',        img: 'img/16_piel.png',  d: 'El fin de una era.',                                adap: 'Un asteroide de unos 10 km golpea la península de Yucatán, provocando megatsunamis, un invierno global y la extinción masiva que borró a los dinosaurios no avianos.' },
+            32:  { n: 'Formación del Himalaya',      img: 'img/32_piel.png',  d: 'El techo del mundo se eleva.',                      adap: 'La placa Indostánica choca a gran velocidad contra Eurasia. La corteza se pliega y se eleva drásticamente, creando la cordillera más imponente de la Tierra.' },
+            64:  { n: 'Grandes glaciaciones',        img: 'img/64_piel.png',  d: 'El avance inexorable del hielo.',                   adap: 'Ciclos de enfriamiento global provocan que masivas capas de hielo cubran gran parte de los hemisferios, esculpiendo profundos valles y alterando el nivel del mar.' },
+            128: { n: 'Desecación del Mediterráneo', img: 'img/128_piel.png', d: 'La crisis salina del Messiniense.',                 adap: 'El estrecho de Gibraltar se cierra temporalmente. El mar Mediterráneo se evapora casi por completo, dejando un gigantesco desierto de sal a kilómetros de profundidad.' },
+            256: { n: 'Soldadura de Panamá',         img: 'img/256_piel.png', d: 'El puente de las Américas.',                        adap: 'El istmo volcánico emerge, uniendo Norte y Sudamérica. Esto permite el Gran Intercambio Biótico y cambia las corrientes oceánicas globales.' },
+            512: { n: 'Súper Volcán de Toba',        img: 'img/512_piel.png', d: 'El gran cuello de botella.',                        adap: 'Una colosal erupción en Sumatra provoca un severo invierno volcánico. Se postula que redujo drásticamente la población humana global, moldeando nuestra genética.' }
+        }
+    },
 
 };
 
@@ -292,8 +311,10 @@ const PORTALS = {
         },
         ranitas: {
             512: ['ranitas_dardo'] // <--- Se abre al completar la rama de ranitas original
+        },
+        nace_un_planeta: {
+            256: ['piel_con_historia'] // <--- Se abre al llegar a Pangea en la rama Nace un Planeta
         }
-    }
 };
 
 // Orden canónico de las eras del tronco
