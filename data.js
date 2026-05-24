@@ -235,6 +235,25 @@ const INVESTIGATIONS = {
             512: { n: 'Continentes actuales',img: 'img/512_planeta.png', d: 'Deriva continental.',     adap: 'La fragmentación de Pangea y la configuration actual de la geografía terrestre.' }
         }
     },
+    
+    primeros_artistas: {
+        id: 'primeros_artistas',
+        title: "INVESTIGACIÓN: PRIMEROS ARTISTAS",
+        panelTitle: "ARTE PREHISTÓRICO",
+        color: '#e67e22', // Un tono ocre/arcilla
+        completeDesc: "Has admirado la bóveda de Altamira y completado la evolución del arte rupestre.",
+        data: {
+            2:   { n: 'Cerdo de Sulawesi',       img: 'img/2_artepri.png',     d: 'Una de las pinturas figurativas más antiguas.',              adap: 'Uso temprano de pigmentos ocres para representar la fauna local, evidenciando una profunda necesidad de plasmar el entorno.' },
+            4:   { n: 'León de Hohlenstein',     img: 'img/4_artepri.png',  d: 'Escultura zoomorfa en marfil de mamut.',                     adap: 'Primeras muestras de imaginación y pensamiento mítico, fusionando características humanas y animales en una sola figura tridimensional.' },
+            8:   { n: 'Leones de Chauvet',       img: 'img/8_artepri.png',      d: 'Escenas dinámicas de depredadores.',                         adap: 'Uso magistral del relieve natural de la roca y el sombreado difuminado para dar sensación de movimiento y profundidad a las manadas.' },
+            16:  { n: 'Venus de Willendorf',     img: 'img/16_artepri.png',  d: 'Estatuilla femenina de formas exageradas.',                  adap: 'Símbolo portátil de fertilidad o abundancia tallado en caliza oolítica, reflejando los primeros cánones estéticos o religiosos universales.' },
+            32:  { n: 'Venus de Brassempouy',    img: 'img/32_artepri.png', d: 'El primer rostro humano detallado.',                         adap: 'Talla minuciosa en marfil que destaca por la representación esquemática del peinado o tocado, omitiendo los rasgos faciales individualizados.' },
+            64:  { n: 'Bisontes de d\'Audoubert',img: 'img/64_artepri.png',  d: 'Relieves modelados en arcilla cruda.',                       adap: 'Dominio de la técnica de modelado tridimensional en el interior profundo y oscuro de las cavernas, probablemente con fines rituales.' },
+            128: { n: 'Bóvidos de Lascaux',      img: 'img/128_artepri.png',    d: 'La Capilla Sixtina de la prehistoria.',                      adap: 'Uso incipiente de andamiajes de madera y técnicas de pulverización de pigmentos para crear composiciones monumentales en los altos techos.' },
+            256: { n: 'Pinturas de Tassili',     img: 'img/256_artepri.png',    d: 'Arte rupestre en el corazón del Sahara.',                    adap: 'Registro visual de un antiguo Sahara verde, mostrando escenas sociales complejas de pastoreo, caza y danzas rituales al aire libre.' },
+            512: { n: 'Bisontes de Altamira',    img: 'img/512_artepri.png',   d: 'El cénit del arte parietal policromado.',                    adap: 'Aprovechamiento genio de las protuberancias naturales de la cueva para dotar de un realismo y volumen tridimensional inigualable a las bestias.' }
+        }
+    }
 
 };
 
@@ -253,6 +272,10 @@ const PORTALS = {
         4:   ['pluricelulares'],
         32:  ['anfibios'],
         512: ['monitos']
+    },
+
+    homo: {
+        128: ['primeros_artistas'] // <--- El portal hacia el arte prehistórico
     },
     // Portales en las INVESTIGACIÓNes
     __subgame__: {
