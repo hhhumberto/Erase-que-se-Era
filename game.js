@@ -473,7 +473,7 @@ function closeSubgameComplete() {
 function showTheatre(val, state) {
     const d = state.data[val];
     const _ti = document.getElementById('theatre-img');
-    _ti.src = ''; _ti.style.background = 'white';
+    _ti.src = ''; _ti.style.display = 'block'; _ti.style.background = 'white';
     setTimeout(() => { _ti.src = d.img; }, 0);
     document.getElementById('theatre-title').textContent = d.n;
     document.getElementById('theatre-desc').textContent  = d.d  ?? '';
