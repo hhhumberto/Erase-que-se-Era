@@ -25,7 +25,9 @@ const ERAS = {
             32:  { n: "Supernova",       img: "img/32_supernova.png",d: "Forja de los elementos pesados.",           ext: "Las estrellas masivas, al agotar su combustible, colapsan bajo su gravedad y rebotan en una explosión titánica. La intensa energía y el flujo de neutrones sintetizan elementos más pesados que el hierro, esparciéndolos por el vacío." },
             64:  { n: "Nebulosa",        img: "img/64_nebulosa.png", d: "Polvo estelar listo para crear mundos.",    ext: "Los restos enriquecidos por las supernovas forman gigantescas nubes interestelares de gas y polvo cósmico. Estas nebulosas actúan como cunas estelares, proporcionando los materiales pesados necesarios para forjar sistemas planetarios rocosos." },
             128: { n: "Tierra Primitiva",img: "img/128_tierra.png",  d: "Un mundo rocoso, volcánico y estéril.",    ext: "La acreción de materia alrededor del Sol recién nacido formó un protoplaneta incandescente. La diferenciación planetaria hundió el hierro al núcleo, dejando un manto silicatado y una corteza primitiva bajo constante actividad magmática." },
-            256: { n: "Asteroides",      img: "img/256_lluvia.png",  d: "Aporte de agua y material prebiótico.",    ext: "Durante el Bombardeo Intenso Tardío (hace ~4.000 Ma), multitud de cometas y condritas ricas en compuestos volátiles impactaron la Tierra, depositando enormes cantidades de agua líquida y compuestos orgánicos simples esenciales." },
+            // --- CAMBIO REALIZADO AQUÍ ---
+            256: { n: "Sopa prebiótica", img: "img/256_sopa.png",    d: "Caldo primordial rico en compuestos orgánicos.", ext: "En los océanos primitivos, la combinación de agua líquida, moléculas orgánicas simples aportadas por impactos de meteoritos y energía (rayos ultravioleta, actividad volcánica) dio lugar a un 'caldo' complejo. En esta sopa prebiótica comenzaron a formarse los polímeros y las primeras estructuras autorreplicantes." },
+            // --------------------------------
             512: { n: "Bacteria",        img: "img/2_bacteria.png",  d: "¡La materia inerte se vuelve viva!",       ext: "A través de procesos de evolución química (abiogénesis) en los océanos primordiales, las moléculas orgánicas formaron polímeros autorreplicantes encapsulados en membranas lipídicas, dando origen a los primeros organismos procariotas." }
         }
     },
@@ -34,7 +36,7 @@ const ERAS = {
         data: {
             2:   { n: "Unicelular",  img: "img/2_bacteria.png",    d: "Célula capaz de replicarse.",             ext: "Organismos procariontes primigenios sin núcleo definido. Desarrollaron el metabolismo anaeróbico y, más tarde, la fotosíntesis en forma de cianobacterias, provocando el evento de la Gran Oxidación que transformó la atmósfera." },
             4:   { n: "Pluricelular",img: "img/4_coral.png",       d: "Origen de la pluricelularidad.",          ext: "La simbiosis y especialización celular dio paso a la vida pluricelular. Los cnidarios y pólipos primitivos comenzaron a secretar esqueletos calcáreos, construyendo complejos arrecifes y nuevos habitaras oceánicos." },
-            8:   { n: "Invertebrado",img: "img/8_invertebrado.png",d: "Cuerpos blandos, primeros cazadores.",    ext: "La explosión del Cámbrico impulsó una radiación adaptativa sin precedentes. Surgieron diversos filos con simetría bilateral, sistemas nerviosos primitivos y, en muchos casos, exoesqueletos o conchas para la defensa y movilidad." },
+            8:   { n: "Invertebrado",img: "img/8_invertebrado.png",d: "Cuerpos blandos, primeros cazadores.",    ext: "La explosión del Cámbrico impulsó una radiación adaptativa sin precedentes. Surgieron diversos filos con simetría bilateral, sistemas nerviosos primitivos y, en muchos casos, exoesqueletos o conchas para la defense y movilidad." },
             16:  { n: "Pez",         img: "img/16_pez.png",        d: "Aparición de la columna vertebral.",      ext: "La innovación evolutiva del eje espinal interno (notocorda y vértebras cartilaginosas u óseas) aportó a los primeros cordados una estructura rígida pero flexible. Pronto desarrollaron mandíbulas, convirtiéndose en depredadores dominantes." },
             32:  { n: "Anfibio",     img: "img/32_rana.png",       d: "La conquista de la tierra firme.",        ext: "Los sarcopterigios (peces de aletas lobuladas) adaptaron progresivamente sus aletas en extremidades musculosas para sortear aguas someras. Desarrollaron pulmones rudimentarios, permitiéndoles colonizar las húmedas orillas terrestres." },
             64:  { n: "Reptil",      img: "img/64_iguana.png",     d: "Independencia total del agua.",           ext: "La gran ventaja de los amniotas fue el desarrollo de un huevo provisto de varias membranas protectoras y cáscara semipermeable. Esto, unido a una piel queratinizada y escamosa, les permitió prosperar en climas muy secos." },
@@ -61,14 +63,6 @@ const ERAS = {
 
 // ─────────────────────────────────────────────
 // RAMAS DE INVESTIGACIÓN (ramas primarias)
-//
-// Estructura por rama:
-//   id       : clave única usada como activeSubgameType
-//   title    : texto del encabezado en el overlay
-//   panelTitle: subtítulo del panel lateral
-//   color    : color temático (CSS hex)
-//   completeDesc: texto al finalizar la investigación
-//   data     : fichas 2→512 igual que en ERAS
 // ─────────────────────────────────────────────
 
 const INVESTIGATIONS = {
@@ -228,17 +222,17 @@ const INVESTIGATIONS = {
         title: "INVESTIGACIÓN: NACE UN PLANETA",
         panelTitle: "FORMACIÓN TERRESTRE",
         color: '#ff9f43',
-        completeDesc: "Has presenciado la formación de la Tierra y la deriva de sus continentes.",
+        completeDesc: "Has presenciado la formation de la Tierra y la deriva de sus continentes.",
         data: {
             2:   { n: 'Polvo y hielo',       img: 'img/2_planeta.png',   d: 'Nebulosa solar.',          adap: 'Agregación inicial de partículas de polvo y hielos volátiles en el disco protoplanetario.' },
             4:   { n: 'Planetesimales',      img: 'img/4_planeta.png',   d: 'Embriones planetarios.',   adap: 'Colisiones a baja velocidad que comienzan a formar cuerpos rocosos de gran tamaño.' },
-            8:   { n: 'Océanos de magma',    img: 'img/8_planeta.png',   d: 'Tierra incandescente.',    adap: 'La energía de las colisiones mantiene la superficie fundida, permitiendo la diferenciación del núcleo.' },
+            8:   { n: 'Océanos de magma',    img: 'img/8_planeta.png',   d: 'Tierra incandescente.',    adap: 'La energía de las colisiones mantiene la superficie fundida, permitiendo la differentiation del núcleo.' },
             16:  { n: 'Impacto con Theia',   img: 'img/16_planeta.png',  d: 'La gran colisión.',        adap: 'El impacto de un protoplaneta del tamaño de Marte que reconfigura la estructura terrestre.' },
             32:  { n: 'Formación de la Luna',img: 'img/32_planeta.png',  d: 'El satélite nace.',        adap: 'Los escombros del impacto de Theia orbitan y se aglutinan para formar nuestra Luna.' },
-            64:  { n: 'Enfriamiento',        img: 'img/64_planeta.png',  d: 'Corteza primitiva.',      adap: 'La emisión de calor al espacio permite la formación de una corteza basáltica estable.' },
+            64:  { n: 'Enfriamiento',        img: 'img/64_planeta.png',  d: 'Corteza primitiva.',      adap: 'La emisión de calor al espacio permite la formation de una corteza basáltica estable.' },
             128: { n: 'Bombardeo asteroides',img: 'img/128_planeta.png', d: 'Aporte de agua.',          adap: 'El Bombardeo Intenso Tardío trae los compuestos volátiles necesarios para los futuros océanos.' },
             256: { n: 'Pangea',              img: 'img/256_planeta.png', d: 'Primer supercontinente.',  adap: 'La tectónica de placas une las masas continentales en un único bloque colosal.' },
-            512: { n: 'Continentes actuales',img: 'img/512_planeta.png', d: 'Deriva continental.',     adap: 'La fragmentación de Pangea y la configuración actual de la geografía terrestre.' }
+            512: { n: 'Continentes actuales',img: 'img/512_planeta.png', d: 'Deriva continental.',     adap: 'La fragmentación de Pangea y la configuration actual de la geografía terrestre.' }
         }
     },
 
@@ -246,15 +240,6 @@ const INVESTIGATIONS = {
 
 // ─────────────────────────────────────────────
 // MAPA DE PORTALES
-//
-// Define qué investigaciones se desbloquean
-// en cada nodo (era + valor de ficha).
-// El motor leerá esta tabla en lugar de
-// tener if/else hardcodeados.
-//
-// Formato:
-//   PORTALS[eraId][tileValue] = ['investigationId', ...]
-//   PORTALS['__subgame__'][investigationId][tileValue] = ['investigationId', ...]
 // ─────────────────────────────────────────────
 
 const PORTALS = {
