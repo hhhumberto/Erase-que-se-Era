@@ -35,7 +35,7 @@ const ERAS = {
         title: "ERA VIDA", panelTitle: "EVOLUCIÓN",
         data: {
             2:   { n: "Unicelular",  img: "img/2_bacteria.png",    d: "Célula capaz de replicarse.",             ext: "Organismos procariontes primigenios sin núcleo definido. Desarrollaron el metabolismo anaeróbico y, más tarde, la fotosíntesis en forma de cianobacterias, provocando el evento de la Gran Oxidación que transformó la atmósfera." },
-            4:   { n: "Pluricelular",img: "img/4_coral.png",       d: "Origen de la pluricelularidad.",          ext: "La simbiosis y especialización celular dio paso a la vida pluricelular. Los cnidarios y pólipos primitivos comenzaron a secretar esqueletos calcáreos, construyendo complejos arrecifes y nuevos habitaras oceánicos." },
+            4:   { n: "Pluricelular",img: "img/4_coral.png",       d: "Origen de la pluricelularidad.",          ext: "La simbiosis y especialización celular dio paso a la vida pluricelular. Los cnidarios y pólipos primitivos comenzaron a secretar esqueletos calcáreos, construyendo complejos arrecifes y nuevos hábitats oceánicos." },
             8:   { n: "Invertebrado",img: "img/8_invertebrado.png",d: "Cuerpos blandos, primeros cazadores.",    ext: "La explosión del Cámbrico impulsó una radiación adaptativa sin precedentes. Surgieron diversos filos con simetría bilateral, sistemas nerviosos primitivos y, en muchos casos, exoesqueletos o conchas para la defense y movilidad." },
             16:  { n: "Pez",         img: "img/16_pez.png",        d: "Aparición de la columna vertebral.",      ext: "La innovación evolutiva del eje espinal interno (notocorda y vértebras cartilaginosas u óseas) aportó a los primeros cordados una estructura rígida pero flexible. Pronto desarrollaron mandíbulas, convirtiéndose en depredadores dominantes." },
             32:  { n: "Anfibio",     img: "img/32_rana.png",       d: "La conquista de la tierra firme.",        ext: "Los sarcopterigios (peces de aletas lobuladas) adaptaron progresivamente sus aletas en extremidades musculosas para sortear aguas someras. Desarrollaron pulmones rudimentarios, permitiéndoles colonizar las húmedas orillas terrestres." },
@@ -111,7 +111,7 @@ const INVESTIGATIONS = {
             4:   { n: 'Tarsero',       img: 'img/4_tarsero.png',      d: 'Pequeños de ojos enormes.',       adap: 'Sus ojos, más grandes que su cerebro, son adaptaciones nocturnas perfectas. Sus huesos tarsales alargados permiten saltos explosivos para cazar insectos.' },
             8:   { n: 'Mono Araña',    img: 'img/8_mono_arana.png',   d: 'Ágiles habitantes del dosel.',    adap: 'Poseen una cola prensil increíblemente sensible, que actúa como una "quinta mano", permitiéndoles colgarse y braquiar mientras buscan frutas.' },
             16:  { n: 'Mandril',       img: 'img/16_mandril.png',     d: 'Famosos por su colorido.',        adap: 'Fuerte coloración facial azul y roja, adaptación para la comunicación visual y selección sexual en el denso y oscuro sotobosque de las selvas africanas.' },
-            32:  { n: 'Mono Narigudo', img: 'img/32_mono_narigudo.png',d: 'Endémicos de Borneo.',           adap: 'La gran nariz pendulosa de los machos, una adaptación única Resultante de la selección sexual, actúa como una caja de resonancia amplificando sus vocalizaciones.' },
+            32:  { n: 'Mono Narigudo', img: 'img/32_mono_narigudo.png',d: 'Endémicos de Borneo.',           adap: 'La gran nariz pendulosa de los machos, una adaptación única resultante de la selección sexual, actúa como una caja de resonancia amplificando sus vocalizaciones.' },
             64:  { n: 'Gibón',         img: 'img/64_gibon.png',       d: 'Maestros del balanceo.',          adap: 'Maestros absolutos de la braquiación. Sus brazos son mucho más largos que sus piernas y poseen hombros muy flexibles para "volar" entre ramas.' },
             128: { n: 'Orangután',     img: 'img/128_orangutan.png',  d: 'Simios sabios de Asia.',          adap: 'Adaptación a la vida solitaria y arbórea. Desarrollaron dedos largos y curvos en manos y pies, y pies prensiles casi idénticos a las manos para un agarre total.' },
             256: { n: 'Gorila',        img: 'img/256_gorila.png',     d: 'Los más poderosos.',              adap: 'Adaptación al gigantismo terrestre. Desarrollaron la locomoción de "caminar sobre los nudillos" y grandes mandíbulas para procesar vegetación fibrosa.' },
@@ -240,13 +240,13 @@ const INVESTIGATIONS = {
         data: {
             2:   { n: 'Polvo y hielo',       img: 'img/2_planeta.png',   d: 'Nebulosa solar.',          adap: 'Agregación inicial de partículas de polvo y hielos volátiles en el disco protoplanetario.' },
             4:   { n: 'Planetesimales',      img: 'img/4_planeta.png',   d: 'Embriones planetarios.',   adap: 'Colisiones a baja velocidad que comienzan a formar cuerpos rocosos de gran tamaño.' },
-            8:   { n: 'Océanos de magma',    img: 'img/8_planeta.png',   d: 'Tierra incandescente.',    adap: 'La energía de las colisiones mantiene la superficie fundida, permitiendo la differentiation del núcleo.' },
+            8:   { n: 'Océanos de magma',    img: 'img/8_planeta.png',   d: 'Tierra incandescente.',    adap: 'La energía de las colisiones mantiene la superficie fundida, permitiendo la diferenciación del núcleo.' },
             16:  { n: 'Impacto con Theia',   img: 'img/16_planeta.png',  d: 'La gran colisión.',        adap: 'El impacto de un protoplaneta del tamaño de Marte que reconfigura la estructura terrestre.' },
             32:  { n: 'Formación de la Luna',img: 'img/32_planeta.png',  d: 'El satélite nace.',        adap: 'Los escombros del impacto de Theia orbitan y se aglutinan para formar nuestra Luna.' },
-            64:  { n: 'Enfriamiento',        img: 'img/64_planeta.png',  d: 'Corteza primitiva.',      adap: 'La emisión de calor al espacio permite la formation de una corteza basáltica estable.' },
+            64:  { n: 'Enfriamiento',        img: 'img/64_planeta.png',  d: 'Corteza primitiva.',      adap: 'La emisión de calor al espacio permite la formación de una corteza basáltica estable.' },
             128: { n: 'Bombardeo asteroides',img: 'img/128_planeta.png', d: 'Aporte de agua.',          adap: 'El Bombardeo Intenso Tardío trae los compuestos volátiles necesarios para los futuros océanos.' },
             256: { n: 'Pangea',              img: 'img/256_planeta.png', d: 'Primer supercontinente.',  adap: 'La tectónica de placas une las masas continentales en un único bloque colosal.' },
-            512: { n: 'Continentes actuales',img: 'img/512_planeta.png', d: 'Deriva continental.',     adap: 'La fragmentación de Pangea y la configuration actual de la geografía terrestre.' }
+            512: { n: 'Continentes actuales',img: 'img/512_planeta.png', d: 'Deriva continental.',     adap: 'La fragmentación de Pangea y la configuración actual de la geografía terrestre.' }
         }
     },
     
@@ -287,6 +287,25 @@ const INVESTIGATIONS = {
             512: { n: 'Súper Volcán de Toba',        img: 'img/512_piel.png', d: 'El gran cuello de botella.',                        adap: 'Una colosal erupción en Sumatra provoca un severo invierno volcánico. Se postula que redujo drásticamente la población humana global, moldeando nuestra genética.' }
         }
     },
+ 
+    cultivos_civilizadores: {
+        id: 'cultivos_civilizadores',
+        title: "INVESTIGACIÓN: CULTIVOS CIVILIZADORES",
+        panelTitle: "REVOLUCIÓN AGRÍCOLA",
+        color: '#f39c12', // Color dorado/trigo
+        completeDesc: "Has domesticado la flora del planeta, cimentando el nacimiento de los grandes imperios.",
+        data: {
+            2:   { n: 'Trigo',    img: 'img/2_cultivo.png',    d: 'Base del Creciente Fértil.',                        adap: 'Junto con la cebada permitió el surgimiento de Mesopotamia y la agricultura del Mediterráneo. Su alto rendimiento y almacenaje lo convierten en un motor clásico de urbanización.' },
+            4:   { n: 'Cebada',   img: 'img/4_cultivo.png',   d: 'Resistente a la sequía.',                           adap: 'Complemento del trigo en el mismo núcleo. Más resistente a suelos marginales y climas secos, fue fundamental para la expansión agrícola temprana hacia zonas menos fértiles.' },
+            8:   { n: 'Arroz',    img: 'img/8_cultivo.png',    d: 'Sustento del valle del Yangtsé.',                   adap: 'Base de la civilización en China. Su altísima productividad por hectárea permitió densidades de población muy superiores a otros sistemas agrícolas tempranos.' },
+            16:  { n: 'Mijo',     img: 'img/16_cultivo.png',    d: 'Cultivo del norte neolítico chino.',                adap: 'Dominante de la cuenca del río Amarillo. Menos productivo que el arroz pero muy resistente a sequías, lo que estabilizó a las sociedades agrícolas tempranas.' },
+            32:  { n: 'Maíz',     img: 'img/32_cultivo.png',    d: 'Eje civilizatorio de Mesoamérica.',                 adap: 'Su asombrosa domesticación transformó sociedades de cazadores-recolectores en complejas culturas urbanas como los Olmecas y los Mayas.' },
+            64:  { n: 'Frijol',   img: 'img/64_cultivo.png',  d: 'Complemento proteico fundamental.',                 adap: 'Clave en Mesoamérica por su complementariedad nutricional con el maíz (aminoácidos esenciales). Sin esta combinación, la base demográfica habría sido inestable.' },
+            128: { n: 'Calabaza', img: 'img/128_cultivo.png',d: 'El tercer pilar mesoamericano.',                   adap: 'Completando la llamada "Milpa" junto al maíz y el frijol. Importante por su facilidad de almacenamiento y gran aporte calórico secundario.' },
+            256: { n: 'Papa',     img: 'img/256_cultivo.png',   d: 'El tesoro de los Andes Centrales.',                 adap: 'Base de las sociedades andinas. Su increíble capacidad de cultivo en altura permitió la expansión de civilizaciones como la Inca en ecosistemas extremos.' },
+            512: { n: 'Sorgo',    img: 'img/512_cultivo.png',  d: 'Motor agrícola de África Occidental.',              adap: 'Junto al mijo africano, estos cereales fueron esenciales para formar redes agrícolas estables en el clima semiárido, base de imperios como Ghana y Malí.' }
+        }
+    },
 
 };
 
@@ -308,7 +327,8 @@ const PORTALS = {
     },
 
     homo: {
-        128: ['primeros_artistas'] // <--- El portal hacia el arte prehistórico
+        128: ['primeros_artistas'],    // <--- El portal hacia el arte prehistórico
+        256: ['cultivos_civilizadores'] // <--- NUEVO PORTAL: Se abre al descubrir la Agricultura
     },
     // Portales en las INVESTIGACIÓNes
     __subgame__: {
