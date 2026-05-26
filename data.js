@@ -411,7 +411,7 @@ const PORTALS = {
             8: ['lagartos_variados'],
             128: ['evolucion_deslizante'] // <--- El portal hacia las serpientes
         },
-   
+    }
 };
 
 // Orden canónico de las eras del tronco
