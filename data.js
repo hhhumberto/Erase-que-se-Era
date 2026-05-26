@@ -100,6 +100,25 @@ const INVESTIGATIONS = {
         }
     },
 
+    lineas_reptilianas: {
+        id: 'lineas_reptilianas',
+        title: "INVESTIGACIÓN: LÍNEAS REPTILIANAS",
+        panelTitle: "EVOLUCIÓN REPTILIANA",
+        color: '#27ae60', // Verde reptil/escama
+        completeDesc: "Has explorado la diversificación de los saurópsidos, desde los linajes basales hasta los amos del cielo y de la tierra.",
+        data: {
+            2:   { n: 'Pararreptiles', img: 'img/2_reptiliano.png', d: 'Primeros reptiles basales.',                        adap: 'Formas primitivas que divergieron temprano en la evolución de los amniotas, experimentando con las primeras armaduras óseas antes de extinguirse sin descendencia moderna.' },
+            4:   { n: 'Tortugas',      img: 'img/4_reptiliano.png',      d: 'El éxito del caparazón.',                           adap: 'Anápsidos o diápsidos modificados que desarrollaron una coraza ósea protectora única fusionada con sus costillas, un diseño tan perfecto que ha sobrevivido cientos de millones de años.' },
+            8:   { n: 'Lagartos',      img: 'img/8_reptiliano.png',      d: 'Maestros de la adaptación.',                        adap: 'Escamosos ágiles que colonizaron casi todos los ecosistemas del planeta, desarrollando una enorme diversidad de tamaños, camuflajes y sorprendentes estrategias de supervivencia.' },
+            16:  { n: 'Serpientes',    img: 'img/16_reptiliano.png',   d: 'Especialización sin extremidades.',                 adap: 'Evolucionaron a partir de lagartos antiguos, perdiendo las patas y desarrollando mandíbulas altamente flexibles junto con eficaces tácticas de caza constrictora o venenosa.' },
+            32:  { n: 'Tuáraras',      img: 'img/32_reptiliano.png',     d: 'Auténticos fósiles vivientes.',                     adap: 'Endémicas de Nueva Zelanda, son las únicas supervivientes del antiguo orden Sphenodontia. Poseen un misterioso "tercer ojo" fotorreceptor bajo la piel de la cabeza.' },
+            64:  { n: 'Pterosaurios',  img: 'img/64_reptiliano.png', d: 'Los reyes del cielo mesozoico.',                     adap: 'Los primeros vertebrados en desarrollar el vuelo activo. Sus espectaculares alas estaban formadas por una membrana muscular estirada desde un alargado cuarto dedo de la mano.' },
+            128: { n: 'Cocodrilos',    img: 'img/128_reptiliano.png',  d: 'Depredadores semiacuáticos perfectos.',              adap: 'Arcoosaurios especializados que alcanzaron un diseño anatómico tan letal y eficiente que ha permanecido prácticamente inalterado desde la era de los dinosaurios.' },
+            256: { n: 'Dinosaurios',  img: 'img/256_reptiliano.png', d: 'Los amos del Mesozoico.',                           adap: 'Dominaron la Tierra durante más de 130 millones de años gracias a su postura erecta y metabolismo eficiente, diversificándose en colosos herbívoros y letales carnívoros.' },
+            512: { n: 'Aves',          img: 'img/512_reptiliano.png',        d: 'Dinosaurios con plumas.',                           adap: 'Los únicos dinosaurios terópodos que sobrevivieron a la gran extinción masiva, transformando sus escamas y plumas en herramientas de vuelo para conquistar los cielos modernos.' }
+        }
+    },
+
     monitos: {
         id: 'monitos',
         title: "INVESTIGACIÓN: MONITOS",
@@ -323,6 +342,7 @@ const PORTALS = {
         2:   ['pioneros'],
         4:   ['pluricelulares'],
         32:  ['anfibios'],
+        64:  ['lineas_reptilianas'],
         512: ['monitos']
     },
 
