@@ -25,9 +25,7 @@ const ERAS = {
             32:  { n: "Supernova",       img: "img/32_supernova.png",d: "Forja de los elementos pesados.",           ext: "Las estrellas masivas, al agotar su combustible, colapsan bajo su gravedad y rebotan en una explosión titánica. La intensa energía y el flujo de neutrones sintetizan elementos más pesados que el hierro, esparciéndolos por el vacío." },
             64:  { n: "Nebulosa",        img: "img/64_nebulosa.png", d: "Polvo estelar listo para crear mundos.",    ext: "Los restos enriquecidos por las supernovas forman gigantescas nubes interestelares de gas y polvo cósmico. Estas nebulosas actúan como cunas estelares, proporcionando los materiales pesados necesarios para forjar sistemas planetarios rocosos." },
             128: { n: "Tierra Primitiva",img: "img/128_tierra.png",  d: "Un mundo rocoso, volcánico y estéril.",    ext: "La acreción de materia alrededor del Sol recién nacido formó un protoplaneta incandescente. La diferenciación planetaria hundió el hierro al núcleo, dejando un manto silicatado y una corteza primitiva bajo constante actividad magmática." },
-            // --- CAMBIO REALIZADO AQUÍ ---
             256: { n: "Sopa prebiótica", img: "img/256_sopa.png",    d: "Caldo primordial rico en compuestos orgánicos.", ext: "En los océanos primitivos, la combinación de agua líquida, moléculas orgánicas simples aportadas por impactos de meteoritos y energía (rayos ultravioleta, actividad volcánica) dio lugar a un 'caldo' complejo. En esta sopa prebiótica comenzaron a formarse los polímeros y las primeras estructuras autorreplicantes." },
-            // --------------------------------
             512: { n: "Bacteria",        img: "img/2_bacteria.png",  d: "¡La materia inerte se vuelve viva!",       ext: "A través de procesos de evolución química (abiogénesis) en los océanos primordiales, las moléculas orgánicas formaron polímeros autorreplicantes encapsulados en membranas lipídicas, dando origen a los primeros organismos procariotas." }
         }
     },
@@ -393,11 +391,9 @@ const PORTALS = {
         anfibios: {
             512: ['ranitas']
         },
-
         pioneros: {
             32: ['flora'] // <--- El nuevo portal que se abre al llegar a 32 en pioneros
         },
-
         flora: {
             512: ['suelo_a_bosque'] // <--- El portal que se abre al llegar a 512 en flora
         },
@@ -410,8 +406,7 @@ const PORTALS = {
         lineas_reptilianas: {
             8: ['lagartos_variados'],
             16: ['evolucion_deslizante'] // <--- El portal hacia las serpientes
-        },
-    }
+        }
 };
 
 // Orden canónico de las eras del tronco
