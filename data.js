@@ -391,7 +391,7 @@ const PORTALS = {
         lineas_reptilianas: {
             8: ['lagartos_variados'] // <--- Se abre al alcanzar "Lagartos" en las líneas reptilianas
         },
-    }
+   
 };
 
 // Orden canónico de las eras del tronco
