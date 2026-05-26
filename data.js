@@ -138,6 +138,25 @@ const INVESTIGATIONS = {
         }
     },
 
+    evolucion_deslizante: {
+        id: 'evolucion_deslizante',
+        title: "INVESTIGACIÓN: EVOLUCIÓN DESLIZANTE",
+        panelTitle: "RADIACIÓN DE LAS SERPIENTES",
+        color: '#27ae60', // Un tono verde serpentino
+        completeDesc: "Has trazado el camino evolutivo de los ofidios, desde los vestigios de sus patas hasta los sistemas venenosos más complejos.",
+        data: {
+            2:   { n: 'Culebra ciega',           img: 'img/2_deslizante.png',      d: 'Typhlops schlegelii.',      adap: 'Serpiente fosorial primitiva con ojos vestigiales, evidencia del origen subterráneo de las serpientes.' },
+            4:   { n: 'Serpiente tubería',       img: 'img/4_deslizante.png',    d: 'Cylindrophis ruffus.',      adap: 'Conserva vestigios de pelvis y fémur, un rastro directo de sus ancestros con patas.' },
+            8:   { n: 'Serpiente arco iris',     img: 'img/8_deslizante.png',   d: 'Xenopeltis unicolor.',      adap: 'Eslabón intermedio con escamas iridiscentes que conectan linajes primitivos y modernos.' },
+            16:  { n: 'Anaconda verde',          img: 'img/16_deslizante.png',  d: 'Eunectes murinus.',         adap: 'El reptil más pesado del mundo; conserva espuelas cloacales como patas traseras rudimentarias.' },
+            32:  { n: 'Pitón reticulada',        img: 'img/32_deslizante.png',     d: 'Malayopython reticulatus.', adap: 'La serpiente más larga del mundo, capaz de alcanzar longitudes de hasta 8 metros.' },
+            64:  { n: 'Serpiente rey',           img: 'img/64_deslizante.png',       d: 'Lampropeltis californiae.', adap: 'Representa la radiación colúbrida, la familia más diversa con cerca de 1800 especies.' },
+            128: { n: 'Serpiente marina',        img: 'img/128_deslizante.png',   d: 'Hydrophis platurus.',       adap: 'La única serpiente verdaderamente pelágica del mundo, adaptada a vivir en mar abierto.' },
+            256: { n: 'Cobra real',              img: 'img/256_deslizante.png',    d: 'Ophiophagus hannah.',       adap: 'La serpiente venenosa más larga; destaca por construir nidos y proteger activamente sus huevos.' },
+            512: { n: 'Cascabel diamantada',     img: 'img/512_deslizante.png', d: 'Crotalus atrox.',          adap: 'Posee colmillos abatibles y fosetas termorreceptoras, el sistema de caza más sofisticado del mundo ofidio.' }
+        }
+    },
+
     monitos: {
         id: 'monitos',
         title: "INVESTIGACIÓN: MONITOS",
@@ -389,7 +408,8 @@ const PORTALS = {
             256: ['piel_con_historia'] // <--- Se abre al llegar a Pangea en la rama Nace un Planeta
         },
         lineas_reptilianas: {
-            8: ['lagartos_variados'] // <--- Se abre al alcanzar "Lagartos" en las líneas reptilianas
+            8: ['lagartos_variados'],
+            128: ['evolucion_deslizante'] // <--- El portal hacia las serpientes
         },
    
 };
