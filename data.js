@@ -406,7 +406,8 @@ const PORTALS = {
         lineas_reptilianas: {
             8: ['lagartos_variados'],
             16: ['evolucion_deslizante'] // <--- El portal hacia las serpientes
-        }
+        },
+    }
 };
 
 // Orden canónico de las eras del tronco
