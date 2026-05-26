@@ -119,6 +119,25 @@ const INVESTIGATIONS = {
         }
     },
 
+    lagartos_variados: {
+        id: 'lagartos_variados',
+        title: "INVESTIGACIÓN: LAGARTOS VARIADOS",
+        panelTitle: "DIVERSIDAD DE LAGARTOS",
+        color: '#f39c12', // Un tono naranja/dorado escamoso
+        completeDesc: "Has descubierto la asombrosa diversidad de formas y adaptaciones de los lagartos.",
+        data: {
+            2:   { n: 'Iguana verde',            img: 'img/2_lagartitos.png',          d: 'Iguana iguana.',               adap: 'Herbívoro estrictamente arborícola con una cresta dorsal prominente y una larga cola que usa como látigo para defenderse.' },
+            4:   { n: 'Dragón de Komodo',        img: 'img/4_lagartitos.png',          d: 'Varanus komodoensis.',         adap: 'El lagarto más grande del mundo. Caza grandes presas gracias a su letal combinación de fuerza, tamaño y glándulas de veneno.' },
+            8:   { n: 'Camaleón del Yemen',      img: 'img/8_lagartitos.png',        d: 'Chamaeleo calyptratus.',       adap: 'Posee ojos de movimiento independiente, lengua proyectable y la capacidad de cambiar de color para comunicarse y termorregularse.' },
+            16:  { n: 'Geco tokay',              img: 'img/16_lagartitos.png',           d: 'Gekko gecko.',                 adap: 'Sus dedos están provistos de almohadillas con millones de setas microscópicas que crean fuerzas de van der Waals para trepar cualquier superficie.' },
+            32:  { n: 'Lagarto volador',         img: 'img/32_lagartitos.png',          d: 'Draco volans.',                adap: 'Sus costillas alargadas sostienen una membrana de piel (patagio) que despliega para planear hábilmente entre los árboles de la selva.' },
+            64:  { n: 'Lagarto de lengua azul',  img: 'img/64_lagartitos.png',        d: 'Tiliqua scincoides.',          adap: 'Desarrolló una llamativa y ancha lengua azul que muestra repentinamente junto con un fuerte siseo para disuadir a posibles atacantes.' },
+            128: { n: 'Lución',                  img: 'img/128_lagartitos.png',        d: 'Anguis fragilis.',             adap: 'Lagarto ápodo (sin patas) adaptado a la vida subterránea que retiene la capacidad de autotomía: puede desprender su cola para escapar.' },
+            256: { n: 'Monstruo de Gila',        img: 'img/256_lagartitos.png',          d: 'Heloderma suspectum.',         adap: 'Uno de los pocos lagartos venenosos. Almacena grandes reservas de grasa en su gruesa cola para sobrevivir a los duros meses de sequía en el desierto.' },
+            512: { n: 'Lagarto verde europeo',   img: 'img/512_lagartitos.png', d: 'Lacerta viridis.',             adap: 'Los machos lucen una brillante coloración esmeralda con garganta azul en celo. Es un cazador terrestre extremadamente ágil entre los matorrales.' }
+        }
+    },
+
     monitos: {
         id: 'monitos',
         title: "INVESTIGACIÓN: MONITOS",
@@ -368,7 +387,10 @@ const PORTALS = {
         },
         nace_un_planeta: {
             256: ['piel_con_historia'] // <--- Se abre al llegar a Pangea en la rama Nace un Planeta
-        }
+        },
+        lineas_reptilianas: {
+            8: ['lagartos_variados'] // <--- Se abre al alcanzar "Lagartos" en las líneas reptilianas
+        },
     }
 };
 
