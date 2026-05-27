@@ -434,6 +434,7 @@ const PORTALS = {
     vida: {
         2:   ['pioneros'],
         4:   ['pluricelulares'],
+        8:   ['blandos_por_dentro'],
         32:  ['anfibios'],
         64:  ['lineas_reptilianas'],
         512: ['monitos']
@@ -456,8 +457,7 @@ const PORTALS = {
         },
         pluricelulares: {
             16: ['gelatinosas_y_picantes'],
-            256: ['planos_y_peligrosos'],
-            512: ['blandos_por_dentro'] 
+            256: ['planos_y_peligrosos'] 
         },
         ranitas: {
             512: ['ranitas_dardo'] 
