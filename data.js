@@ -266,7 +266,7 @@ const INVESTIGATIONS = {
             256: { n: 'Bosque Mixto',       img: 'img/256_suelo.png', d: 'Transición a la madurez.',                adap: 'Suelo profundo y maduro con gran biodiversidad; las especies de crecimiento lento comienzan a superar a las pioneras.' },
             512: { n: 'Bosque Clímax',      img: 'img/512_suelo.png', d: 'El equilibrio dinámico.',                 adap: 'Ecosistema estable y autosuficiente donde la sustitución de especies se detiene en favor de una comunidad resiliente.' }
         }
-},
+    },
     ranitas_dardo: {
         id: 'ranitas_dardo',
         title: "INVESTIGACIÓN: RANITAS DARDO",
@@ -375,7 +375,7 @@ const INVESTIGATIONS = {
             16:  { n: 'Cefalópodos',             img: 'img/16_blanditos.png', d: 'Clase Cephalopoda.',           adap: 'El pie evoluciona en tentáculos móviles rodeando la cabeza. Poseen una propulsión a chorro eficiente y el cerebro más complejo de los invertebrados.' },
             32:  { n: 'Poliquetos',              img: 'img/32_blanditos.png',  d: 'Clase Polychaeta.',            adap: 'Gusanos marinos segmentados provistos de parápodos (expansiones carnosas) repletas de finas cerdas o quetas para desplazarse o nadar.' },
             64:  { n: 'Lombrices',               img: 'img/64_blanditos.png',    d: 'Clase Oligochaeta.',           adap: 'Anélidos terrestres segmentados que carecen de parápodos. Verdaderos ingenieros del suelo que optimizan el reciclaje de materia orgánica.' },
-            128: { n: 'Crustáceos',              img: 'img/128_blanditos.png',   d: 'Subfilo Crustacea'             adap: 'Artrópodos mayoritariamente acuáticos con apéndices articulados bírreos y un exoesqueleto endurecido por depósitos de carbonato cálcico.' },
+            128: { n: 'Crustáceos',              img: 'img/128_blanditos.png',   d: 'Subfilo Crustacea',             adap: 'Artrópodos mayoritariamente acuáticos con apéndices articulados bírreos y un exoesqueleto endurecido por depósitos de carbonato cálcico.' },
             256: { n: 'Arácnidos',               img: 'img/256_blanditos.png',  d: 'Clase Arachnida.',             adap: 'Colonizadores de tierra firme con el cuerpo dividido en cefalotórax y abdomen, cuatro pares de patas locomotoras y respiración por pulmones en libro.' },
             512: { n: 'Insectos',                img: 'img/512_blanditos.png',   d: 'Clase Insecta.',               adap: 'El grupo animal más diverso y exitoso de la Tierra; cuerpo dividido en tres tagmas bien claros (cabeza, tórax y abdomen) y pioneros del vuelo.' }
         }
