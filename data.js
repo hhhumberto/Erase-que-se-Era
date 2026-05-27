@@ -416,7 +416,7 @@ const PORTALS = {
         flora: {
             512: ['suelo_a_bosque'] // <--- El portal que se abre al llegar a 512 en flora
         },
-        invertebrados: {
+        pluricelulares: {
             256: ['planos_y_peligrosos'] // <--- El portal hacia los gusanos planos
         },
         ranitas: {
