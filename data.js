@@ -231,6 +231,25 @@ const INVESTIGATIONS = {
         }
     },
 
+    planos_y_peligrosos: {
+        id: 'planos_y_peligrosos',
+        title: "INVESTIGACIÓN: PLANOS Y PELIGROSOS",
+        panelTitle: "EL MUNDO DE LOS PLATELMINTOS",
+        color: '#9b59b6', // Un tono violeta vibrante
+        completeDesc: "Has explorado la belleza cromática y el terror parasitario de los gusanos planos.",
+        data: {
+            2:   { n: 'Pseudoceros caeruleus',       img: 'img/2_planitos.png',      d: 'Policládido marino.',      adap: 'Azul eléctrico intenso con bordes luminosos. Es uno de los animales más irreales a simple vista.' },
+            4:   { n: 'Pseudobiceros gloriosus',    img: 'img/4_planitos.png',      d: 'Policládido Indo-Pacífico.', adap: 'Bandas negras y doradas ondulantes que recuerdan a una tela barroca; uno de los más vistosos del océano.' },
+            8:   { n: 'Pseudobiceros bedfordi',     img: 'img/8_planitos.png',       d: 'Persian carpet flatworm.', adap: 'Colores eléctricos y movimientos hipnóticos; posiblemente el platelminto más espectacular visualmente.' },
+            16:  { n: 'Thysanozoon nigropapillosum', img: 'img/16_planitos.png',         d: 'Policládido verrugoso.',   adap: 'Criatura con protuberancias dorsales que le dan un aspecto alienígena, con un desplazamiento ondulante único.' },
+            32:  { n: 'Cestoda',                    img: 'img/32_planitos.png',         d: 'Parásito intestinal.',     adap: 'Especialista extremo que carece de aparato digestivo propio, absorbiendo nutrientes directamente de su huésped.' },
+            64:  { n: 'Pseudoceros ferrugineus',    img: 'img/64_planitos.png',   d: 'Policládido fluido.',      adap: 'Posee colores cálidos metálicos y una forma de moverse que recuerda a la fluidez de los líquidos.' },
+            128: { n: 'Bipalium kewense',           img: 'img/128_planitos.png',       d: 'Platelminto martillo.',    adap: 'Depredador terrestre con cabeza expandida en forma de martillo que utiliza neurotoxinas para cazar lombrices.' },
+            256: { n: 'Leucochloridium paradoxum',  img: 'img/256_planitos.png',          d: 'Manipulador parasitario.', adap: 'Famoso por invadir los tentáculos de caracoles, transformándolos en señales pulsátiles para atraer a sus aves depredadoras.' },
+            512: { n: 'Pseudoceros dimidiatus',     img: 'img/512_planitos.png',   d: 'Policládido bicolor.',     adap: 'Azul intenso con borde amarillo, una pieza de color irreal muy valorada en la fotografía submarina.' }
+        }
+    },
+
     flora: {
         id: 'flora',
         title: "INVESTIGACIÓN: REINO VEGETAL",
@@ -396,6 +415,9 @@ const PORTALS = {
         },
         flora: {
             512: ['suelo_a_bosque'] // <--- El portal que se abre al llegar a 512 en flora
+        },
+        invertebrados: {
+            256: ['planos_y_peligrosos'] // <--- El portal hacia los gusanos planos
         },
         ranitas: {
             512: ['ranitas_dardo'] // <--- Se abre al completar la rama de ranitas original
