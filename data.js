@@ -342,6 +342,44 @@ const INVESTIGATIONS = {
             512: { n: 'Súper Volcán de Toba',        img: 'img/512_piel.png', d: 'El gran cuello de botella.',                        adap: 'Una colosal erupción en Sumatra provoca un severo invierno volcánico. Se postula que redujo drásticamente la población humana global, moldeando nuestra genética.' }
         }
     },
+
+    gelatinosas_y_picantes: {
+        id: 'gelatinosas_y_picantes',
+        title: "INVESTIGACIÓN: GELATINOSAS Y PICANTES",
+        panelTitle: "EL REINO DE LAS MEDUSAS",
+        color: '#00ced1', // Un tono turquesa o cian translúcido
+        completeDesc: "Has navegado entre las criaturas más etéreas y urticantes de los océanos, desde la asombrosa inmortalidad biológica hasta los gigantes abisales.",
+        data: {
+            2:   { n: 'Avispa de mar',               img: 'img/2_gelatinas.png',       d: 'Chironex fleckeri.',           adap: 'Cubozoo extremadamente venenoso con campana casi cúbica. Representa el linaje más letal y activo de las medusas.' },
+            4:   { n: 'Medusa luna',                 img: 'img/4_gelatinas.png',        d: 'Aurelia aurita.',              adap: 'La medusa “clásica” de mares templados. Transparente y delicada, ejemplifica las escifomedusas más comunes.' },
+            8:   { n: 'Medusa melena de león',       img: 'img/8_gelatinas.png',         d: 'Cyanea capillata.',            adap: 'Una de las mayores medusas del mundo. Sus tentáculos urticantes pueden llegar a superar decenas de metros.' },
+            16:  { n: 'Medusa inmortal',             img: 'img/16_gelatinas.png',   d: 'Turritopsis dohrnii.',         adap: 'Hidrozoo célebre por su capacidad de revertir celularmente al estado juvenil (pólipo), un caso biológico excepcional.' },
+            32:  { n: 'Medusa alarma',               img: 'img/32_gelatinas.png',        d: 'Atolla wyvillei.',             adap: 'Habitante abisal bioluminiscente, famosa por generar destellos defensivos en forma de alarma luminosa.' },
+            64:  { n: 'Medusa invertida',            img: 'img/64_gelatinas.png',     d: 'Cassiopea andromeda.',         adap: 'Vive apoyada sobre el fondo oceánico con los tentáculos hacia arriba para favorecer la simbiosis con algas fotosintéticas.' },
+            128: { n: 'Medusa Irukandji',            img: 'img/128_gelatinas.png',   d: 'Malo kingi.',                  adap: 'Pequeñísima pero extremadamente peligrosa. Representa a las letales cubomedusas diminutas y casi invisibles.' },
+            256: { n: 'Medusa yema de huevo',        img: 'img/256_gelatinas.png', d: 'Phacellophora camtschatica.',  adap: 'De gran valor estético, posee un centro amarillo intenso rodeado por una elegante campana translúcida.' },
+            512: { n: 'Medusa gigante fantasmal',    img: 'img/512_gelatinas.png', d: 'Stygiomedusa gigantea.',       adap: 'Gigante abisal raramente observada. Carece de los tentáculos finos típicos, luciendo enormes brazos orales oscuros.' }
+        }
+    },
+
+    blandos_por_dentro: {
+        id: 'blandos_por_dentro',
+        title: "INVESTIGACIÓN: BLANDOS POR DENTRO",
+        panelTitle: "EVOLUCIÓN DE INVERTEBRADOS",
+        color: '#e74c3c', // Un tono coral/rojizo suave
+        completeDesc: "Has descifrado la increíble transición de los invertebrados: desde los cuerpos blandos y protegidos por conchas hasta el éxito masivo de los apéndices articulados.",
+        data: {
+            2:   { n: 'Quitones',                img: 'img/2_blanditos.png',      d: 'Clase Polyplacophora.',        adap: 'Moluscos primitivos con una concha dorsal de 8 placas articuladas que les permite rodear y adherirse firmemente a rocas rugosas.' },
+            4:   { n: 'Gasterópodos',            img: 'img/4_blanditos.png', d: 'Clase Gastropoda.',           adap: 'Caracoles y babosas que desarrollaron la torsión de su masa visceral durante el desarrollo y, habitualmente, una concha espiralizada.' },
+            8:   { n: 'Bivalvos',                img: 'img/8_blanditos.png',     d: 'Clase Bivalvia.',              adap: 'Moluscos de concha lateral dividida en dos valvas. Perdieron la cabeza diferenciada y se especializaron de forma extrema en la filtración marina.' },
+            16:  { n: 'Cefalópodos',             img: 'img/16_blanditos.png', d: 'Clase Cephalopoda.',           adap: 'El pie evoluciona en tentáculos móviles rodeando la cabeza. Poseen una propulsión a chorro eficiente y el cerebro más complejo de los invertebrados.' },
+            32:  { n: 'Poliquetos',              img: 'img/32_blanditos.png',  d: 'Clase Polychaeta.',            adap: 'Gusanos marinos segmentados provistos de parápodos (expansiones carnosas) repletas de finas cerdas o quetas para desplazarse o nadar.' },
+            64:  { n: 'Lombrices',               img: 'img/64_blanditos.png',    d: 'Clase Oligochaeta.',           adap: 'Anélidos terrestres segmentados que carecen de parápodos. Verdaderos ingenieros del suelo que optimizan el reciclaje de materia orgánica.' },
+            128: { n: 'Crustáceos',              img: 'img/128_blanditos.png',   d: 'Subfilo Crustacea'             adap: 'Artrópodos mayoritariamente acuáticos con apéndices articulados bírreos y un exoesqueleto endurecido por depósitos de carbonato cálcico.' },
+            256: { n: 'Arácnidos',               img: 'img/256_blanditos.png',  d: 'Clase Arachnida.',             adap: 'Colonizadores de tierra firme con el cuerpo dividido en cefalotórax y abdomen, cuatro pares de patas locomotoras y respiración por pulmones en libro.' },
+            512: { n: 'Insectos',                img: 'img/512_blanditos.png',   d: 'Clase Insecta.',               adap: 'El grupo animal más diverso y exitoso de la Tierra; cuerpo dividido en tres tagmas bien claros (cabeza, tórax y abdomen) y pioneros del vuelo.' }
+        }
+    },
  
     cultivos_civilizadores: {
         id: 'cultivos_civilizadores',
@@ -417,7 +455,9 @@ const PORTALS = {
             512: ['suelo_a_bosque'] 
         },
         pluricelulares: {
-            256: ['planos_y_peligrosos'] 
+            16: ['gelatinosas_y_picantes'],
+            256: ['planos_y_peligrosos'],
+            512: ['blandos_por_dentro'] 
         },
         ranitas: {
             512: ['ranitas_dardo'] 
