@@ -1,8 +1,6 @@
 /* ============================================================
    ÉRASE QUE SE ERA — ERA ASTRONÓMICA
    Contiene: era "astronomica" + ramas que la tienen como ancestro:
-     · nace_un_planeta  (portal en astronomica[128])
-     · piel_con_historia (portal en nace_un_planeta[256])
    ============================================================ */
 
 // ── ERA PRINCIPAL ─────────────────────────────────────────────

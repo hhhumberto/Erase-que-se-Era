@@ -32,6 +32,9 @@ const PORTALS = {
         128: ['primeros_artistas'],
         256: ['cultivos_civilizadores']
     },
+    mundos_antiguos: {                 
+        128: ['republica_roma']
+    },
 
     // Portales en las INVESTIGACIONes
     __subgame__: {
