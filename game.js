@@ -136,7 +136,6 @@ class InvestigationState {
                             const img = el.querySelector('img[data-src]');
                             if (img) img.src = img.dataset.src;
                             if (!snap.hasDiscovered(nv)) snap.cb.onDiscover(nv, snap);
-                            else if (nv === snap.winTile) snap.cb.onWin(snap);
                         }, 150);
                         this.board[b] = null; moved = true; break;
                     } else break;
@@ -368,9 +367,8 @@ function _bootEra(idx) {
 }
 
 function _launchEra() {
-    const pos = Math.floor(Math.random() * 16);
-    session.main.board[pos] = _createTile(2, pos, session.main);
-    session.main.cb.onDiscover(2, session.main);
+    session.main.addTile();
+    session.main.addTile();
 }
 
 function onEraWin(idx) {
@@ -448,6 +446,7 @@ function closeInvestigacion() {
 
 function restartSubgame() {
     document.getElementById('subgame-game-over-overlay').classList.remove('active');
+    if (!session.branch) return;
     session.branch.reset();
     session.branch.addTile();
     session.branch.addTile();
@@ -492,6 +491,7 @@ function closeTheatre() {
     document.getElementById('theatre-overlay').classList.remove('active');
     theatre.state = null;
     theatre.val   = null;
+    _theatreAlbum = null;
 }
 
 
@@ -853,13 +853,6 @@ function theatreAlbumNav(dir) {
     if (!_theatreAlbum) return;
     _theatreAlbum.idx = Math.max(0, Math.min(_theatreAlbum.vals.length - 1, _theatreAlbum.idx + dir));
     _renderTheatreAlbum();
-}
-
-function closeTheatre() {
-    document.getElementById('theatre-overlay').classList.remove('active');
-    theatre.state = null;
-    theatre.val   = null;
-    _theatreAlbum = null;
 }
 
 // ── Cerrar álbum ──────────────────────────────────────────────

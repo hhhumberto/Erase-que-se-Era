@@ -18,8 +18,14 @@
     --tile-gap: 18px;
 }
 
-body.era-vida { --bg-body: #f8f9fa; --panel-bg: #2d3436; --text-color: #2d3436; --title-color: #00b894; }
-body.era-homo { --bg-body: #fdfaf0; --panel-bg: #4e342e; --text-color: #3e2723; --title-color: #d35400; }
+body.era-vida         { --bg-body: #f8f9fa; --panel-bg: #2d3436; --text-color: #2d3436; --title-color: #00b894; }
+body.era-homo         { --bg-body: #fdfaf0; --panel-bg: #4e342e; --text-color: #3e2723; --title-color: #d35400; }
+body.era-mundos_antiguos { --bg-body: #1a1200; --panel-bg: #2c1e00; --text-color: #f5deb3; --title-color: #e6b84a; }
+body.era-mundo_medieval  { --bg-body: #0d0d1a; --panel-bg: #1a1a2e; --text-color: #d8d0c0; --title-color: #8b7355; }
+body.era-era_ciencia     { --bg-body: #f0f4f8; --panel-bg: #dde8f0; --text-color: #1a2a3a; --title-color: #2980b9; }
+body.era-era_industrial  { --bg-body: #1a1008; --panel-bg: #2a1a0a; --text-color: #d4c4a0; --title-color: #c0392b; }
+body.era-era_espacial    { --bg-body: #040816; --panel-bg: #0a0f2a; --text-color: #c8d8f0; --title-color: #3498db; }
+body.era-era_digital     { --bg-body: #050510; --panel-bg: #0a0a1a; --text-color: #e0e8ff; --title-color: #9b59b6; }
 
 * { box-sizing: border-box; }
 
@@ -67,7 +73,7 @@ body {
     border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center;
     color: #555; font-size: 1.8rem; font-weight: bold; transition: transform 0.2s;
 }
-body.era-vida .era-slot, body.era-homo .era-slot { border-color: rgba(0,0,0,0.2); color: #aaa; }
+body.era-vida .era-slot, body.era-homo .era-slot, body.era-era_ciencia .era-slot { border-color: rgba(0,0,0,0.2); color: #aaa; }
 /* Toda era clicable tiene fondo blanco */
 .era-slot.completed {
     background: white; border: none; color: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -123,7 +129,7 @@ body.era-vida .era-slot, body.era-homo .era-slot { border-color: rgba(0,0,0,0.2)
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     color: #555; font-size: 1.5rem; font-weight: bold; transition: all 0.4s ease;
 }
-body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(0,0,0,0.2); color: #aaa; }
+body.era-vida .progress-slot, body.era-homo .progress-slot, body.era-era_ciencia .progress-slot { border-color: rgba(0,0,0,0.2); color: #aaa; }
 .progress-slot.filled {
     border: none; background: white; color: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.3); animation: dropIn 0.5s ease;
 }
@@ -132,18 +138,17 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
 @keyframes dropIn { from { opacity: 0; transform: translateY(-20px) scale(0.8); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
 /* OVERLAYS (Modales) */
-#theatre-overlay, #era-overlay, #game-over-overlay, #subgame-game-over-overlay, #subgame-complete-overlay, #catalog-overlay {
+#theatre-overlay, #era-overlay, #game-over-overlay, #subgame-game-over-overlay, #subgame-complete-overlay {
     position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
     backdrop-filter: blur(10px);
 }
-#theatre-overlay.active, #era-overlay.active, #game-over-overlay.active, #subgame-game-over-overlay.active, #subgame-complete-overlay.active, #catalog-overlay.active { display: flex; }
+#theatre-overlay.active, #era-overlay.active, #game-over-overlay.active, #subgame-game-over-overlay.active, #subgame-complete-overlay.active { display: flex; }
 
 #game-over-overlay, #era-overlay { z-index: 8000; background: rgba(0,0,0,0.95); flex-direction: column; text-align: center; }
 #investigacion-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 8100; background: var(--bg-body); }
 #investigacion-overlay.active { display: flex; }
 #subgame-game-over-overlay, #subgame-complete-overlay { z-index: 8200; background: rgba(0,0,0,0.95); flex-direction: column; text-align: center; }
 #theatre-overlay { z-index: 8300; }
-#catalog-overlay { z-index: 8400; background: rgba(0,0,0,0.85); }
 
 /* DISEÑO DE TARJETA TÉCNICA */
 .theatre-card {
@@ -184,30 +189,6 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
 .nav-btn.left { left: -90px; }
 .nav-btn.right { right: -90px; }
 
-/* GALERÍA DE TARJETAS */
-#sequence-container, #m-sequence-container {
-    display: flex; gap: 15px; margin: 30px 0; max-width: 90%;
-    overflow-x: auto; padding: 10px; align-items: flex-start;
-}
-.sequence-card-wrapper {
-    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-    min-width: 125px;
-}
-.gateway-placeholder {
-    height: 60px;
-    display: flex; align-items: flex-end; justify-content: center; width: 100%; margin-bottom: 10px;
-}
-.sequence-card {
-    width: 125px; display: flex; flex-direction: column; align-items: center;
-    color: white; font-weight: bold; font-size: 0.85rem; cursor: pointer; transition: transform 0.2s;
-}
-.sequence-card:hover { transform: scale(1.05); }
-.sequence-card img { width: 100px; height: 100px; background: white; border-radius: 12px; margin-bottom: 8px; object-fit: contain; padding: 5px; }
-.card-title {
-    min-height: 2.8em;
-    display: flex; align-items: flex-start; justify-content: center; text-align: center; line-height: 1.2;
-}
-
 .subgame-gateway-above {
     background: rgba(211, 84, 0, 0.25);
     border: 2px dashed #ffcc00;
@@ -244,9 +225,6 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
 }
 .progress-slot.subgame-slot { border-color: rgba(255, 255, 255, 0.2); color: var(--subgame-color, #2ecc71); transition: color 0.5s;}
 
-    to   { box-shadow: 0 0 12px var(--title-color); }
-}
-
 
 /* ── Placeholder de imagen de ficha ─────────────────────── */
 .tile-placeholder {
@@ -260,18 +238,6 @@ body.era-vida .progress-slot, body.era-homo .progress-slot { border-color: rgba(
     opacity: 1;
 }
 .tile img { position: relative; z-index: 2; }
-
-/* ── Portales de rama en el catálogo ────────────────────── */
-.catalog-branch-portal {
-    display: flex; flex-direction: column; align-items: center;
-    padding: 7px 16px; border: 2px solid; border-radius: 12px;
-    cursor: pointer; font-size: .85rem; transition: transform .2s, background .2s;
-    background: transparent;
-}
-.catalog-branch-portal:hover {
-    transform: scale(1.05);
-    background: rgba(0,0,0,0.06);
-}
 
 /* ════════════════════════════════════════════
    ÁLBUM DE CROMOS

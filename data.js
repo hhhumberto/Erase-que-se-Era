@@ -101,6 +101,51 @@ const ERAS = {
             512: { n: "Máquina de Vapor",       img: "img/512_ciencia.png",d: "Energía y termodinámica.",       ext: "La aplicación del conocimiento térmico para generar trabajo mecánico, hito que detonó la Revolución Industrial y cambió la historia económica humana." }
         }
     },
+    era_industrial: {
+        title: "ERA INDUSTRIAL", 
+        panelTitle: "REVOLUCIÓN Y ACELERACIÓN",
+        data: {
+            2:   { n: "Transporte a vapor",      img: "img/2_industrial.png",   d: "La máquina de vapor revoluciona la movilidad.",            ext: "La invención de la locomotora y el barco de vapor aceleraron drásticamente el movimiento de personas y mercancías, conectando el mundo a una velocidad inédita." },
+            4:   { n: "Revolución Francesa",     img: "img/4_industrial.png",   d: "La caída del Antiguo Régimen.",                            ext: "Iniciada en 1789, transformó radicalmente las estructuras políticas y sociales europeas, promoviendo ideales de libertad, igualdad y fraternidad que inspiraron al mundo entero." },
+            8:   { n: "Imperio Napoleónico",     img: "img/8_industrial.png",   d: "El imperio francés se expande por Europa.",                ext: "Las guerras napoleónicas redibujaron el mapa europeo, exportando las ideas de la Revolución pero también desatando fuertes resistencias nacionales que forjaron nuevas identidades." },
+            16:  { n: "América Libre",           img: "img/16_industrial.png",  d: "Nacen las nuevas repúblicas americanas.",                  ext: "Inspiradas por las ideas ilustradas y aprovechando la crisis en Europa, las colonias americanas lucharon por su emancipación, formando nuevos estados soberanos." },
+            32:  { n: "Abolicionismo",           img: "img/32_industrial.png",  d: "El fin legal del comercio de personas.",                   ext: "Un fuerte movimiento ético y político global, aunque paulatino y a menudo conflictivo, logró abolir legalmente la esclavitud, marcando un avance fundamental en los derechos humanos." },
+            64:  { n: "Origen de las Especies",  img: "img/64_industrial.png",  d: "La teoría de la evolución biológica.",                     ext: "La publicación de Charles Darwin en 1859 revolucionó la ciencia y nuestra visión del mundo al proponer la selección natural como el mecanismo del cambio evolutivo." },
+            128: { n: "Inventos Eléctricos",     img: "img/128_industrial.png", d: "La chispa que iluminó y conectó el planeta.",              ext: "El telégrafo, el teléfono y la bombilla incandescente transformaron la comunicación a distancia y permitieron que la actividad productiva no dependiera exclusivamente de la luz solar." },
+            256: { n: "Imperialismos",           img: "img/256_industrial.png", d: "El gran reparto del mundo por las potencias.",             ext: "Impulsadas por la enorme necesidad de materias primas y nuevos mercados, las potencias industriales europeas se repartieron y colonizaron aceleradamente vastas áreas de África y Asia." },
+            512: { n: "Primer Vuelo",            img: "img/512_industrial.png", d: "El ser humano conquista finalmente los cielos.",           ext: "A principios del siglo XX, los hermanos Wright lograron el primer vuelo controlado y con motor, abriendo la puerta a la era de la aviación que empequeñecería las distancias globales." }
+        }
+    },
+    era_espacial: {
+        title: "ERA ESPACIAL Y BRUTAL", 
+        panelTitle: "FRONTERAS TERRESTRES Y EXTRATERRESTRES",
+        data: {
+            2:   { n: "Modelo T de Ford",       img: "img/2_espacial.png",   d: "La producción en cadena masifica el automóvil.",          ext: "Introducido en 1908 por Henry Ford, el Modelo T revolucionó la industria del transporte gracias a la cadena de montaje, haciendo el vehículo accesible al público general y transformando el urbanismo mundial." },
+            4:   { n: "Primera Guerra Mundial",  img: "img/4_espacial.png",   d: "La Gran Guerra que sacudió los cimientos de Europa.",     ext: "Entre 1914 y 1918, el primer gran conflicto global del siglo XX enfrentó a las potencias industriales europeos. Introdujo la guerra de trincheras y tecnologías destructivas inéditas, colapsando viejos imperios." },
+            8:   { n: "Revolución Rusa",        img: "img/8_espacial.png",   d: "El nacimiento del primer estado socialista.",             ext: "En 1917, los bolcheviques liderados por Lenin derrocaron el régimen zarista. Este hito no solo transformó a Rusia en la Unión Soviética, sino que polarizó la política internacional durante el resto del siglo." },
+            16:  { n: "La Televisión",          img: "img/16_espacial.png",  d: "La ventana que unificó los hogares del mundo.",           ext: "Las primeras transmisiones públicas de televisión en los años 20 y 30 revolucionaron los medios de comunicación, moldeando la cultura de masas, la publicidad y la transmisión instantánea de información." },
+            32:  { n: "Guerra Civil Española",   img: "img/32_espacial.png",  d: "El trágico preludio del conflicto mundial.",              ext: "Entre 1936 y 1939, España se vio sumida en una cruenta guerra civil que sirvió como campo de pruebas ideológico y militar para las potencias fascistas y democráticas antes de la Segunda Guerra Mundial." },
+            64:  { n: "Segunda Guerra Mundial",  img: "img/64_espacial.png",  d: "El mayor y más destructivo conflicto de la historia.",    ext: "De 1939 a 1945, la guerra movilizó a más de 100 millones de militares en todo el planeta. Marcada por el Holocausto y el uso de bombas atómicas, redefinió por completo el orden geopolítico global." },
+            128: { n: "Sputnik",                img: "img/128_espacial.png", d: "El inicio de la carrera por el cosmos.",                  ext: "En 1957, la Unión Soviética lanzó con éxito el Sputnik 1, el primer satélite artificial de la historia. Este hito tecnológico inauguró oficialmente la Era Espacial y la intensa carrera tecnológica espacial." },
+            256: { n: "Llegada a la Luna",       img: "img/256_espacial.png", d: "Un pequeño paso para el hombre...",                      ext: "En julio de 1969, la misión Apolo 11 de la NASA logró posar a los primeros seres humanos en la superficie lunar, un hito que demostró el alcance de la ingeniería y la ambición científica de la humanidad." },
+            512: { n: "Caída del Muro de Berlín",img: "img/512_espacial.png", d: "El fin de la Guerra Fría y un mundo dividido.",           ext: "La apertura y derribo del muro en 1989 simbolizó el colapso del bloque comunista en Europa Oriental y la reunificación alemana, poniendo fin a décadas de división bipolar en el mundo." }
+        }
+    },
+    era_digital: {
+        title: "ERA DIGITAL PARA BIEN Y PARA MAL", 
+        panelTitle: "CONEXIÓN Y DESCONEXIÓN",
+        data: {
+            2:   { n: "World Wide Web",         img: "img/2_digital.png",   d: "La creación de la red informática mundial.",               ext: "Inventada por Tim Berners-Lee en 1989, la WWW permitió conectar información a nivel global a través de hipervínculos, sentando las bases de la Internet moderna y transformando por completo la sociedad." },
+            4:   { n: "Universo Acelerado",     img: "img/4_digital.png",   d: "El cosmos se expande cada vez más rápido.",                ext: "En 1998, gracias al análisis de datos digitales de telescopios avanzados, los astrónomos descubrieron que la expansión del universo se está acelerando, sugiriendo la presencia de la misteriosa 'energía oscura'." },
+            8:   { n: "El Smartphone",          img: "img/8_digital.png",   d: "La computadora definitiva llega a nuestros bolsillos.",     ext: "La llegada del teléfono inteligente integró internet, sensores de localización y computación de alta potencia en un dispositivo diario, redefiniendo la comunicación, el trabajo y el acceso a la información." },
+            16:  { n: "Crisis Climática",       img: "img/16_digital.png",  d: "Modelos informáticos alertan del calentamiento global.",   ext: "A las puertas del siglo XXI, la recopilación masiva de datos y las simulaciones digitales confirmaron de forma inequívoca el impacto de la actividad humana en el clima de la Tierra, convirtiéndose en el gran reto global." },
+            32:  { n: "11 de Septiembre",       img: "img/32_digital.png",  d: "Los atentados que redefinieron la geopolítica mundial.",    ext: "Los ataques terroristas de 2001 en EE. UU. cambiaron las políticas de seguridad internacional y abrieron una nueva época de conflictos globales, retransmitidos e interiorizados en tiempo real por toda la red médica y mediática." },
+            64:  { n: "Redes Sociales",         img: "img/64_digital.png",  d: "La hiperconectividad y la plaza pública virtual.",          ext: "Plataformas masivas transformaron las relaciones humanas, la cultura y la política. La humanidad pasó de ser mera espectadora a creadora activa de contenido, con el desafío de lidiar con la sobreinformación." },
+            128: { n: "Aprendizaje Profundo",   img: "img/128_digital.png", d: "El renacimiento de la Inteligencia Artificial.",           ext: "El auge del Deep Learning y el procesamiento de Big Data permitieron a las redes neuronales artificiales emular capacidades cognitivas humanas complejos, automatizando tareas, reconociendo patrones y generando contenido." },
+            256: { n: "Pandemia COVID-19",      img: "img/256_digital.png", d: "La crisis sanitaria global del siglo XXI.",                ext: "En 2020, el coronavirus paralizó temporalmente el mundo físico, forzando una aceleración histórica del teletrabajo y la digitalización, mientras la ciencia lograba vacunas en tiempo récord usando biotecnología avanzada." },
+            512: { n: "Sinergia Humano-IA",     img: "img/512_digital.png", d: "¡Humano e Inteligencia Artificial crean este juego!",      ext: "El punto culminante del árbol evolutivo ocurre en este preciso instante: la colaboración simbiótica entre la creatividad y visión de un programador humano y el procesamiento de una IA para dar vida a ÉRASE QUE SE ERA." }
+        }
+    },
 };
 
 // ─────────────────────────────────────────────
@@ -503,4 +548,4 @@ const PORTALS = {
 };
 
 // Orden canónico de las eras del tronco
-const ERA_ORDER = ['astronomica', 'vida', 'homo', 'mundos_antiguos', 'mundo_medieval', 'era_ciencia'];
+const ERA_ORDER = ['astronomica', 'vida', 'homo', 'mundos_antiguos', 'mundo_medieval', 'era_ciencia', 'era_industrial', 'era_espacial', 'era_digital'];
