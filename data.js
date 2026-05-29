@@ -71,6 +71,36 @@ const ERAS = {
             512: { n: "Caída de Roma",    img: "img/512_antiguo.png",  d: "El ocaso del Imperio de Occidente.",                     ext: "Debilitado por crisis económicas, división interna y la presión constante de migraciones germánicas, el Imperio Romano de Occidente finalmente sucumbió en el año 476 d.C., dando paso a la Edad Media." }
         }
     },
+    mundo_medieval: {
+        title: "MUNDO MEDIEVAL", 
+        panelTitle: "LA EDAD MEDIA",
+        data: {
+            2:   { n: "Justiniano I",           img: "img/2_medievo.png",   d: "Restauración Bizantina.",        ext: "Bajo su mandato, el Imperio Bizantino intentó recuperar las glorias de la antigua Roma, codificando el derecho romano y construyendo Santa Sofía." },
+            4:   { n: "Islam",                 img: "img/4_medievo.png",       d: "Expansión Islámica.",            ext: "La unificación de las tribus árabes bajo el Islam generó una expansión sin precedentes que transformó la cultura y el comercio de tres continentes." },
+            8:   { n: "Carlomagno",             img: "img/8_medievo.png",   d: "Sacro Imperio.",                 ext: "Coronado como Emperador de los Romanos, sentó las bases del poder político en la Europa Occidental post-romana." },
+            16:  { n: "Vikingos",               img: "img/16_medievo.png",    d: "Invasiones nórdicas.",           ext: "Desde Escandinavia, los guerreros y navegantes vikingos exploraron, comerciaron y saquearon las costas de Europa, cambiando para siempre su demografía." },
+            32:  { n: "Feudalismo",             img: "img/32_medievo.png",  d: "Sistema de vasallaje.",          ext: "El sistema social basado en la tierra y la lealtad militar dominó la vida medieval, mientras las Cruzadas buscaban expandir la influencia cristiana en Oriente." },
+            64:  { n: "Peste Negra",            img: "img/64_medievo.png",       d: "Crisis demográfica.",            ext: "La pandemia más devastadora de la historia europea diezmó la población, alterando las estructuras económicas y sociales de forma irreversible." },
+            128: { n: "Constantinopla",         img: "img/128_medievo.png",      d: "Fin del Medievo.",               ext: "La conquista por los turcos otomanos en 1453 marcó el final simbólico de la Edad Media y el inicio de un nuevo orden mundial." },
+            256: { n: "Reyes Católicos",        img: "img/256_medievo.png",      d: "Unificación española.",          ext: "La unión dinástica y la finalización de la Reconquista consolidaron a España como una potencia emergente en el escenario europeo." },
+            512: { n: "Exploraciones marítimas",img: "img/512_medievo.png",d: "La Era de los Descubrimientos.", ext: "Las grandes expediciones navales de finales del siglo XV expandieron los límites del mundo conocido, abriendo rutas comerciales transoceánicas y conectando continentes de forma irreversible." }
+        }
+    },
+    era_ciencia: {
+        title: "LA ERA DE LA CIENCIA", 
+        panelTitle: "REVOLUCIÓN CIENTÍFICA",
+        data: {
+            2:   { n: "La Imprenta",            img: "img/2_ciencia.png",       d: "Johannes Gutenberg.",            ext: "La invención de los tipos móviles democratizó el acceso al saber, siendo el motor indispensable de la Revolución Científica y el Renacimiento." },
+            4:   { n: "Heliocentrismo",         img: "img/4_ciencia.png", d: "Copérnico, Galileo y Kepler.",   ext: "El drástico cambio de paradigma que desplazó a la Tierra del centro del universo, demostrando que los planetas orbitan alrededor del Sol." },
+            8:   { n: "Anatomía",               img: "img/8_ciencia.png",       d: "Vesalio y Harvey.",              ext: "El estudio observacional y la disección corrigieron siglos de dogmas médicos, revelando la verdadera estructura humana y la circulación sanguínea." },
+            16:  { n: "Método Científico",      img: "img/16_ciencia.png",        d: "Bacon y Descartes.",             ext: "La consolidación de la observación empírica, la experimentación y la duda metódica como pilares inquebrantables para validar cualquier conocimiento." },
+            32:  { n: "Microscopía",            img: "img/32_ciencia.png",   d: "Hooke y van Leeuwenhoek.",       ext: "El desarrollo de lentes de aumento abrió una ventana a un universo invisible, descubriendo la existencia de células y microorganismos." },
+            64:  { n: "Leyes Universales",      img: "img/64_ciencia.png",  d: "Isaac Newton.",                  ext: "La formulación de la gravitación universal y las leyes del movimiento unificaron por primera vez la física terrestre y celeste bajo matemáticas precisas." },
+            128: { n: "Química Moderna",        img: "img/128_ciencia.png",      d: "Lavoisier y pioneros.",          ext: "El paso definitivo de la alquimia a una ciencia rigurosa, demostrando la conservación de la masa y descubriendo el papel del oxígeno." },
+            256: { n: "Clasificación",          img: "img/256_ciencia.png",       d: "Carl von Linneo.",               ext: "La creación del sistema de nomenclatura binomial, proporcionando un lenguaje universal para organizar e identificar la vasta diversidad biológica." },
+            512: { n: "Máquina de Vapor",       img: "img/512_ciencia.png",d: "Energía y termodinámica.",       ext: "La aplicación del conocimiento térmico para generar trabajo mecánico, hito que detonó la Revolución Industrial y cambió la historia económica humana." }
+        }
+    },
 };
 
 // ─────────────────────────────────────────────
@@ -473,4 +503,4 @@ const PORTALS = {
 };
 
 // Orden canónico de las eras del tronco
-const ERA_ORDER = ['astronomica', 'vida', 'homo', 'mundos_antiguos'];
+const ERA_ORDER = ['astronomica', 'vida', 'homo', 'mundos_antiguos', 'mundo_medieval', 'era_ciencia'];
