@@ -61,3 +61,22 @@ INVESTIGATIONS.piel_con_historia = {
         512: { n: 'Súper Volcán de Toba',        img: 'img/512_piel.png', d: 'El gran cuello de botella.',                        adap: 'Una colosal erupción en Sumatra provoca un severo invierno volcánico. Se postula que redujo drásticamente la población humana global, moldeando nuestra genética.' }
     }
 };
+
+INVESTIGATIONS.vida_muerte_supernova = {
+    id: 'vida_muerte_supernova',
+    title: "INVESTIGACIÓN: VIDA Y MUERTE DE UNA SUPERNOVA",
+    panelTitle: "EVOLUCIÓN ESTELAR",
+    color: '#e74c3c',
+    completeDesc: "Has presenciado el ciclo completo de una estrella masiva y el nacimiento de un agujero negro.",
+    data: {
+        2:   { n: 'Colapso de la nube molecular', img: 'img/2_supernova.png',   d: 'Formación de una protoestrella.',          adap: 'Una región densa de gas y polvo interestelar colapsa por gravedad, formando una protoestrella. La materia cae hacia el centro y aumenta rápidamente la temperatura.' },
+        4:   { n: 'Encendido nuclear',            img: 'img/4_supernova.png',   d: 'Fusión de hidrógeno en helio.',            adap: 'Cuando el núcleo alcanza unos 10 millones de grados, comienza la fusión del hidrógeno en helio. Nace una estrella estable de secuencia principal.' },
+        8:   { n: 'Secuencia principal',          img: 'img/8_supernova.png',   d: 'Equilibrio de gravedad y presión.',        adap: 'La estrella pasa la mayor parte de su vida equilibrando gravedad y presión térmica. Fusiona hidrógeno durante millones o miles de millones de años, según su masa.' },
+        16:  { n: 'Agotamiento del hidrógeno',    img: 'img/16_supernova.png',  d: 'Fin del combustible principal.',           adap: 'El núcleo se queda sin combustible principal. La gravedad vuelve a comprimir el centro mientras las capas externas se expanden.' },
+        32:  { n: 'Supergigante roja',            img: 'img/32_supernova.png',  d: 'Fusión de elementos pesados.',             adap: 'En estrellas masivas, la envoltura exterior se hincha enormemente. El núcleo alcanza temperaturas suficientes para fusionar elementos cada vez más pesados: carbono, neón, oxígeno y silicio.' },
+        64:  { n: 'Formación de núcleo de hierro',img: 'img/64_supernova.png',  d: 'Colapso del equilibrio interno.',          adap: 'La fusión llega al hierro, que ya no produce energía útil. El equilibrio interno colapsa: el núcleo queda sostenido sólo de manera precaria.' },
+        128: { n: 'Colapso gravitatorio',         img: 'img/128_supernova.png', d: 'Implosión extrema del núcleo.',            adap: 'En segundos, el núcleo implosiona. Los protones y electrones se combinan formando neutrones, y la densidad alcanza valores extremos.' },
+        256: { n: 'Explosión de Supernova',       img: 'img/256_supernova.png', d: 'Expulsión colosal y forja de elementos.',  adap: 'La implosión rebota violentamente y expulsa las capas externas en una explosión colosal. Se sintetizan muchos elementos pesados del universo.' },
+        512: { n: 'Agujero negro',                img: 'img/512_supernova.png', d: 'Colapso gravitacional absoluto.',          adap: 'Si el núcleo residual tiene suficiente masa, ni siquiera la presión de degeneración de neutrones puede detener el colapso. Se forma un agujero negro estelar, con una gravedad tan intensa que ni la luz puede escapar.' }
+    }
+};
