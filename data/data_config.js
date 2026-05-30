@@ -62,7 +62,7 @@ const PORTALS = {
             16: ['evolucion_deslizante']
         },
         republica_roma: {
-            2: ['republica_mapas'] // Al llegar a la ficha 2 de republica_roma, se abre el portal a la rama de mapas
+            2: ['republica_mapas'] 
         },
     }
 };

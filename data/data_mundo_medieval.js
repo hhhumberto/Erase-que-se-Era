@@ -4,7 +4,7 @@
    ============================================================ */
 
 ERAS.mundo_medieval = {
-    title: "MUNDO MEDIEVAL", panelTitle: "LA EDAD MEDIA",
+    title: "ERA MEDIEVAL", panelTitle: "LA EDAD MEDIA",
     data: {
         2:   { n: "Justiniano I",            img: "img/2_medievo.png",   d: "Restauración Bizantina.",        ext: "Bajo su mandato, el Imperio Bizantino intentó recuperar las glorias de la antigua Roma, codificando el derecho romano y construyendo Santa Sofía." },
         4:   { n: "Islam",                   img: "img/4_medievo.png",   d: "Expansión Islámica.",            ext: "La unificación de las tribus árabes bajo el Islam generó una expansión sin precedentes que transformó la cultura y el comercio de tres continentes." },

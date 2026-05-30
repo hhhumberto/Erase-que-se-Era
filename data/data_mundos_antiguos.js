@@ -20,7 +20,7 @@ ERAS.mundos_antiguos = {
 
 INVESTIGATIONS.republica_roma = {
     id: 'republica_roma',
-    title: "INVESTIGACIÓN: REPÚBLICA DE ROMA",
+    title: "REPÚBLICA DE ROMA",
     panelTitle: "REPÚBLICA ROMANA",
     color: '#b03a2e', // Un rojo oscuro/carmesí romano
     completeDesc: "Has navegado por las turbulentas aguas de la política romana, desde la caída de los reyes hasta los Idus de marzo.",
@@ -39,7 +39,7 @@ INVESTIGATIONS.republica_roma = {
 
 INVESTIGATIONS.republica_mapas = {
     id: 'republica_mapas',
-    title: "INVESTIGACIÓN: REPÚBLICA EN MAPAS",
+    title: "REPÚBLICA EN MAPAS",
     panelTitle: "MAPAS DE ROMA",
     color: '#8b6b42', // Un color marrón pergamino/tinta envejecida
     completeDesc: "Has completado el atlas histórico cartográfico de la República Romana, desde una pequeña ciudad en el Lacio hasta dominar el Mediterráneo.",
@@ -51,7 +51,7 @@ INVESTIGATIONS.republica_mapas = {
             adap: 'Roma se expande hacia Campania y el Samnio, frente a tribus montañesas y colonias griegas. Vemos incipientes calzadas romanas.' 
         },
         8: { n: 'Dominio Peninsular (270 a.C.)',  img: 'img/8_repmap.png', d: 'Control total de la bota itálica.',       
-            adap: 'Territorio romano ante los estados aliados (socii), las colonias griegas al sur. Ya hay una fina red de vías consulares cruzando la península.' 
+            adap: 'Territorio romano y estados aliados (socii), las colonias griegas al sur. Ya hay una fina red de vías consulares cruzando la península.' 
         },
         16: { n: 'I Guerra Púnica (264 a.C.)', img: 'img/16_repmap.png', d: 'El choque naval por Sicilia.',       
             adap: 'Mediterráneo occidental. Sicilia dividida y rodeada de batallas navales y flotas romanas, enfrentándose a Cartago.' 
@@ -60,7 +60,7 @@ INVESTIGATIONS.republica_mapas = {
             adap: 'Ruta de Aníbal desde Hispania, cruzando los Alpes, con masacres como Cannas y Trasimeno.' 
         },
         64: { n: 'Hegemonía (146 a.C.)', img: 'img/64_repmap.png', d: 'El dominio absoluto del Mediterráneo.',        
-            adap: 'El territorio republicano abarca Italia, Hispania, África y Grecia. Cartago aparece es una ruina y el mar está surcado por rutas comerciales.' 
+            adap: 'El territorio republicano abarca Italia, Hispania, África y Grecia. Cartago es una ruina y el mar está surcado por rutas comerciales.' 
         },
         128: { n: 'La Crisis (133-88 a.C.)', img: 'img/128_repmap.png', d: 'Tensión social y rebeliones.',            
             adap: 'Conflictos agrarios, rebelión de esclavos en Sicilia e inestabilidad de los aliados exigiendo ciudadanía.' 

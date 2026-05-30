@@ -38,7 +38,7 @@ ERAS.vida = {
 
 INVESTIGATIONS.pioneros = {
     id: 'pioneros',
-    title: "INVESTIGACIÓN: PIONEROS",
+    title: "PIONEROS",
     panelTitle: "MICROCOSMOS",
     color: '#e84393',
     completeDesc: "Has alcanzado a los Coanoflagelados y completado la ramificación.",
@@ -57,7 +57,7 @@ INVESTIGATIONS.pioneros = {
 
 INVESTIGATIONS.flora = {
     id: 'flora',
-    title: "INVESTIGACIÓN: REINO VEGETAL",
+    title: "REINO VEGETAL",
     panelTitle: "FLORA TERRESTRE",
     color: '#27ae60',
     completeDesc: "Has formado un ecosistema completo y completado la ramificación vegetal.",
@@ -76,7 +76,7 @@ INVESTIGATIONS.flora = {
 
 INVESTIGATIONS.suelo_a_bosque = {
     id: 'suelo_a_bosque',
-    title: "INVESTIGACIÓN: DE SUELO A BOSQUE",
+    title: "DE SUELO A BOSQUE",
     panelTitle: "SUCESIÓN ECOLÓGICA",
     color: '#795548',
     completeDesc: "Has alcanzado el estado de Bosque Clímax, el equilibrio perfecto del ecosistema.",
@@ -95,7 +95,7 @@ INVESTIGATIONS.suelo_a_bosque = {
 
 INVESTIGATIONS.pluricelulares = {
     id: 'pluricelulares',
-    title: "INVESTIGACIÓN: PLURICELULARES",
+    title: "PLURICELULARES",
     panelTitle: "EVOLUCIÓN MULTICELULAR",
     color: '#9b59b6',
     completeDesc: "Has alcanzado a los Equinodermos y completado la ramificación.",
@@ -114,7 +114,7 @@ INVESTIGATIONS.pluricelulares = {
 
 INVESTIGATIONS.gelatinosas_y_picantes = {
     id: 'gelatinosas_y_picantes',
-    title: "INVESTIGACIÓN: GELATINOSAS Y PICANTES",
+    title: "GELATINOSAS Y PICANTES",
     panelTitle: "EL REINO DE LAS MEDUSAS",
     color: '#00ced1',
     completeDesc: "Has navegado entre las criaturas más etéreas y urticantes de los océanos, desde la asombrosa inmortalidad biológica hasta los gigantes abisales.",
@@ -133,7 +133,7 @@ INVESTIGATIONS.gelatinosas_y_picantes = {
 
 INVESTIGATIONS.planos_y_peligrosos = {
     id: 'planos_y_peligrosos',
-    title: "INVESTIGACIÓN: PLANOS Y PELIGROSOS",
+    title: "PLANOS Y PELIGROSOS",
     panelTitle: "EL MUNDO DE LOS PLATELMINTOS",
     color: '#9b59b6',
     completeDesc: "Has explorado la belleza cromática y el terror parasitario de los gusanos planos.",
@@ -152,7 +152,7 @@ INVESTIGATIONS.planos_y_peligrosos = {
 
 INVESTIGATIONS.blandos_por_dentro = {
     id: 'blandos_por_dentro',
-    title: "INVESTIGACIÓN: BLANDOS POR DENTRO",
+    title: "BLANDOS POR DENTRO",
     panelTitle: "EVOLUCIÓN DE INVERTEBRADOS",
     color: '#e74c3c',
     completeDesc: "Has descifrado la increíble transición de los invertebrados: desde los cuerpos blandos y protegidos por conchas hasta el éxito masivo de los apéndices articulados.",
@@ -171,7 +171,7 @@ INVESTIGATIONS.blandos_por_dentro = {
 
 INVESTIGATIONS.anfibios = {
     id: 'anfibios',
-    title: "INVESTIGACIÓN: ANFIBIOS",
+    title: "ANFIBIOS",
     panelTitle: "ANFIBIOS",
     color: '#00cec9',
     completeDesc: "Has alcanzado a la Rana y completado la ranificación.",
@@ -190,7 +190,7 @@ INVESTIGATIONS.anfibios = {
 
 INVESTIGATIONS.ranitas = {
     id: 'ranitas',
-    title: "INVESTIGACIÓN: RANITAS",
+    title: "RANITAS",
     panelTitle: "RANAS EXTRAORDINARIAS",
     color: '#0984e3',
     completeDesc: "Has alcanzado a la Rana Dardo y completado la ranificación.",
@@ -209,7 +209,7 @@ INVESTIGATIONS.ranitas = {
 
 INVESTIGATIONS.ranitas_dardo = {
     id: 'ranitas_dardo',
-    title: "INVESTIGACIÓN: RANITAS DARDO",
+    title: "RANITAS DARDO",
     panelTitle: "DENDROBATIDAE",
     color: '#7fff00',
     completeDesc: "Has descubierto los morphos más raros y completado a las Ranitas Dardo.",
@@ -228,7 +228,7 @@ INVESTIGATIONS.ranitas_dardo = {
 
 INVESTIGATIONS.lineas_reptilianas = {
     id: 'lineas_reptilianas',
-    title: "INVESTIGACIÓN: LÍNEAS REPTILIANAS",
+    title: "LÍNEAS REPTILIANAS",
     panelTitle: "EVOLUCIÓN REPTILIANA",
     color: '#27ae60',
     completeDesc: "Has explorado la diversificación de los saurópsidos, desde los linajes basales hasta los amos del cielo y de la tierra.",
@@ -247,7 +247,7 @@ INVESTIGATIONS.lineas_reptilianas = {
 
 INVESTIGATIONS.lagartos_variados = {
     id: 'lagartos_variados',
-    title: "INVESTIGACIÓN: LAGARTOS VARIADOS",
+    title: "LAGARTOS VARIADOS",
     panelTitle: "DIVERSIDAD DE LAGARTOS",
     color: '#f39c12',
     completeDesc: "Has descubierto la asombrosa diversidad de formas y adaptaciones de los lagartos.",
@@ -266,7 +266,7 @@ INVESTIGATIONS.lagartos_variados = {
 
 INVESTIGATIONS.evolucion_deslizante = {
     id: 'evolucion_deslizante',
-    title: "INVESTIGACIÓN: EVOLUCIÓN DESLIZANTE",
+    title: "EVOLUCIÓN DESLIZANTE",
     panelTitle: "RADIACIÓN DE LAS SERPIENTES",
     color: '#27ae60',
     completeDesc: "Has trazado el camino evolutivo de los ofidios, desde los vestigios de sus patas hasta los sistemas venenosos más complejos.",
@@ -285,7 +285,7 @@ INVESTIGATIONS.evolucion_deslizante = {
 
 INVESTIGATIONS.monitos = {
     id: 'monitos',
-    title: "INVESTIGACIÓN: MONITOS",
+    title: "MONITOS",
     panelTitle: "PRIMATES",
     color: '#2ecc71',
     completeDesc: "Has alcanzado al Chimpancé y completado la ramificación.",

@@ -24,7 +24,7 @@ ERAS.astronomica = {
 
 INVESTIGATIONS.nace_un_planeta = {
     id: 'nace_un_planeta',
-    title: "INVESTIGACIÓN: NACE UN PLANETA",
+    title: "NACE UN PLANETA",
     panelTitle: "FORMACIÓN TERRESTRE",
     color: '#ff9f43',
     completeDesc: "Has presenciado la formación de la Tierra y la deriva de sus continentes.",
@@ -43,7 +43,7 @@ INVESTIGATIONS.nace_un_planeta = {
 
 INVESTIGATIONS.piel_con_historia = {
     id: 'piel_con_historia',
-    title: "INVESTIGACIÓN: PIEL CON HISTORIA",
+    title: "PIEL CON HISTORIA",
     panelTitle: "CORTEZA TERRESTRE",
     color: '#d35400',
     completeDesc: "Has sobrevivido a la furia de Toba y completado la evolución geológica moderna.",
@@ -62,7 +62,7 @@ INVESTIGATIONS.piel_con_historia = {
 
 INVESTIGATIONS.vida_muerte_supernova = {
     id: 'vida_muerte_supernova',
-    title: "INVESTIGACIÓN: VIDA Y MUERTE DE UNA SUPERNOVA",
+    title: "VIDA Y MUERTE DE UNA SUPERNOVA",
     panelTitle: "EVOLUCIÓN ESTELAR",
     color: '#e74c3c',
     completeDesc: "Has presenciado el ciclo completo de una estrella masiva y el nacimiento de un agujero negro.",

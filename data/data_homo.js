@@ -26,7 +26,7 @@ ERAS.homo = {
 
 INVESTIGATIONS.primeros_artistas = {
     id: 'primeros_artistas',
-    title: "INVESTIGACIÓN: PRIMEROS ARTISTAS",
+    title: "PRIMEROS ARTISTAS",
     panelTitle: "ARTE PREHISTÓRICO",
     color: '#e67e22',
     completeDesc: "Has admirado la bóveda de Altamira y completado la evolución del primer arte.",
@@ -45,7 +45,7 @@ INVESTIGATIONS.primeros_artistas = {
 
 INVESTIGATIONS.cultivos_civilizadores = {
     id: 'cultivos_civilizadores',
-    title: "INVESTIGACIÓN: CULTIVOS CIVILIZADORES",
+    title: "CULTIVOS CIVILIZADORES",
     panelTitle: "REVOLUCIÓN AGRÍCOLA",
     color: '#f39c12',
     completeDesc: "Has domesticado la flora del planeta, cimentando el nacimiento de los grandes imperios.",
