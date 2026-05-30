@@ -35,6 +35,9 @@ const PORTALS = {
     mundos_antiguos: {                 
         128: ['republica_roma']
     },
+    era_digital: {
+        8: ['cerebros_portatiles']
+    },
 
     // Portales en las INVESTIGACIONes
     __subgame__: {

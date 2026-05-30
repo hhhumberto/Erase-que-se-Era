@@ -4,7 +4,7 @@
    ============================================================ */
 
 ERAS.mundos_antiguos = {
-    title: "ERA MUNDOS ANTIGUOS", panelTitle: "CIVILIZACIONES",
+    title: "ERA ANTIGUA", panelTitle: "CIVILIZACIONES",
     data: {
         2:   { n: "Mesopotamia",       img: "img/2_antiguo.png",   d: "La cuna de la civilización entre dos ríos.",             ext: "En las fértiles llanuras del Tigris y el Éufrates nacieron las primeras ciudades-estado sumerias. Aquí se inventó la escritura cuneiforme, la rueda y las primeras leyes escritas, marcando el inicio de la historia humana registrada." },
         4:   { n: "Egipto",            img: "img/4_antiguo.png",   d: "El don del Nilo y los faraones divinos.",                ext: "Una cultura monumental que prosperó durante milenios. Construyeron pirámides colosales, desarrollaron los jeroglíficos y mantuvieron una compleja religión centrada en la vida después de la muerte." },
