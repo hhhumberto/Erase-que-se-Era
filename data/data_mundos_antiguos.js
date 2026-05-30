@@ -44,56 +44,32 @@ INVESTIGATIONS.republica_mapas = {
     color: '#8b6b42', // Un color marrón pergamino/tinta envejecida
     completeDesc: "Has completado el atlas histórico cartográfico de la República Romana, desde una pequeña ciudad en el Lacio hasta dominar el Mediterráneo.",
     data: {
-        2: { 
-            n: 'Roma Temprana (509 a.C.)', 
-            img: 'img/2_repmap.png',   
-            d: 'Las siete colinas y el río Tíber.',          
-            adap: 'Mapa antiguo estilo pergamino que muestra el pequeño centro amurallado de Roma sobre las Siete Colinas, rodeado por las tribus latinas en ocre y las tierras etruscas en marrón.' 
+        2: { n: 'Roma Temprana (509 a.C.)', img: 'img/2_repmap.png', d: 'Las siete colinas y el río Tíber.',          
+            adap: 'El pequeño centro amurallado de Roma sobre las Siete Colinas, rodeado por las tribus latinas y las tierras etruscas.' 
         },
-        4: { 
-            n: 'Expansión Itálica (350 a.C.)', 
-            img: 'img/4_repmap.png',   
-            d: 'Crecimiento por el centro de Italia.',          
-            adap: 'Cartografía trazada a mano donde Roma es un punto rojo que se expande hacia Campania y el Samnio, mostrando tribus montañesas, colonias griegas y las incipientes calzadas romanas.' 
+        4: {n: 'Expansión Itálica (350 a.C.)', img: 'img/4_repmap.png',  d: 'Crecimiento por el centro de Italia.',          
+            adap: 'Roma se expande hacia Campania y el Samnio, frente a tribus montañesas y colonias griegas. Vemos incipientes calzadas romanas.' 
         },
-        8: { 
-            n: 'Dominio Peninsular (270 a.C.)',    
-            img: 'img/8_repmap.png',   
-            d: 'Control total de la bota itálica.',       
-            adap: 'Ilustración con textura de pergamino que detalla el territorio romano en carmesí, los estados aliados (socii), las colonias griegas al sur y la fina red de vías consulares cruzando la península.' 
+        8: { n: 'Dominio Peninsular (270 a.C.)',  img: 'img/8_repmap.png', d: 'Control total de la bota itálica.',       
+            adap: 'Territorio romano ante los estados aliados (socii), las colonias griegas al sur. Ya hay una fina red de vías consulares cruzando la península.' 
         },
-        16: { 
-            n: 'I Guerra Púnica (264 a.C.)',      
-            img: 'img/16_repmap.png',  
-            d: 'El choque naval por Sicilia.',       
-            adap: 'Mapa de guerra con sombreado dramático del Mediterráneo occidental. Muestra a Sicilia dividida y rodeada de rutas de batallas navales e iconos de flotas romanas enfrentándose a Cartago.' 
+        16: { n: 'I Guerra Púnica (264 a.C.)', img: 'img/16_repmap.png', d: 'El choque naval por Sicilia.',       
+            adap: 'Mediterráneo occidental. Sicilia dividida y rodeada de batallas navales y flotas romanas, enfrentándose a Cartago.' 
         },
-        32: { 
-            n: 'Invasión de Aníbal (218 a.C.)',           
-            img: 'img/32_repmap.png',  
-            d: 'La ruta alpina y el terror en Italia.',          
-            adap: 'Dramática carta militar donde una gruesa flecha oscura traza la ruta de Aníbal desde Hispania, cruzando los Alpes, con estrellas rojas marcando masacres como Cannas y Trasimeno.' 
+        32: { n: 'Invasión de Aníbal (218 a.C.)', img: 'img/32_repmap.png', d: 'La ruta alpina y el terror en Italia.',          
+            adap: 'Ruta de Aníbal desde Hispania, cruzando los Alpes, con masacres como Cannas y Trasimeno.' 
         },
-        64: { 
-            n: 'Hegemonía (146 a.C.)',             
-            img: 'img/64_repmap.png',  
-            d: 'El dominio absoluto del Mediterráneo.',        
-            adap: 'Majestuoso mapa de atlas barroco. El territorio republicano abarca Italia, Hispania, África y Grecia. Cartago aparece marcada con un símbolo de ruinas y el mar surcado por rutas comerciales.' 
+        64: { n: 'Hegemonía (146 a.C.)', img: 'img/64_repmap.png', d: 'El dominio absoluto del Mediterráneo.',        
+            adap: 'El territorio republicano abarca Italia, Hispania, África y Grecia. Cartago aparece es una ruina y el mar está surcado por rutas comerciales.' 
         },
-        128: { 
-            n: 'La Crisis (133-88 a.C.)',         
-            img: 'img/128_repmap.png', d: 'Tensión social y rebeliones.',            
-            adap: 'Mapa político sombrío de Italia codificado por colores, destacando los conflictos agrarios, las zonas de rebelión de esclavos en Sicilia y la inestabilidad de los aliados exigiendo ciudadanía.' 
+        128: { n: 'La Crisis (133-88 a.C.)', img: 'img/128_repmap.png', d: 'Tensión social y rebeliones.',            
+            adap: 'Conflictos agrarios, rebelión de esclavos en Sicilia e inestabilidad de los aliados exigiendo ciudadanía.' 
         },
-        256: { 
-            n: 'Mario y Sila (88-78 a.C.)',        
-            img: 'img/256_repmap.png', d: 'Guerras civiles y frentes orientales.',    
-            adap: 'Detallado grabado oscuro que ilustra la marcha militar de Sila sobre la propia ciudad de Roma y la amenaza expansionista de Mitrídates en el Ponto mediante legiones en formación.' 
+        256: { n: 'Mario y Sila (88-78 a.C.)', img: 'img/256_repmap.png', d: 'Guerras civiles y frentes orientales.',    
+            adap: 'Marcha militar de Sila sobre la propia ciudad de Roma y la amenaza expansionista de Mitrídates en el Ponto.' 
         },
-        512: { 
-            n: 'Guerras de César (58-44 a.C.)',               
-            img: 'img/512_repmap.png', d: 'La Galia, el Rubicón y Egipto.',  
-            adap: 'Épico mapa renacentista que traza las arrolladoras campañas de Julio César en la Galia y Britania, la fatídica línea roja del río Rubicón, y la persecución de Pompeyo hasta el Nilo.' 
+        512: { n: 'Guerras de César (58-44 a.C.)', img: 'img/512_repmap.png', d: 'La Galia, el Rubicón y Egipto.',  
+            adap: 'Arrolladoras campañas de Julio César en la Galia y Britania, la fatídica línea roja del río Rubicón y la persecución de Pompeyo hasta el Nilo.' 
         }
     }
 };
