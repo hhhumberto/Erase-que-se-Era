@@ -66,7 +66,8 @@ const PORTALS = {
             16: ['evolucion_deslizante']
         },
         republica_roma: {
-            2: ['republica_mapas'] 
+            2: ['republica_mapas'] ,
+            64: ['vida_graco']
         },
     }
 };

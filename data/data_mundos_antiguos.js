@@ -37,6 +37,52 @@ INVESTIGATIONS.republica_roma = {
     }
 };
 
+INVESTIGATIONS.vida_graco = {
+    id: 'vida_graco',
+    title: "VIDA DE GRACO",
+    panelTitle: "TIBERIO GRACO",
+    color: '#a02b2b', // Un rojo sangre apagado, simbolizando su trágico final
+    completeDesc: "Has revivido la trágica y revolucionaria historia de Tiberio Graco, el tribuno que intentó devolver la tierra al pueblo y cuyo asesinato fracturó la República.",
+    data: {
+        2: { 
+            n: 'Cuna patricia',img: 'img/2_graco.png',d: 'Hijo de Cornelia y nieto del gran Africano.',          
+            adap: 'Nacido en el seno de la más alta nobleza, Tiberio combinaba la ilustre herencia plebeya de su padre con la gloria patricia de los Escipiones, recibiendo una educación helenística de élite.' 
+        },
+        4: { 
+            n: 'Bautismo de fuego en Cartago', img: 'img/4_graco.png',  d: 'El primero en escalar las murallas enemigas.',          
+            adap: 'Sirviendo bajo el mando de su cuñado Escipión Emiliano durante la Tercera Guerra Púnica, el joven Tiberio demostró un inmenso valor al ser el primer oficial romano en coronar el muro de Cartago.' 
+        },
+        8: { 
+            n: 'El tratado que salva un ejército',  img: 'img/8_graco.png', d: 'La paz deshonrosa en Numancia.',       
+            adap: 'Como cuestor en Hispania, Tiberio salvó a 20.000 legionarios rodeados al negociar una paz con los numantinos. El Senado repudió el tratado, pero el pueblo y las tropas lo aclamaron como un héroe.' 
+        },
+        16: { 
+            n: 'La travesía por Etruria', img: 'img/16_graco.png', d: 'El descubrimiento de los campos esclavizados.',       
+            adap: 'Viajando por Italia, Tiberio observó con horror cómo las tierras públicas estaban en manos de latifundistas y trabajadas por esclavos extranjeros, mientras los ciudadanos romanos languidecían en la pobreza.' 
+        },
+        32: { 
+            n: 'La Lex Sempronia Agraria', img: 'img/32_graco.png', d: 'Tierra para los desposeídos.',          
+            adap: 'Elegido tribuno de la plebe en el 133 a.C., Tiberio Sempronio Graco intentó repartir tierras a los pobres[cite: 1]. Su ley proponía limitar la cantidad de tierras públicas que un solo individuo podía poseer.' 
+        },
+        64: { 
+            n: 'La herencia de Atalo III', img: 'img/64_graco.png', d: 'El tesoro de Pérgamo desafía al Senado.',        
+            adap: 'Cuando el rey de Pérgamo legó su reino a Roma, Tiberio propuso usar esa inmensa riqueza para financiar su reforma agraria y equipar a los nuevos granjeros, usurpando las prerrogativas financieras del Senado.' 
+        },
+        128: { 
+            n: 'La reelección', img: 'img/128_graco.png', d: 'Un desafío a las costumbres ancestrales.',            
+            adap: 'Para proteger su vida y asegurar que su comisión agraria no fuera desmantelada, Tiberio rompió con la tradición republicana y se postuló para un segundo mandato consecutivo como tribuno.' 
+        },
+        256: { 
+            n: 'Sacrificado en el Capitolio', img: 'img/256_graco.png', d: 'La sangre derramada en las calles de Roma.',    
+            adap: 'Acusado de aspirar a la tiranía, un grupo de senadores armados con patas de sillas y garrotes lo asesinaron junto a 300 de sus seguidores. Su asesinato inauguró una etapa de violencia política y crisis social en la República[cite: 1].' 
+        },
+        512: { 
+            n: 'Su hermano y su legado', img: 'img/512_graco.png', d: 'Cayo Graco toma el relevo.',  
+            adap: 'Años después, su hermano menor Cayo Graco retomaría su causa con reformas aún más radicales. Aunque también encontró un final violento, los Gracos iniciaron la Revolución Romana que finalmente destruiría la República.' 
+        }
+    }
+};
+
 INVESTIGATIONS.republica_mapas = {
     id: 'republica_mapas',
     title: "REPÚBLICA EN MAPAS",
