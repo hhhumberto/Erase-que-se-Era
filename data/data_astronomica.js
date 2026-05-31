@@ -78,3 +78,22 @@ INVESTIGATIONS.vida_muerte_supernova = {
         512: { n: 'Agujero negro',                img: 'img/512_vidasupernova.png', d: 'Colapso gravitacional absoluto.',          adap: 'Si el núcleo residual tiene suficiente masa, ni siquiera la presión de degeneración de neutrones puede detener el colapso. Se forma un agujero negro estelar, con una gravedad tan intensa que ni la luz puede escapar.' }
     }
 };
+
+INVESTIGATIONS.misterios_del_cosmos = {
+    id: 'misterios_del_cosmos',
+    title: "MISTERIOS DEL COSMOS",
+    panelTitle: "ENIGMAS FUNDAMENTALES",
+    color: '#9b59b6', // Un tono púrpura cósmico
+    completeDesc: "Has explorado las fronteras del conocimiento y te has asomado a los mayores enigmas del universo.",
+    data: {
+        2:   { n: 'Algo en vez de nada',         img: 'img/2_misterios.png',   d: 'El enigma de la existencia.',               adap: '¿Por qué hay algo en lugar de nada? La pregunta filosófica y física más profunda sobre el origen absoluto de la realidad.' },
+        4:   { n: 'Antes del Big Bang',          img: 'img/4_misterios.png',   d: 'Más allá de nuestro tiempo.',               adap: '¿Qué había antes de que el tiempo y el espacio comenzaran? Las teorías cuánticas sugieren estados previos o fluctuaciones primordiales.' },
+        8:   { n: 'Desaparición Antimateria',    img: 'img/8_misterios.png',   d: 'La asimetría cósmica.',                     adap: 'En los primeros instantes, la materia y antimateria debieron aniquilarse mutuamente, pero una ligera asimetría permitió que nuestro universo material sobreviviera.' },
+        16:  { n: 'La Energía Oscura',           img: 'img/16_misterios.png',  d: 'El motor de la expansión.',                 adap: 'Una fuerza misteriosa e invisible que compone alrededor del 68% del universo y acelera su expansión, separando las galaxias cada vez más rápido.' },
+        32:  { n: 'La Materia Oscura',           img: 'img/32_misterios.png',  d: 'El andamio invisible.',                     adap: 'Una sustancia que no interactúa con la luz, pero cuya inmensa fuerza de gravedad mantiene unidas a las galaxias. Constituye el 27% del cosmos.' },
+        64:  { n: 'Otros Universos',             img: 'img/64_misterios.png',  d: 'La hipótesis del multiverso.',              adap: 'La idea de que nuestro universo podría ser solo una burbuja dentro de un multiverso infinito, donde rigen diferentes leyes físicas.' },
+        128: { n: 'Vida desde la materia',       img: 'img/128_misterios.png', d: 'El salto de la abiogénesis.',               adap: 'El gran misterio de cómo la materia inerte y las reacciones químicas complejas lograron autoorganizarse para encender la chispa de la vida biológica.' },
+        256: { n: 'Otras vidas',                 img: 'img/256_misterios.png', d: 'La búsqueda de bioseñales.',                adap: 'Si el universo es tan vasto y antiguo, ¿dónde están los demás organismos? La ciencia busca rastros de vida microscópica en otros mundos.' },
+        512: { n: 'Otras inteligencias',         img: 'img/512_misterios.png', d: 'La Paradoja de Fermi.',                     adap: '¿Estamos solos? La búsqueda de civilizaciones avanzadas y las posibles razones de su aparente silencio cósmico, como la existencia de un Gran Filtro.' }
+    }
+};

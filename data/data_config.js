@@ -17,6 +17,7 @@ const INVESTIGATIONS = {};
 const PORTALS = {
     // Portales en las ERAs
     astronomica: {
+        2:   ['misterios_del_cosmos'],
         32:  ['vida_muerte_supernova'],
         128: ['nace_un_planeta']
     },
