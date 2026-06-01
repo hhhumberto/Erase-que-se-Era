@@ -718,16 +718,13 @@ function albumToggleBranch(branchId, parentCollectionId) {
 // ── Click en una carta ────────────────────────────────────────
 
 function albumCardClick(collectionId, val) {
-    // Determinar si es era o rama
-    const eraIdx      = ERA_ORDER.indexOf(collectionId);
-    const isEra       = eraIdx !== -1;
-    const data        = _collectionData(collectionId);
-    const vals        = Object.keys(data).map(Number).sort((a,b) => a-b);
-    const cardIdx     = vals.indexOf(val);
-    const unlocked    = isCardUnlocked(collectionId, val);
-
-    // Mostrar modal de opciones
-    _showCardModal({ collectionId, val, isEra, eraIdx, cardIdx, vals, data, unlocked });
+    const eraIdx  = ERA_ORDER.indexOf(collectionId);
+    const isEra   = eraIdx !== -1;
+    const data    = _collectionData(collectionId);
+    const vals    = Object.keys(data).map(Number).sort((a,b) => a-b);
+    const cardIdx = vals.indexOf(val);
+    // Abrir teatro directamente (con o sin carta conseguida)
+    _openTheatreAlbum(collectionId, cardIdx, vals, data, { isEra, eraIdx });
 }
 
 // ── Modal de carta ────────────────────────────────────────────
@@ -774,8 +771,8 @@ function closeCardModal() {
 }
 
 // Teatro navegable desde el álbum (incluye cartas en blanco)
-function _openTheatreAlbum(collectionId, startIdx, vals, data) {
-    _theatreAlbum = { collectionId, vals, data, idx: startIdx };
+function _openTheatreAlbum(collectionId, startIdx, vals, data, ctx) {
+    _theatreAlbum = { collectionId, vals, data, idx: startIdx, ctx: ctx ?? null };
     _renderTheatreAlbum();
     document.getElementById('theatre-overlay').classList.add('active');
 }
@@ -850,9 +847,49 @@ function _renderTheatreAlbum() {
 
     if (scroll) scroll.scrollTop = 0;
 
+    // ── Botones de acción (Jugar / Cerrar) ──
+    _renderTheatreActions();
+
     // Nav buttons
     document.getElementById('theatre-nav-left').style.visibility  = idx > 0              ? 'visible' : 'hidden';
     document.getElementById('theatre-nav-right').style.visibility = idx < vals.length - 1 ? 'visible' : 'hidden';
+}
+
+function _renderTheatreActions() {
+    const scroll = document.querySelector('#theatre-overlay .card-content-scroll');
+    if (!scroll || !_theatreAlbum?.ctx) return;
+
+    // Remove previous buttons if any
+    const prev = scroll.querySelector('.theatre-actions');
+    if (prev) prev.remove();
+
+    const { isEra, eraIdx } = _theatreAlbum.ctx;
+    const { collectionId }  = _theatreAlbum;
+
+    const div = document.createElement('div');
+    div.className = 'theatre-actions';
+
+    const playBtn = document.createElement('button');
+    playBtn.className   = 'theatre-btn-play';
+    playBtn.textContent = '🎮 Jugar';
+    playBtn.onclick = () => {
+        closeTheatre();
+        albumClose();
+        if (isEra) {
+            _bootEra(eraIdx);
+        } else {
+            openBranch(collectionId);
+        }
+    };
+
+    const closeBtn = document.createElement('button');
+    closeBtn.className   = 'theatre-btn-close';
+    closeBtn.textContent = '✕ Cerrar';
+    closeBtn.onclick = () => closeTheatre();
+
+    div.appendChild(playBtn);
+    div.appendChild(closeBtn);
+    scroll.appendChild(div);
 }
 
 function theatreAlbumNav(dir) {
