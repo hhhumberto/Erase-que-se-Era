@@ -857,11 +857,20 @@ function _renderTheatreAlbum() {
 
 function _renderTheatreActions() {
     const scroll = document.querySelector('#theatre-overlay .card-content-scroll');
-    if (!scroll || !_theatreAlbum?.ctx) return;
+    if (!scroll) return;
 
-    // Remove previous buttons if any
+    // Eliminar botones/mensaje previo
     const prev = scroll.querySelector('.theatre-actions');
     if (prev) prev.remove();
+
+    // Teatro durante el juego (descubrimiento): solo mensaje de tecla
+    if (!_theatreAlbum?.ctx) {
+        const hint = document.createElement('p');
+        hint.className = 'theatre-actions theatre-hint';
+        hint.textContent = 'Pulsa cualquier tecla para continuar';
+        scroll.appendChild(hint);
+        return;
+    }
 
     const { isEra, eraIdx } = _theatreAlbum.ctx;
     const { collectionId }  = _theatreAlbum;
