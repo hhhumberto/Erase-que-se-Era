@@ -478,17 +478,30 @@ function closeSubgameComplete() {
 function showTheatre(val, state) {
     const d = state.data[val];
     const _ti = document.getElementById('theatre-img');
+
+    // Limpiar residuos del teatro de álbum (carta no conseguida)
+    const blankDiv = document.getElementById('theatre-img-blank');
+    if (blankDiv) blankDiv.remove();
+    const notFound = document.getElementById('theatre-not-found');
+    if (notFound) notFound.remove();
+    const actions = document.querySelector('#theatre-overlay .theatre-actions');
+    if (actions) actions.remove();
+
     _ti.src = ''; _ti.style.display = 'block'; _ti.style.background = 'white';
     setTimeout(() => { _ti.src = d.img; }, 0);
     document.getElementById('theatre-title').textContent = d.n;
+    document.getElementById('theatre-title').className   = '';
     document.getElementById('theatre-desc').textContent  = d.d  ?? '';
+    document.getElementById('theatre-desc').className    = 'card-subtitle';
     document.getElementById('theatre-ext').textContent   = d.ext ?? '';
+    document.getElementById('theatre-ext').className     = 'card-scientific-text';
     const adapDiv = document.getElementById('theatre-adaptation');
     adapDiv.style.display = d.adap ? 'block' : 'none';
     if (d.adap) adapDiv.textContent = d.adap;
     document.getElementById('theatre-overlay').classList.add('active');
     theatre.state = state;
     theatre.val   = val;
+    _renderTheatreActions();  // muestra "pulsa cualquier tecla" (ctx es null)
 }
 
 const theatre = { state: null, val: null };
