@@ -36,20 +36,36 @@ body {
     overflow: hidden; transition: background-color 1s ease, color 1s ease;
 }
 
-/* PANTALLA INICIAL */
-#start-screen {
-    position: fixed; inset: 0; background: #0a0a0f;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    z-index: 7000; color: white; text-align: center; gap: 30px;
+/* BIENVENIDA (sobre tablero vacío) */
+#welcome-banner {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    gap: 16px; pointer-events: none; z-index: 10;
+    transition: opacity 0.4s ease;
 }
-#start-screen h1 {
-    font-size: 5rem; letter-spacing: 10px; margin: 0;
+#welcome-banner.hidden { opacity: 0; pointer-events: none; }
+#welcome-banner h1 {
+    font-size: 3.2rem; letter-spacing: 8px; margin: 0;
     background: linear-gradient(to right, #a29bfe, #00b894, #d35400);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
-.start-buttons-container {
-    display: flex; flex-direction: column; gap: 20px; align-items: center; margin-top: 20px;
+#welcome-banner p {
+    font-size: 1.05rem; color: #aaa; margin: 0;
 }
+.welcome-arrow {
+    font-size: 1.1rem; color: var(--title-color); font-weight: bold;
+    animation: pulse-arrow 2s ease-in-out infinite;
+}
+@keyframes pulse-arrow {
+    0%, 100% { opacity: 1; transform: translateX(0); }
+    50%       { opacity: 0.5; transform: translateX(-6px); }
+}
+.welcome-reset-btn {
+    pointer-events: all;
+    background: transparent; border: none; color: #555;
+    cursor: pointer; font-size: 0.82rem; margin-top: 4px;
+}
+.welcome-reset-btn:hover { color: #999; }
 .btn-start {
     padding: 20px 40px; font-size: 1.2rem; background: var(--title-color); color: white;
     border: none; border-radius: 15px; cursor: pointer; font-weight: bold;
@@ -452,3 +468,7 @@ body.era-vida .progress-slot, body.era-homo .progress-slot, body.era-era_ciencia
 #top-section.album-open .album-subindex--active {
     height: 94px;
 }
+
+/* Ocultar indicadores hasta que empiece el juego */
+#era-display.game-inactive,
+#score-container.game-inactive { visibility: hidden; }

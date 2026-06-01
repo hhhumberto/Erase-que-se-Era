@@ -329,12 +329,17 @@ function _eraAsDef(eraKey) {
 // ARRANQUE
 // ═══════════════════════════════════════════════════════════════
 
-function startGame() {
-    document.getElementById('start-screen').style.display = 'none';
-    loadProgress();
-    if (unlockedCards.size === 0) _giveInitialGifts();
-    _bootEra(0);
-    albumRebuild();
+function startGame(eraIdx) {
+    // Called from the album card modal "Jugar" button (via _bootEra)
+    // kept for backwards compat — boots era 0 if no index given
+    _bootEra(eraIdx ?? 0);
+}
+
+function _dismissWelcome() {
+    const b = document.getElementById('welcome-banner');
+    if (b) b.classList.add('hidden');
+    document.getElementById('era-display').classList.remove('game-inactive');
+    document.getElementById('score-container').classList.remove('game-inactive');
 }
 
 function _bootEra(idx) {
@@ -342,6 +347,7 @@ function _bootEra(idx) {
     const eraKey   = ERA_ORDER[idx];
     const era      = ERAS[eraKey];
 
+    _dismissWelcome();
     document.body.className                            = 'era-' + eraKey;
     document.getElementById('era-display').textContent = era.title;
     document.getElementById('panel-title').textContent = era.panelTitle;
@@ -946,3 +952,12 @@ function _resolveBranchOrigin(branchId) {
     return { eraIdx: 0, parentBranchIds: [] };
 }
 
+
+// ═══════════════════════════════════════════════════════════════
+// INICIALIZACIÓN — carga progreso y construye álbum sin arrancar juego
+// ═══════════════════════════════════════════════════════════════
+(function init() {
+    loadProgress();
+    if (unlockedCards.size === 0) _giveInitialGifts();
+    albumRebuild();
+})();

@@ -10,17 +10,7 @@
 <!-- ═══════════════════════════════════════════
      PANTALLA INICIAL
 ════════════════════════════════════════════ -->
-<div id="start-screen">
-    <h1>ÉRASE QUE SE ERA</h1>
-    <p style="font-size: 1.2rem; color: #ccc;">Un viaje por la historia del universo y la evolución.</p>
 
-    <div class="start-buttons-container">
-        <button class="btn-start" onclick="startGame()">JUGAR</button>
-        <button onclick="resetProgress()" style="background:transparent;border:none;color:#555;
-                cursor:pointer;font-size:0.85rem;margin-top:-10px;">↺ Borrar progreso guardado</button>
-
-    </div>
-</div>
 
 <!-- ═══════════════════════════════════════════
      THEATRE (tarjeta de descubrimiento / álbum)
@@ -142,8 +132,14 @@
     <div id="album-panel"></div>
 
     <div id="game-area">
-        <div id="era-display">ERA ASTRO</div>
-        <div id="score-container">PUNTOS: <span id="score">0</span></div>
+        <div id="welcome-banner">
+            <h1>ÉRASE QUE SE ERA</h1>
+            <p>Un viaje por la historia del universo y la evolución.</p>
+            <div class="welcome-arrow">&#8592; Elige una era en el álbum para comenzar</div>
+            <button onclick="resetProgress()" class="welcome-reset-btn">↺ Borrar progreso guardado</button>
+        </div>
+        <div id="era-display" class="game-inactive">ERA ASTRO</div>
+        <div id="score-container" class="game-inactive">PUNTOS: <span id="score">0</span></div>
         <div class="grid-container" id="grid-container"></div>
     </div>
 
