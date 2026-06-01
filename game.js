@@ -282,8 +282,8 @@ function makeCallbacks({ collectionId, onWin, onGameOverId }) {
             state.discover(val);
             state.updateProgressBar();
             state.updateInfoPanel(val);
-            unlockCard(collectionId, val);
-            showTheatre(val, state);
+            const isNew = unlockCard(collectionId, val);
+            if (isNew) showTheatre(val, state);  // solo si es la primera vez
             if (val === state.winTile) onWin(state);
         },
         onWin,
@@ -884,11 +884,15 @@ function _renderTheatreActions() {
     playBtn.onclick = () => {
         closeTheatre();
         albumClose();
-        if (isEra) {
-            _bootEra(eraIdx);
-        } else {
-            openBranch(collectionId);
-        }
+        // Pequeño delay para que el teatro cierre antes de arrancar el juego
+        // (evita que el teatro de descubrimiento se mezcle con el del álbum)
+        setTimeout(() => {
+            if (isEra) {
+                _bootEra(eraIdx);
+            } else {
+                openBranch(collectionId);
+            }
+        }, 50);
     };
 
     const closeBtn = document.createElement('button');
