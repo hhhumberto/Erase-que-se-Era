@@ -886,13 +886,20 @@ function _renderTheatreActions() {
         albumClose();
         // Pequeño delay para que el teatro cierre antes de arrancar el juego
         // (evita que el teatro de descubrimiento se mezcle con el del álbum)
-        setTimeout(() => {
-            if (isEra) {
-                _bootEra(eraIdx);
+        // Esperar a que el overlay del teatro esté completamente cerrado
+        const _waitAndBoot = () => {
+            const overlay = document.getElementById('theatre-overlay');
+            if (overlay.classList.contains('active')) {
+                setTimeout(_waitAndBoot, 50);
             } else {
-                openBranch(collectionId);
+                if (isEra) {
+                    _bootEra(eraIdx);
+                } else {
+                    openBranch(collectionId);
+                }
             }
-        }, 350);
+        };
+        setTimeout(_waitAndBoot, 50);
     };
 
     const closeBtn = document.createElement('button');
