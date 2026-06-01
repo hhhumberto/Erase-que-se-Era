@@ -282,8 +282,8 @@ function makeCallbacks({ collectionId, onWin, onGameOverId }) {
             state.discover(val);
             state.updateProgressBar();
             state.updateInfoPanel(val);
-            const isNew = unlockCard(collectionId, val);
-            if (isNew) showTheatre(val, state);  // solo si es la primera vez
+            unlockCard(collectionId, val);
+            showTheatre(val, state);
             if (val === state.winTile) onWin(state);
         },
         onWin,
@@ -892,7 +892,7 @@ function _renderTheatreActions() {
             } else {
                 openBranch(collectionId);
             }
-        }, 50);
+        }, 350);
     };
 
     const closeBtn = document.createElement('button');
