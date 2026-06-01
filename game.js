@@ -378,20 +378,16 @@ function _launchEra() {
 }
 
 function onEraWin(idx) {
-    // Mostrar overlay de victoria con botón para siguiente era
     const eraKey  = ERA_ORDER[idx];
-    const nextIdx = idx + 1;
-    const hasNext = nextIdx < ERA_ORDER.length;
+    const hasNext = idx + 1 < ERA_ORDER.length;
 
     document.getElementById('overlay-title').textContent =
         `¡${ERAS[eraKey].title} completada!`;
     document.getElementById('overlay-text').textContent =
-        hasNext ? `Prepárate para la siguiente era.` : `¡Has completado todas las eras!`;
+        hasNext ? `Explora el álbum para continuar tu viaje.` : `¡Has completado todas las eras!`;
 
-    const nextBtn = document.getElementById('era-overlay-next-btn');
-    nextBtn.style.display = hasNext ? 'inline-block' : 'none';
-    nextBtn.onclick = () => nextEra();
-
+    // Ocultar botón "Siguiente Era" — el jugador decide desde el álbum
+    document.getElementById('era-overlay-next-btn').style.display = 'none';
     document.getElementById('era-overlay-close-btn').style.display = 'inline-block';
     document.getElementById('era-overlay').classList.add('active');
 }
@@ -404,7 +400,7 @@ function nextEra() {
 
 function restartEra() {
     document.getElementById('game-over-overlay').classList.remove('active');
-    _bootEra(session.eraIdx);
+    _openAlbumOnEra(session.eraIdx);
 }
 
 function closeEraOverlay() {
@@ -452,10 +448,9 @@ function closeInvestigacion() {
 
 function restartSubgame() {
     document.getElementById('subgame-game-over-overlay').classList.remove('active');
-    if (!session.branch) return;
-    session.branch.reset();
-    session.branch.addTile();
-    session.branch.addTile();
+    const branchId = session.branch?.def?.id ?? null;
+    closeInvestigacion();
+    if (branchId) _openAlbumOnBranch(branchId);
 }
 
 function showBranchComplete() {
