@@ -301,3 +301,49 @@ INVESTIGATIONS.monitos = {
         512: { n: 'Chimpancé',     img: 'img/512_chimpance.png',   d: 'Nuestros parientes más cercanos.', adap: 'Poseen pulgares oponibles bien desarrollados y pies prensiles, otorgándoles una destreza manual excepcional para la fabricación de herramientas simples.' }
     }
 };
+
+INVESTIGATIONS.con_pies_y_cabeza = {
+    id: 'con_pies_y_cabeza',
+    title: "CON PIES Y CABEZA",
+    panelTitle: "CEFALÓPODOS",
+    color: '#8e44ad', // Un tono púrpura intenso le va muy bien a los cefalópodos
+    completeDesc: "Has navegado por los océanos descubriendo mentes asombrosas, camuflajes perfectos y adaptaciones abisales de los cefalópodos.",
+    data: {
+        2:   { 
+            n: 'Nautilo Perlado',  img: 'img/2_piecabeza.png',  d: 'Nautilus pompilius.',         
+            adap: 'Fósil viviente que conserva la concha externa ancestral. La ha dividido en cámaras y regula su flotabilidad bombeando gas y líquido en su interior.' 
+        },
+        4:   { 
+            n: 'Calamar Gigante',  img: 'img/4_piecabeza.png', d: 'Architeuthis dux.',           
+            adap: 'Crecimiento desmesurado para dominar las aguas profundas. Posee los ojos más grandes del reino animal para detectar la tenue luz bioluminiscente en el abismo.' 
+        },
+        8:   { 
+            n: 'Sepia Flamboyán',     img: 'img/8_piecabeza.png', d: 'Metasepia pfefferi.',         
+            adap: 'Ha compensado su nula flotabilidad desarrollando aposematismo: su piel pulsa con colores vibrantes para advertir a los depredadores de su tejido altamente tóxico.' 
+        },
+        16:  { 
+            n: 'Pulpo Común',  img: 'img/16_piecabeza.png',    d: 'Octopus vulgaris.',           
+            adap: 'Pérdida de la concha para una flexibilidad extrema. Su sistema nervioso está descentralizado, otorgando a sus brazos cierta autonomía y una inteligencia asombrosa.' 
+        },
+        32:  { 
+            n: 'Sepia Común', img: 'img/32_piecabeza.png', d: 'Sepia officinalis.',          
+            adap: 'Maestra del camuflaje bentónico. Posee una jibia interna muy porosa para flotar y una aleta que bordea todo su manto permitiéndole una natación de alta precisión.' 
+        },
+        64:  { 
+            n: 'Pulpo de Anillos Azules', img: 'img/64_piecabeza.png',  d: 'Hapalochlaena lunulata.',     
+            adap: 'Tamaño diminuto compensado por un arma letal: bacterias simbióticas en sus glándulas salivales producen tetrodotoxina, un veneno paralizante mortal.' 
+        },
+        128: { 
+            n: 'Calamar Vampiro',  img: 'img/128_piecabeza.png',d: 'Vampyroteuthis infernalis.',  
+            adap: 'Superviviente de la zona de mínimo oxígeno. No caza; usa filamentos sensoriales para recoger nieve marina y se envuelve en sus tentáculos palmeados como defensa.' 
+        },
+        256: { 
+            n: 'Nautilo de Papel',  img: 'img/256_piecabeza.png', d: 'Argonauta argo.',             
+            adap: 'Regreso secundario a la superficie. La hembra secreta una fina ooteca calcárea que utiliza a modo de "concha" para proteger sus huevos y atrapar una burbuja de aire.' 
+        },
+        512: { 
+            n: 'Pulpo Dumbo', img: 'img/512_piecabeza.png',  d: 'Grimpoteuthis sp.',           
+            adap: 'Adaptación a la vida bentopelágica extrema (hasta 7000m de profundidad). Se desplaza lentamente usando aletas similares a orejas en su manto para ahorrar energía.' 
+        }
+    }
+};

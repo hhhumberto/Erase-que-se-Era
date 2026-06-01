@@ -69,6 +69,9 @@ const PORTALS = {
             2: ['republica_mapas'] ,
             64: ['vida_graco']
         },
+        blandos_por_dentro: {
+            16: ['con_pies_y_cabeza'] 
+        },
     }
 };
 
