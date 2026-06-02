@@ -4,7 +4,7 @@
    ============================================================ */
 
 ERAS.era_ciencia = {
-    title: "LA ERA DE LA CIENCIA", panelTitle: "REVOLUCIÓN CIENTÍFICA",
+    title: "ERA CIENTÍFICA", panelTitle: "REVOLUCIÓN CIENTÍFICA",
     data: {
         2:   { n: "La Imprenta",       img: "img/2_ciencia.png",   d: "Johannes Gutenberg.",            ext: "La invención de los tipos móviles democratizó el acceso al saber, siendo el motor indispensable de la Revolución Científica y el Renacimiento." },
         4:   { n: "Heliocentrismo",    img: "img/4_ciencia.png",   d: "Copérnico, Galileo y Kepler.",   ext: "El drástico cambio de paradigma que desplazó a la Tierra del centro del universo, demostrando que los planetas orbitan alrededor del Sol." },

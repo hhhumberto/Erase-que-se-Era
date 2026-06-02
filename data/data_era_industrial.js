@@ -4,7 +4,7 @@
    ============================================================ */
 
 ERAS.era_industrial = {
-    title: "ERA INDUSTRIAL", panelTitle: "REVOLUCIÓN Y ACELERACIÓN",
+    title: "ERA INDUSTRIAL E IMPERIAL", panelTitle: "REVOLUCIÓN Y ACELERACIÓN",
     data: {
         2:   { n: "Transporte a vapor",     img: "img/2_industrial.png",   d: "La máquina de vapor revoluciona la movilidad.",            ext: "La invención de la locomotora y el barco de vapor aceleraron drásticamente el movimiento de personas y mercancías, conectando el mundo a una velocidad inédita." },
         4:   { n: "Revolución Francesa",    img: "img/4_industrial.png",   d: "La caída del Antiguo Régimen.",                            ext: "Iniciada en 1789, transformó radicalmente las estructuras políticas y sociales europeas, promoviendo ideales de libertad, igualdad y fraternidad que inspiraron al mundo entero." },
