@@ -39,6 +39,9 @@ const PORTALS = {
     era_digital: {
         8: ['cerebros_portatiles']
     },
+    era_industrial: {
+        512: ['quisimos_volar']
+    },
 
     // Portales en las INVESTIGACIONes
     __subgame__: {
@@ -72,6 +75,7 @@ const PORTALS = {
         blandos_por_dentro: {
             16: ['con_pies_y_cabeza'] 
         },
+        
     }
 };
 

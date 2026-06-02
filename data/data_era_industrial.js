@@ -1,6 +1,5 @@
 /* ============================================================
    ÉRASE QUE SE ERA — ERA INDUSTRIAL
-   Sin ramas por ahora.
    ============================================================ */
 
 ERAS.era_industrial = {
@@ -15,5 +14,21 @@ ERAS.era_industrial = {
         128: { n: "Inventos Eléctricos",    img: "img/128_industrial.png", d: "La chispa que iluminó y conectó el planeta.",              ext: "El telégrafo, el teléfono y la bombilla incandescente transformaron la comunicación a distancia y permitieron que la actividad productiva no dependiera exclusivamente de la luz solar." },
         256: { n: "Imperialismos",          img: "img/256_industrial.png", d: "El gran reparto del mundo por las potencias.",             ext: "Impulsadas por la enorme necesidad de materias primas y nuevos mercados, las potencias industriales europeas se repartieron y colonizaron aceleradamente vastas áreas de África y Asia." },
         512: { n: "Primer Vuelo",           img: "img/512_industrial.png", d: "El ser humano conquista finalmente los cielos.",           ext: "A principios del siglo XX, los hermanos Wright lograron el primer vuelo controlado y con motor, abriendo la puerta a la era de la aviación que empequeñecería las distancias globales." }
+    }
+};
+
+INVESTIGATIONS.quisimos_volar = {
+    title: "QUISIMOS VOLAR", 
+    panelTitle: "LOS INTENTOS DE CONQUISTAR EL CIELO",
+    data: {
+        2:   { n: "Mito de Ícaro",          img: "img/2_volar.png",   d: "La fascinación antigua por las alas.",                     ext: "En la mitología griega, Ícaro y Dédalo intentaron escapar de Creta con alas de plumas y cera, sirviendo como una temprana advertencia sobre la ambición humana de alcanzar los cielos." },
+        4:   { n: "Cometas en China",       img: "img/4_volar.png",   d: "Los primeros objetos humanos en volar.",                   ext: "Entre los siglos V y IV a.C., inventores chinos crearon artefactos voladores de madera y seda, utilizados tanto con fines recreativos como para señalización militar y medición de distancias." },
+        8:   { n: "Abbás ibn Firnás",       img: "img/8_volar.png",   d: "El pionero andalusí del vuelo libre.",                     ext: "En el siglo IX en Córdoba, este erudito diseñó un planeador rudimentario de madera y seda con el que logró volar brevemente antes de realizar un aterrizaje forzoso que le causó lesiones." },
+        16:  { n: "Eilmer de Malmesbury",   img: "img/16_volar.png",  d: "El monje inglés que saltó de una abadía.",                 ext: "A principios del siglo XI, Eilmer construyó unas alas mecánicas y se lanzó desde una torre. Consiguió planear unos 200 metros antes de perder el control y romperse ambas piernas en la caída." },
+        32:  { n: "Leonardo da Vinci",      img: "img/32_volar.png",  d: "Bocetos y diseños visionarios del Renacimiento.",          ext: "Hacia 1485, Leonardo dibujó numerosos bocetos de máquinas voladoras, como el ornitóptero y el tornillo aéreo (precursor del helicóptero), aplicando sus estudios sobre la anatomía de las aves." },
+        64:  { n: "Globo Montgolfier",      img: "img/64_volar.png",  d: "El ser humano flota en el aire por primera vez.",          ext: "En 1783, los hermanos Montgolfier lograron el primer vuelo libre tripulado en París utilizando un globo de aire caliente. Demostraron que dominar la física podía vencer a la gravedad." },
+        128: { n: "George Cayley",          img: "img/128_volar.png", d: "Los cimientos de la aerodinámica moderna.",                ext: "A principios del siglo XIX, Cayley estableció los principios del vuelo más pesado que el aire, separando por primera vez las fuerzas de sustentación y de empuje en sus diseños de planeadores." },
+        256: { n: "Otto Lilienthal",        img: "img/256_volar.png", d: "El rey de los planeadores demuestra que es posible.",      ext: "En la década de 1890, Lilienthal realizó miles de vuelos controlados en planeador, documentando datos aerodinámicos cruciales e inspirando a la próxima generación de inventores aeronáuticos." },
+        512: { n: "Hermanos Wright",        img: "img/512_volar.png", d: "El inicio de la aviación a motor.",                        ext: "El 17 de diciembre de 1903, Wilbur y Orville Wright lograron mantener en el aire su aeroplano a motor de forma sostenida y controlada, cumpliendo al fin el eterno sueño de volar." }
     }
 };
