@@ -490,13 +490,15 @@ function closeInvestigacion() {
     document.getElementById('era-display').textContent = era.title;
     document.getElementById('panel-title').textContent = era.panelTitle;
     document.getElementById('panel-title').style.color = 'var(--title-color)';
-    // Rebuild progress bar for main era and re-paint discovered cards
-    session.main.dom = MAIN_DOM();
-    session.main._initProgressBar();
-    session.main.updateProgressBar();
-    session.main.dom.scoreEl.textContent = session.main.score;
-    session.main.dom.infoPanel.innerHTML =
-        '<div style="opacity:.5;text-align:center;">Usa las flechas para jugar…</div>';
+    // Rebuild progress bar for main era and re-paint discovered cards (only if era was started)
+    if (session.main) {
+        session.main.dom = MAIN_DOM();
+        session.main._initProgressBar();
+        session.main.updateProgressBar();
+        session.main.dom.scoreEl.textContent = session.main.score;
+        session.main.dom.infoPanel.innerHTML =
+            '<div style="opacity:.5;text-align:center;">Usa las flechas para jugar…</div>';
+    }
 }
 
 function restartSubgame() {
