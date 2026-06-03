@@ -32,3 +32,46 @@ INVESTIGATIONS.quisimos_volar = {
         512: { n: "Hermanos Wright",        img: "img/512_volar.png", d: "El inicio de la aviación a motor.",                        ext: "El 17 de diciembre de 1903, Wilbur y Orville Wright lograron mantener en el aire su aeroplano a motor de forma sostenida y controlada, cumpliendo al fin el eterno sueño de volar." }
     }
 };
+
+INVESTIGATIONS.y_volamos = {
+    title: "¡Y VOLAMOS!", 
+    panelTitle: "LA CONQUISTA DEL ESPACIO AÉREO",
+    data: {
+        2:   { 
+            n: "Louis Blériot", img: "img/2_avion.png", d: "Primer cruce del Canal de la Mancha.", 
+            ext: "Louis Blériot cruza el Canal de la Mancha en avión, demostrando que las barreras geográficas naturales podían ser superadas por el aire." 
+        },
+        4:   { 
+            n: "Primer Vuelo Comercial", img: "img/4_avion.png", d: "Inicia el servicio aéreo regular.", 
+            ext: "Comienza el primer servicio aéreo comercial regular de pasajeros operando la ruta entre St. Petersburg y Tampa, Florida." 
+        },
+        8:   { 
+            n: "Vuelo Transatlántico", img: "img/8_avion.png",  d: "Cruce del océano sin detenerse.", 
+            ext: "Alcock y Brown completan con éxito el primer vuelo transatlántico sin escalas, marcando un hito en la aviación de larga distancia." 
+        },
+        16:  { 
+            n: "Charles Lindbergh", img: "img/16_avion.png", d: "De Nueva York a París en solitario.", 
+            ext: "Charles Lindbergh cruza el Atlántico en solitario y sin escalas, convirtiéndose en una figura mundial y popularizando los viajes aéreos." 
+        },
+        32:  { 
+            n: "Motor a Reacción", img: "img/32_avion.png", d: "Nace la era del reactor.", 
+            ext: "Vuelo del Heinkel He 178, el primer avión propulsado por un motor a reacción, cambiando para siempre el diseño y la velocidad de las aeronaves." 
+        },
+        64:  { 
+            n: "Barrera del Sonido", img: "img/64_avion.png", d: "Vuelos más rápidos que el sonido.", 
+            ext: "Chuck Yeager rompe la barrera del sonido a bordo del avión experimental Bell X-1, abriendo el camino para la aviación supersónica." 
+        },
+        128: { 
+            n: "De Havilland Comet", img: "img/128_avion.png", d: "El primer avión comercial a reacción.", 
+            ext: "Vuelo del De Havilland Comet, el primer avión comercial a reacción, que redujo a la mitad los tiempos de viaje de los pasajeros." 
+        },
+        256: { 
+            n: "Gigantes del Aire", img: "img/256_avion.png", d: "Nacen el Boeing 747 y el Concorde.", 
+            ext: "Primer vuelo del Boeing 747 (el primer avión de fuselaje ancho) y del Concorde (transporte comercial supersónico), hitos definitivos de la aviación de pasajeros." 
+        },
+        512: { 
+            n: "Transbordador Espacial", img: "img/512_avion.png", d: "El avión que llegó al espacio.", 
+            ext: "Primer vuelo del transbordador espacial Columbia (STS-1). Una nave reutilizable capaz de despegar como un cohete y aterrizar como un planeador." 
+        }
+    }
+};

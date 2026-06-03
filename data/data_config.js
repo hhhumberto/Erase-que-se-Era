@@ -75,7 +75,10 @@ const PORTALS = {
         blandos_por_dentro: {
             16: ['con_pies_y_cabeza'] 
         },
-        
+        quisimos_volar: {
+            512: ['y_volamos']
+        },
+    
     }
 };
 
