@@ -119,12 +119,6 @@
     <div id="album-panel"></div>
 
     <div id="game-area">
-        <div id="welcome-banner">
-            <h1>ÉRASE QUE SE ERA</h1>
-            <p>Un viaje por la historia del universo y la evolución.</p>
-            <div class="welcome-arrow">&#8592; Elige una era en el álbum para comenzar</div>
-            <button onclick="resetProgress()" class="welcome-reset-btn">↺ Borrar progreso guardado</button>
-        </div>
         <div id="era-display" class="game-inactive">ERA ASTRO</div>
         <div id="score-container" class="game-inactive">PUNTOS: <span id="score">0</span></div>
         <div class="grid-container" id="grid-container"></div>
@@ -155,5 +149,13 @@
 <script src="data/data_era_digital.js"></script>
 <!-- Motor de juego -->
 <script src="game.js"></script>
+
+<!-- PANTALLA DE BIENVENIDA (overlay fijo, se oculta al arrancar era) -->
+<div id="welcome-banner">
+    <h1>ÉRASE QUE SE ERA</h1>
+    <p>Un viaje por la historia del universo y la evolución.</p>
+    <div class="welcome-arrow">&#8592; Elige una era en el álbum para comenzar</div>
+    <button onclick="resetProgress()" class="welcome-reset-btn">&#8635; Borrar progreso guardado</button>
+</div>
 </body>
 </html>
