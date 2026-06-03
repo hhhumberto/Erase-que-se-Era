@@ -13,9 +13,9 @@
     --transition-speed: 0.18s;
 
     /* TAMAÑO AUMENTADO */
-    --grid-size: 624px;
-    --tile-size: 138px;
-    --tile-gap: 18px;
+    --grid-size: 718px;
+    --tile-size: 159px;
+    --tile-gap: 21px;
 }
 
 body.era-vida         { --bg-body: #f8f9fa; --panel-bg: #2d3436; --text-color: #2d3436; --title-color: #00b894; }
@@ -80,7 +80,7 @@ body {
 
 /* 1. COLUMNA IZQUIERDA (HISTORIA) */
 #era-progress-column {
-    flex: 0 0 175px; background: transparent; border-right: none;
+    flex: 0 0 25%; background: transparent; border-right: none;
     display: flex; flex-direction: column; align-items: center;
     padding: 20px 10px; gap: 15px; overflow-y: auto;
 }
@@ -109,7 +109,7 @@ body.era-vida .era-slot, body.era-homo .era-slot, body.era-era_ciencia .era-slot
 }
 
 /* 2. ÁREA CENTRAL */
-#game-area { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+#game-area { flex: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
 #era-display { font-size: 2.5rem; font-weight: 900; color: var(--title-color); letter-spacing: 4px; margin-bottom: 5px; }
 #score-container { font-size: 1.1rem; margin-bottom: 15px; font-weight: bold; opacity: 0.7; }
 .grid-container {
@@ -127,7 +127,7 @@ body.era-vida .era-slot, body.era-homo .era-slot, body.era-era_ciencia .era-slot
 
 /* 3. PANEL DERECHO */
 #info-panel {
-    flex: 0 0 175px; background: transparent; padding: 20px;
+    flex: 0 0 25%; background: transparent; padding: 20px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
 .evolution-card {
@@ -139,6 +139,7 @@ body.era-vida .era-slot, body.era-homo .era-slot, body.era-era_ciencia .era-slot
 #progress-bar {
     flex: 0 0 170px; background: transparent; border-top: none;
     display: flex; align-items: center; justify-content: center; gap: 15px; padding: 0 20px; overflow-x: auto;
+    margin-left: 25%;
 }
 .progress-slot {
     width: 112px; height: 125px; flex-shrink: 0; border: 2px dashed rgba(255,255,255,0.2); border-radius: 12px;
@@ -161,8 +162,7 @@ body.era-vida .progress-slot, body.era-homo .progress-slot, body.era-era_ciencia
 #theatre-overlay.active, #era-overlay.active, #game-over-overlay.active, #subgame-game-over-overlay.active, #subgame-complete-overlay.active { display: flex; }
 
 #game-over-overlay, #era-overlay { z-index: 8000; background: rgba(0,0,0,0.95); flex-direction: column; text-align: center; }
-#investigacion-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 8100; background: var(--bg-body); }
-#investigacion-overlay.active { display: flex; }
+/* investigacion-overlay removed — sub-juegos ahora usan el DOM principal */
 #subgame-game-over-overlay, #subgame-complete-overlay { z-index: 8200; background: rgba(0,0,0,0.95); flex-direction: column; text-align: center; }
 #theatre-overlay { z-index: 8300; }
 
@@ -221,26 +221,18 @@ body.era-vida .progress-slot, body.era-homo .progress-slot, body.era-era_ciencia
 @keyframes glowGateway { from { box-shadow: 0 0 5px rgba(255,255,255,0.3); } to { box-shadow: 0 0 15px currentColor; } }
 
 /* ESTILOS DE INVESTIGACIÓN DINÁMICA */
-.m-container {
-    width: 95%; height: 95%; background: transparent; border: none;
-    border-radius: 20px; position: relative; display: flex; flex-direction: column;
-    align-items: center; padding: 20px 20px 0 20px; color: white; overflow: hidden;
-}
-.close-investigacion { position: absolute; top: 15px; right: 20px; background: #e74c3c; border: none; color: white; padding: 10px 15px; cursor: pointer; border-radius: 5px; font-weight: bold; z-index: 10; font-size: 1.1rem; }
 
-.m-top-layout { display: flex; width: 100%; flex: 1; min-height: 0; margin-top: 10px; }
-.m-game-area { flex: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.m-top-layout::before { content: ""; flex: 0 0 20%; }
 
-#m-grid-container { position: relative; width: var(--grid-size); height: var(--grid-size); transform: scale(0.85); background: transparent; border: none; }
 
-#m-info-panel { flex: 0 0 20%; background: transparent; border-radius: 20px; border: none; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
-#m-progress-bar {
-    width: 100%; flex: 0 0 160px; background: transparent; border-top: none;
-    margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 15px; padding: 0 20px; overflow-x: auto;
-}
-.progress-slot.subgame-slot { border-color: rgba(255, 255, 255, 0.2); color: var(--subgame-color, #2ecc71); transition: color 0.5s;}
+
+
+
+
+
+
+
+
 
 
 /* ── Placeholder de imagen de ficha ─────────────────────── */

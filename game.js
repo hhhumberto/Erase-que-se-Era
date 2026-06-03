@@ -305,12 +305,12 @@ const MAIN_DOM = () => ({
 });
 
 const BRANCH_DOM = () => ({
-    gridContainer : document.getElementById('m-grid-container'),
-    progressBar   : document.getElementById('m-progress-bar'),
-    scoreEl       : document.getElementById('m-score'),
-    infoPanel     : document.getElementById('m-card-display'),
-    slotPrefix    : 'm-slot-',
-    slotClass     : 'progress-slot subgame-slot',
+    gridContainer : document.getElementById('grid-container'),
+    progressBar   : document.getElementById('progress-bar'),
+    scoreEl       : document.getElementById('score'),
+    infoPanel     : document.getElementById('card-display'),
+    slotPrefix    : 'slot-',
+    slotClass     : 'progress-slot',
 });
 
 function _eraAsDef(eraKey) {
@@ -354,7 +354,7 @@ function _bootEra(idx) {
     document.getElementById('panel-title').style.color = 'var(--title-color)';
 
     if (session.branch) {
-        document.getElementById('investigacion-overlay').classList.remove('active');
+        _hideBranchBackBtn();
         session.branch = null;
     }
 
@@ -400,7 +400,13 @@ function nextEra() {
 
 function restartEra() {
     document.getElementById('game-over-overlay').classList.remove('active');
-    _openAlbumOnEra(session.eraIdx);
+    if (session.branch) {
+        const branchId = session.branch.def.id;
+        closeInvestigacion();
+        _openAlbumOnBranch(branchId);
+    } else {
+        _openAlbumOnEra(session.eraIdx);
+    }
 }
 
 function closeEraOverlay() {
@@ -416,38 +422,73 @@ function closeEraOverlay() {
 
 function openBranch(type) {
     const inv = INVESTIGATIONS[type];
-    document.getElementById('subgame-container').style.setProperty('--subgame-color', inv.color);
-    document.getElementById('investigacion-title').textContent    = inv.title;
-    document.getElementById('m-panel-title').textContent          = inv.panelTitle;
-    document.getElementById('subgame-complete-title').style.color = inv.color;
-    document.getElementById('subgame-complete-desc').textContent  = inv.completeDesc ?? '';
 
+    // Teardown previous branch if any
     if (session.branch) session.branch.reset();
 
+    // Update header labels to show branch context
+    document.getElementById('era-display').textContent = inv.title;
+    document.getElementById('panel-title').textContent = inv.panelTitle;
+    document.getElementById('panel-title').style.color = inv.color ?? 'var(--title-color)';
+
+    // Show back-to-era button
+    _showBranchBackBtn(type);
+
     session.branch = new InvestigationState(
-        { ...inv, id: type },
+        { ...inv, id: type, color: inv.color ?? 'var(--title-color)' },
         BRANCH_DOM(),
         makeCallbacks({
             collectionId : type,
             onWin        : () => setTimeout(showBranchComplete, 1000),
-            onGameOverId : 'subgame-game-over-overlay',
+            onGameOverId : 'game-over-overlay',
         })
     );
     session.branch.reset();
-    document.getElementById('investigacion-overlay').classList.add('active');
     session.branch.addTile();
     session.branch.addTile();
+}
+
+function _showBranchBackBtn(branchId) {
+    let btn = document.getElementById('branch-back-btn');
+    if (!btn) {
+        btn = document.createElement('button');
+        btn.id = 'branch-back-btn';
+        btn.className = 'close-investigacion';
+        btn.style.cssText = 'position:fixed;top:15px;right:20px;background:#e74c3c;border:none;color:white;padding:10px 15px;cursor:pointer;border-radius:5px;font-weight:bold;z-index:500;font-size:1.1rem;';
+        document.body.appendChild(btn);
+    }
+    btn.textContent = '✕ Volver al juego principal';
+    btn.onclick = closeInvestigacion;
+    btn.style.display = 'block';
+}
+
+function _hideBranchBackBtn() {
+    const btn = document.getElementById('branch-back-btn');
+    if (btn) btn.style.display = 'none';
 }
 
 function openInvestigacion(type) { openBranch(type); }
 
 function closeInvestigacion() {
-    session.branch = null;
-    document.getElementById('investigacion-overlay').classList.remove('active');
+    if (session.branch) { session.branch.reset(); session.branch = null; }
+    _hideBranchBackBtn();
+    // Restore main era UI
+    const eraKey = ERA_ORDER[session.eraIdx];
+    const era    = ERAS[eraKey];
+    document.getElementById('era-display').textContent = era.title;
+    document.getElementById('panel-title').textContent = era.panelTitle;
+    document.getElementById('panel-title').style.color = 'var(--title-color)';
+    // Rebuild progress bar for main era and re-paint discovered cards
+    session.main.dom = MAIN_DOM();
+    session.main._initProgressBar();
+    session.main.updateProgressBar();
+    session.main.dom.scoreEl.textContent = session.main.score;
+    session.main.dom.infoPanel.innerHTML =
+        '<div style="opacity:.5;text-align:center;">Usa las flechas para jugar…</div>';
 }
 
 function restartSubgame() {
-    document.getElementById('subgame-game-over-overlay').classList.remove('active');
+    document.getElementById('game-over-overlay').classList.remove('active');
     const branchId = session.branch?.def?.id ?? null;
     closeInvestigacion();
     if (branchId) _openAlbumOnBranch(branchId);
