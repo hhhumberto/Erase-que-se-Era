@@ -39,7 +39,7 @@ body {
 /* BIENVENIDA (sobre tablero vacío) */
 #welcome-banner {
     position: fixed;
-    top: 0; left: 25%; right: 0; bottom: 170px;
+    top: 0; left: 16.666%; right: 0; bottom: 170px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     text-align: center; gap: 16px;
     z-index: 20;
@@ -83,7 +83,7 @@ body {
 
 /* 1. COLUMNA IZQUIERDA (HISTORIA) */
 #era-progress-column {
-    flex: 0 0 25%; background: transparent; border-right: none;
+    flex: 0 0 16.666%; background: transparent; border-right: none;
     display: flex; flex-direction: column; align-items: center;
     padding: 20px 10px; gap: 15px; overflow-y: auto;
 }
@@ -112,7 +112,7 @@ body.era-vida .era-slot, body.era-homo .era-slot, body.era-era_ciencia .era-slot
 }
 
 /* 2. ÁREA CENTRAL */
-#game-area { flex: 2; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 8px; position: relative; overflow: hidden; }
+#game-area { flex: 3; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 8px; position: relative; overflow: hidden; }
 #era-display { font-size: 1.6rem; font-weight: 900; color: var(--title-color); letter-spacing: 4px; margin-bottom: 2px; }
 #score-container { font-size: 0.95rem; margin-bottom: 6px; font-weight: bold; opacity: 0.7; }
 .grid-container {
@@ -130,7 +130,7 @@ body.era-vida .era-slot, body.era-homo .era-slot, body.era-era_ciencia .era-slot
 
 /* 3. PANEL DERECHO */
 #info-panel {
-    flex: 0 0 25%; background: transparent; padding: 20px;
+    flex: 0 0 33.333%; background: transparent; padding: 20px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
 .evolution-card {
@@ -142,7 +142,7 @@ body.era-vida .era-slot, body.era-homo .era-slot, body.era-era_ciencia .era-slot
 #progress-bar {
     flex: 0 0 170px; background: transparent; border-top: none;
     display: flex; align-items: center; justify-content: center; gap: 15px; padding: 0 20px; overflow-x: auto;
-    margin-left: 25%;
+    margin-left: 16.666%;
 }
 .progress-slot {
     width: 112px; height: 125px; flex-shrink: 0; border: 2px dashed rgba(255,255,255,0.2); border-radius: 12px;
@@ -265,7 +265,7 @@ body.era-vida .progress-slot, body.era-homo .progress-slot, body.era-era_ciencia
     display: block;
     position: fixed;
     top: 0; bottom: 0; right: 0;
-    left: 25%;             /* deja libre la columna de eras */
+    left: 16.666%;         /* deja libre la columna de eras */
     z-index: 500;
     overflow-y: auto;
     overflow-x: hidden;
