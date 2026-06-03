@@ -337,7 +337,7 @@ function startGame(eraIdx) {
 
 function _dismissWelcome() {
     const b = document.getElementById('welcome-banner');
-    if (b) b.classList.add('hidden');
+    if (b) { b.classList.add('hidden'); b.style.display = 'none'; }
     document.getElementById('era-display').classList.remove('game-inactive');
     document.getElementById('score-container').classList.remove('game-inactive');
 }
