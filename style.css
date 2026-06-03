@@ -13,9 +13,9 @@
     --transition-speed: 0.18s;
 
     /* TAMAÑO AUMENTADO */
-    --grid-size: 718px;
-    --tile-size: 159px;
-    --tile-gap: 21px;
+    --grid-size: 624px;
+    --tile-size: 138px;
+    --tile-gap: 18px;
 }
 
 body.era-vida         { --bg-body: #f8f9fa; --panel-bg: #2d3436; --text-color: #2d3436; --title-color: #00b894; }
@@ -85,7 +85,7 @@ body {
     padding: 20px 10px; gap: 15px; overflow-y: auto;
 }
 .era-slot {
-    width: 125px; height: 138px; flex-shrink: 0; border: 2px dashed rgba(255,255,255,0.2);
+    width: 156px; height: 173px; flex-shrink: 0; border: 2px dashed rgba(255,255,255,0.2);
     border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center;
     color: #555; font-size: 1.8rem; font-weight: bold; transition: transform 0.2s;
 }
@@ -96,7 +96,7 @@ body.era-vida .era-slot, body.era-homo .era-slot, body.era-era_ciencia .era-slot
     animation: dropIn 0.5s ease; font-size: 0.9rem; cursor: pointer; text-align: center;
 }
 .era-slot.completed:hover { transform: scale(1.05); border: 2px solid var(--title-color); }
-.era-slot.completed img { width: 75px; height: 75px; object-fit: contain; margin-bottom: 5px; background: white; }
+.era-slot.completed img { width: 94px; height: 94px; object-fit: contain; margin-bottom: 5px; background: white; }
 /* Era sin cartas: misma tarjeta blanca, rectángulo gris */
 .era-slot.era-blank {
     background: white; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -104,7 +104,7 @@ body.era-vida .era-slot, body.era-homo .era-slot, body.era-era_ciencia .era-slot
 }
 .era-slot.era-blank:hover { transform: scale(1.05); border: 2px solid var(--title-color); }
 .era-slot__img-blank {
-    width: 75px; height: 75px; background: #e8e8e8; border-radius: 8px;
+    width: 94px; height: 94px; background: #e8e8e8; border-radius: 8px;
     margin: 0 auto 5px;
 }
 
