@@ -457,8 +457,12 @@ function _showBranchBackBtn(branchId) {
         btn.style.cssText = 'position:fixed;top:15px;right:20px;background:#e74c3c;border:none;color:white;padding:10px 15px;cursor:pointer;border-radius:5px;font-weight:bold;z-index:500;font-size:1.1rem;';
         document.body.appendChild(btn);
     }
-    btn.textContent = '✕ Volver al juego principal';
-    btn.onclick = closeInvestigacion;
+    btn.textContent = '✕ Cerrar investigación';
+    btn.onclick = () => {
+        const branchId = session.branch?.def?.id ?? null;
+        closeInvestigacion();
+        if (branchId) _openAlbumOnBranch(branchId);
+    };
     btn.style.display = 'block';
 }
 

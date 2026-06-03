@@ -265,7 +265,7 @@ body.era-vida .progress-slot, body.era-homo .progress-slot, body.era-era_ciencia
     display: block;
     position: fixed;
     top: 0; bottom: 0; right: 0;
-    left: 175px;           /* deja libre la columna de eras */
+    left: 25%;             /* deja libre la columna de eras */
     z-index: 500;
     overflow-y: auto;
     overflow-x: hidden;
