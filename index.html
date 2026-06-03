@@ -68,15 +68,9 @@
      OVERLAYS DE ESTADO
 ════════════════════════════════════════════ -->
 <div id="game-over-overlay">
-    <h1 style="color: #e74c3c; font-size: 3.5rem;">¡SIN MOVIMIENTOS!</h1>
-    <p style="font-size: 1.5rem; color: #ddd; margin-bottom: 30px;">La evolución se ha estancado.</p>
-    <button class="btn-start" onclick="restartEra()">Reiniciar Era</button>
-</div>
-
-<div id="subgame-game-over-overlay">
-    <h1 style="color: #e74c3c; font-size: 3rem;">INVESTIGACIÓN DETENIDA</h1>
-    <p style="font-size: 1.2rem; color: #ddd; margin-bottom: 30px;">La diversificación se ha bloqueado.</p>
-    <button class="btn-start" onclick="restartSubgame()" style="background:#2ecc71;">Reintentar Investigación</button>
+    <h1 id="gameover-title" style="color: #e74c3c; font-size: 3.5rem;">¡SIN MOVIMIENTOS!</h1>
+    <p id="gameover-desc" style="font-size: 1.5rem; color: #ddd; margin-bottom: 30px;">La evolución se ha estancado.</p>
+    <button id="gameover-btn" class="btn-start" onclick="restartEra()">Volver al álbum</button>
 </div>
 
 <div id="subgame-complete-overlay">

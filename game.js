@@ -288,7 +288,13 @@ function makeCallbacks({ collectionId, onWin, onGameOverId }) {
         },
         onWin,
         onGameOver(state) {
-            document.getElementById(onGameOverId).classList.add('active');
+            const isBranch = !!session.branch;
+            document.getElementById('gameover-title').textContent =
+                isBranch ? '¡INVESTIGACIÓN DETENIDA!' : '¡SIN MOVIMIENTOS!';
+            document.getElementById('gameover-desc').textContent =
+                isBranch ? 'La investigación se ha bloqueado.' : 'La evolución se ha estancado.';
+            document.getElementById('gameover-btn').textContent = 'Volver al álbum';
+            document.getElementById('game-over-overlay').classList.add('active');
         },
     };
 }
