@@ -423,6 +423,8 @@ function closeEraOverlay() {
 function openBranch(type) {
     const inv = INVESTIGATIONS[type];
 
+    _dismissWelcome();
+
     // Teardown previous branch if any
     if (session.branch) session.branch.reset();
 
