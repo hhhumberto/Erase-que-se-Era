@@ -228,12 +228,12 @@ body.era-vida .progress-slot, body.era-homo .progress-slot, body.era-era_ciencia
 }
 .close-investigacion { position: absolute; top: 15px; right: 20px; background: #e74c3c; border: none; color: white; padding: 10px 15px; cursor: pointer; border-radius: 5px; font-weight: bold; z-index: 10; font-size: 1.1rem; }
 
-.m-top-layout { display: flex; width: 100%; flex: 1; gap: 20px; min-height: 0; margin-top: 10px; justify-content: center; }
-.m-game-area { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.m-top-layout { position: relative; display: flex; width: 100%; flex: 1; min-height: 0; margin-top: 10px; justify-content: center; align-items: center; }
+.m-game-area { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
 #m-grid-container { position: relative; width: var(--grid-size); height: var(--grid-size); transform: scale(0.85); background: transparent; border: none; }
 
-#m-info-panel { flex: 1; background: transparent; border-radius: 20px; border: none; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+#m-info-panel { position: absolute; right: 0; top: 0; bottom: 0; width: 200px; background: transparent; border-radius: 20px; border: none; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
 #m-progress-bar {
     width: 100%; flex: 0 0 160px; background: transparent; border-top: none;
