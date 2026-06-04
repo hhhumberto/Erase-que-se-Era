@@ -302,6 +302,52 @@ INVESTIGATIONS.evolucion_deslizante = {
     }
 };
 
+INVESTIGATIONS.me_voy_por_las_ramas = {
+    id: 'me_voy_por_las_ramas',
+    title: "ME VOY POR LAS RAMAS",
+    panelTitle: "ESPECIALISTAS DEL DOSEL",
+    color: '#8db600', // Un verde manzana/savia que encaja con el entorno foliar
+    completeDesc: "Has explorado las adaptaciones más asombrosas del dosel forestal, desde planeadores extremos hasta mamíferos de anatomías imposibles.",
+    data: {
+        2:   { 
+            n: 'Lirón gris', img: 'img/2_ramas.png', d: 'Glis glis.', 
+            adap: 'Pequeño roedor de hábitos nocturnos con cola densa y almohadillas plantares rugosas que le otorgan un agarre excepcional al trepar en la oscuridad otoñal.' 
+        },
+        4:   { 
+            n: 'Ardilla voladora del sur', img: 'img/4_ramas.png', d: 'Glaucomys volans.', 
+            adap: 'Desarrollo de un patagio (membrana de piel) entre las extremidades que le permite realizar planeos controlados y dinámicos para eludir depredadores en bosques templados.' 
+        },
+        8:   { 
+            n: 'Puercoespín norteamericano', img: 'img/8_ramas.png', d: 'Erethizon dorsatum.', 
+            adap: 'Adaptación al gigantismo arbóreo mediante garras poderosas y curvadas, combinadas con una densa armadura de quíllas defensivas modificadas a partir del pelo.' 
+        },
+        16:  { 
+            n: 'Marta europea', img: 'img/16_ramas.png', d: 'Martes martes.', 
+            adap: 'Mustélido ágil con articulaciones semiprensiles en los tobillos que le permiten descender de los troncos cabeza abajo y una cola larga para equilibrarse en saltos al vacío.' 
+        },
+        32:  { 
+            n: 'Kinkajú', img: 'img/32_ramas.png', d: 'Potos flavus.', 
+            adap: 'Prociónido tropical nocturno dotado de una cola prehensile completamente funcional que actúa como quinta extremidad para anclarse de forma segura mientras se alimenta.' 
+        },
+        64:  { 
+            n: 'Cuscus moteado', img: 'img/64_ramas.png', d: 'Spilocuscus maculatus.', 
+            adap: 'Marsupial con cola prehensile desnuda en su extremo para mejorar la fricción y un patrón de pelaje disruptivo que imita los juegos de luces y sombras de la selva tropical.' 
+        },
+        128: { 
+            n: 'Koala', img: 'img/128_ramas.png', d: 'Phascolarctos cinereus.', 
+            adap: 'Especialización extrema con garras afiladas y un pulgar oponible duplicado en las manos, adaptado para abrazar troncos lisos de eucalipto y digerir toxinas foliares.' 
+        },
+        256: { 
+            n: 'Colugo', img: 'img/256_ramas.png', d: 'Cynocephalidae.', 
+            adap: 'El planeador mamífero más eficiente; su patagio se extiende desde el cuello hasta las puntas de los dedos y la cola, permitiendo vuelos geométricos en el dosel asiático.' 
+        },
+        512: { 
+            n: 'Perezoso de tres dedos', img: 'img/512_ramas.png', d: 'Bradypus.', 
+            adap: 'Anatomía invertida definitiva con garras en forma de gancho que bloquean los tendones sin gasto energético, permitiéndole vivir colgado boca abajo con un metabolismo ultra lento.' 
+        }
+    }
+};
+
 INVESTIGATIONS.monitos = {
     id: 'monitos',
     title: "MONITOS",

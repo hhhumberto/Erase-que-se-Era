@@ -27,6 +27,7 @@ const PORTALS = {
         8:   ['blandos_por_dentro'],
         32:  ['anfibios'],
         64:  ['lineas_reptilianas'],
+        256: ['me_voy_por_las_ramas']
         512: ['monitos']
     },
     homo: {
