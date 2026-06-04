@@ -112,6 +112,25 @@ INVESTIGATIONS.pluricelulares = {
     }
 };
 
+INVESTIGATIONS.coro_de_corales = {
+    id: 'coro_de_corales',
+    title: "CORO DE CORALES",
+    panelTitle: "ARRECIFES VIVOS",
+    color: '#ff7675',
+    completeDesc: "Has completado el coro de corales, desde las formas laberínticas hasta las estructuras tubulares.",
+    data: {
+        2:   { n: 'Cerebro',      img: 'img/2_corocoral.png',      d: 'Diploria labyrinthiformis.', adap: 'Sus surcos sinuosos maximizan la superficie de captura de nutrientes y la simbiosis con algas.' },
+        4:   { n: 'Cuerno de ciervo', img: 'img/4_corocoral.png',    d: 'Acropora cervicornis.',     adap: 'Estructura ramificada que permite un crecimiento rápido hacia la luz en aguas someras.' },
+        8:   { n: 'Cuerno de alce',   img: 'img/8_corocoral.png',      d: 'Acropora palmata.',         adap: 'Forma aplanada y robusta que resiste el fuerte oleaje de las zonas de arrecife expuestas.' },
+        16:  { n: 'Burbuja',      img: 'img/16_corocoral.png',      d: 'Plerogyra sinuosa.',        adap: 'Vesículas redondeadas que se expanden o contraen según la intensidad de la luz solar.' },
+        32:  { n: 'Antorcha',     img: 'img/32_corocoral.png',     d: 'Euphyllia glabrescens.',    adap: 'Tentáculos alargados con puntas brillantes que dan una apariencia de llama bajo el agua.' },
+        64:  { n: 'Sol',          img: 'img/64_corocoral.png',          d: 'Tubastraea sp.',            adap: 'Polipos que florecen con colores vibrantes, adaptados para alimentarse en zonas de corrientes.' },
+        128: { n: 'Cáliz',        img: 'img/128_corocoral.png',        d: 'Echinophyllia sp.',         adap: 'Estructura laminar tipo placa que optimiza la captación de luz en ambientes de profundidad media.' },
+        256: { n: 'Champiñón',    img: 'img/256_corocoral.png',    d: 'Discosoma/Rhodactis.',      adap: 'Discos carnosos que permiten una gran flexibilidad y absorción de nutrientes orgánicos.' },
+        512: { n: 'Órgano',       img: 'img/512_corocoral.png',       d: 'Tubipora musica.',          adap: 'Esqueleto tubular de color rojo intenso que protege a los pólipos con forma de pequeñas flores.' }
+    }
+};
+
 INVESTIGATIONS.gelatinosas_y_picantes = {
     id: 'gelatinosas_y_picantes',
     title: "GELATINOSAS Y PICANTES",

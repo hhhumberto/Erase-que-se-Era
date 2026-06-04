@@ -56,6 +56,7 @@ const PORTALS = {
         },
         pluricelulares: {
             16:  ['gelatinosas_y_picantes'],
+            32:  ['coro_de_corales'],
             256: ['planos_y_peligrosos']
         },
         ranitas: {
