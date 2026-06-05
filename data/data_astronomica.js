@@ -44,7 +44,7 @@ INVESTIGATIONS.nace_un_planeta = {
 INVESTIGATIONS.biomas_terrestres = {
     id: 'biomas_terrestres',
     title: "PAISAJES PARA LA VIDA",
-    panelTitle: "LOS 9 BIOMAS TERRESTRES",
+    panelTitle: "BIOMAS TERRESTRES",
     color: '#2ecc71', // Un verde esmeralda vibrante
     completeDesc: "Has explorado la diversidad ecológica de la Tierra, desde los hielos hasta los desiertos abrasadores.",
     data: {
