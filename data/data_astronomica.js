@@ -41,6 +41,52 @@ INVESTIGATIONS.nace_un_planeta = {
     }
 };
 
+INVESTIGATIONS.biomas_terrestres = {
+    id: 'biomas_terrestres',
+    title: "BIOMAS DEL MUNDO",
+    panelTitle: "LOS 9 BIOMAS TERRESTRES",
+    color: '#2ecc71', // Un verde esmeralda vibrante
+    completeDesc: "Has explorado la diversidad ecológica de la Tierra, desde los hielos hasta los desiertos abrasadores.",
+    data: {
+        2:   { 
+            n: 'Selva Tropical',   img: 'img/2_bioma.png',   d: 'La explosión de vida ecuatorial.', 
+            adap: 'Estructura vertical en capas bajo un denso dosel esmeralda. Clima cálido y lluvioso que alberga la mayor biodiversidad del planeta, con orquídeas, helechos y árboles milenarios envueltos en lianas.' 
+        },
+        4:   { 
+            n: 'Bosque Templado',  img: 'img/4_bioma.png',d: 'Árboles de hoja caduca.', 
+            adap: 'Regiones con estaciones bien definidas. Robles y arces que se tiñen de ocres y dorados antes de perder sus hojas en otoño, creando un suelo húmedo cubierto de hojarasca.' 
+        },
+        8:   { 
+            n: 'Taiga',   img: 'img/8_bioma.png',   d: 'El gran bosque boreal.', 
+            adap: 'Extensos bosques de pinos y abetos adaptados a soportar el peso de la nieve. Inviernos largos y gélidos bajo un cielo donde danzan las auroras boreales.' 
+        },
+        16:  { 
+            n: 'Tundra Polar',  img: 'img/16_bioma.png',  d: 'El desierto helado.', 
+            adap: 'Vasta llanura sin árboles sobre suelos de permafrost. Vegetación baja de musgos, líquenes y flores silvestres adaptada a un clima extremo, charcas estancadas y vientos fuertes.' 
+        },
+        32:  { 
+            n: 'Desierto Cálido',    img: 'img/32_bioma.png',d: 'La escasez extrema de agua.', 
+            adap: 'Dunas esculpidas por el viento y grandes oscilaciones térmicas. Vegetación suculenta como los saguaros, adaptada para almacenar agua en condiciones de calor abrasador.' 
+        },
+        64:  { 
+            n: 'Sabana Africana',     img: 'img/64_bioma.png',  d: 'Praderas bajo un cielo inmenso.', 
+            adap: 'Interminables llanuras de hierbas doradas con acacias de copa plana dispersas. Estaciones secas y lluviosas muy marcadas que rigen las grandes migraciones de herbívoros.' 
+        },
+        128: { 
+            n: 'Humedal Tropical',   img: 'img/128_bioma.png', d: 'Tierras inundadas y pantanos.', 
+            adap: 'Ecosistemas de transición donde el agua dicta la vida. Cipreses de los que cuelga musgo español, nenúfares y una rica avifauna prosperan en estas aguas oscuras y quietas.' 
+        },
+        256: { 
+            n: 'Matorral Mediterráneo', img: 'img/256_bioma.png', d: 'Adaptado al calor estival.', 
+            adap: 'Olivares plateados y campos de lavanda silvestre bajo un sol intenso. Vegetación de hojas duras (esclerófila) diseñada para retener agua durante los veranos secos y tórridos.' 
+        },
+        512: { 
+            n: 'Alta Montaña',   img: 'img/512_bioma.png',  d: 'Ecosistemas de altitud extrema.', 
+            adap: 'Picos nevados, lagos glaciares y valles rocosos. Flora alpina resistente que sobrevive a la radiación intensa y al frío cortante muy por encima del límite donde pueden crecer los árboles.' 
+        }
+    }
+};
+
 INVESTIGATIONS.piel_con_historia = {
     id: 'piel_con_historia',
     title: "PIEL CON HISTORIA",

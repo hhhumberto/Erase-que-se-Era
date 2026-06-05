@@ -64,7 +64,8 @@ const PORTALS = {
             512: ['ranitas_dardo']
         },
         nace_un_planeta: {
-            256: ['piel_con_historia']
+            256: ['piel_con_historia'],
+            512: ['biomas_terrestres']
         },
         lineas_reptilianas: {
             8:  ['lagartos_variados'],
