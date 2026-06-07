@@ -64,6 +64,8 @@ const PORTALS = {
             512: ['ranitas_dardo']
         },
         nace_un_planeta: {
+            piel_con_historia: {
+            8: ['vidas_a_la_deriva'],
             256: ['piel_con_historia'],
             512: ['biomas_terrestres']
         },

@@ -106,6 +106,52 @@ INVESTIGATIONS.piel_con_historia = {
     }
 };
 
+INVESTIGATIONS.vidas_a_la_deriva = {
+    id: 'vidas_a_la_deriva',
+    title: "VIDAS A LA DERIVA",
+    panelTitle: "BIOGEOGRAFÍA INSULAR",
+    color: '#00cec9', // Un tono aguamarina, evocando el aislamiento oceánico
+    completeDesc: "Has descubierto cómo el aislamiento geográfico y la deriva genética moldean la evolución, creando ecosistemas únicos y sorprendentes.",
+    data: {
+        2:   { 
+            n: 'Australia',  img: 'img/2_deriva.png',   d: 'El refugio de marsupiales y monotremas.', 
+            adap: 'Al separarse del resto de continentes, sus primitivos mamíferos evolucionaron sin la competencia de los placentarios, radiando en formas únicas como canguros, koalas, wombats y ornitorrincos.' 
+        },
+        4:   { 
+            n: 'Madagascar',  img: 'img/4_deriva.png',   d: 'El santuario de los lémures.', 
+            adap: 'Aislada en el Índico, se convirtió en un laboratorio evolutivo. Primates endémicos como los lémures ocuparon todos los nichos ecológicos, acechados por depredadores únicos como el escurridizo fosa.' 
+        },
+        8:   { 
+            n: 'Nueva Zelanda', img: 'img/8_deriva.png', d: 'El reino de las aves no voladoras.', 
+            adap: 'Sin mamíferos terrestres nativos, las aves bajaron de los árboles para dominar el suelo del bosque. Gigantes extintos como el moa y sobrevivientes como el kiwi o el kakapo prosperaron en este entorno.' 
+        },
+        16:  { 
+            n: 'Islas Galápagos',   img: 'img/16_deriva.png', d: 'El archipiélago de Darwin.', 
+            adap: 'Un entorno volcánico inhóspito donde especies pioneras llegaron a la deriva y se adaptaron de forma extraordinaria, dando lugar a iguanas marinas, tortugas gigantes y pinzones especializados.' 
+        },
+        32:  { 
+            n: 'Islas Hawái',      img: 'img/32_deriva.png', d: 'Radiación adaptativa en el Pacífico.', 
+            adap: 'Las escasas semillas y aves que lograron alcanzar estas remotas cumbres volcánicas se diversificaron espectacularmente, creando maravillas endémicas como las plantas espada plateada y las aves mieleras.' 
+        },
+        64:  { 
+            n: 'Sudamérica', img: 'img/64_deriva.png', d: 'El esplendor del continente-isla.', 
+            adap: 'Durante decenas de millones de años operó como una isla gigante, albergando una megafauna asombrosa de perezosos terrestres colosales, gliptodontes acorazados y feroces marsupiales dientes de sable.' 
+        },
+        128: { 
+            n: 'Isla de Socotra',img: 'img/128_deriva.png', d: 'Un ecosistema alienígena en la Tierra.', 
+            adap: 'Separada de Arabia, su extrema aridez moldeó una flora de aspecto surrealista. Árboles con forma de paraguas, como el icónico árbol de sangre de dragón, han sobrevivido como reliquias del pasado.' 
+        },
+        256: { 
+            n: 'Nueva Caledonia', img: 'img/256_deriva.png', d: 'Un relicto botánico de Gondwana.', 
+            adap: 'Un fragmento a la deriva que conserva linajes de plantas antiquísimos, como el arbusto primitivo Amborella, y aves endémicas casi no voladoras como el kagu, habitando sus densos bosques húmedos.' 
+        },
+        512: { 
+            n: 'Isla de Flores',  img: 'img/512_deriva.png', d: 'La magia del tamaño insular.', 
+            adap: 'El aislamiento extremo alteró las reglas del tamaño: provocó el enanismo de elefantes Stegodon y humanos (Homo floresiensis), al mismo tiempo que fomentó el gigantismo en ratas y marabúes enormes.' 
+        }
+    }
+};
+
 INVESTIGATIONS.vida_muerte_supernova = {
     id: 'vida_muerte_supernova',
     title: "VIDA Y MUERTE DE UNA SUPERNOVA",
