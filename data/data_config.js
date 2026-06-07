@@ -68,7 +68,8 @@ const PORTALS = {
             512: ['biomas_terrestres']
         },
         piel_con_historia: {
-            8: ['vidas_a_la_deriva']
+            8: ['vidas_a_la_deriva'],
+            16: ['dinosaurios_sobrevivieron']
         },
         lineas_reptilianas: {
             8:  ['lagartos_variados'],

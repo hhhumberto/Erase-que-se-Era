@@ -106,6 +106,52 @@ INVESTIGATIONS.piel_con_historia = {
     }
 };
 
+INVESTIGATIONS.dinosaurios_sobrevivieron = {
+    id: 'dinosaurios_sobrevivieron',
+    title: "LOS DINOSAURIOS SOBREVIVIERON",
+    panelTitle: "EL LINAJE AVIANO",
+    color: '#e67e22', // Un tono ámbar o cálido que evoca el impacto y el amanecer de una nueva era
+    completeDesc: "Has descubierto cómo un pequeño grupo de dinosaurios emplumados sobrevivió al apocalipsis y conquistó los cielos.",
+    data: {
+        2:   { 
+            n: 'Dinosaurios dominantes',   img: 'img/2_impacto.png',   d: 'Los amos del Cretácico.', 
+            adap: 'A finales del Cretácico, los dinosaurios dominaban casi todos los ecosistemas terrestres del planeta, diversificándose en formas gigantescas y en ágiles terópodos emplumados.' 
+        },
+        4:   { 
+            n: 'Impacto de Chicxulub',  img: 'img/4_impacto.png',d: 'El asteroide que cambió todo.', 
+            adap: 'Un colosal asteroide colisiona en la actual península de Yucatán, liberando una energía devastadora que desató megatsunamis, terremotos y lluvias de material incandescente.' 
+        },
+        8:   { 
+            n: 'Invierno planetario',   img: 'img/8_impacto.png',   d: 'Oscuridad y frío global.', 
+            adap: 'El polvo y los aerosoles de la zona de impacto bloquearon la luz solar durante meses o años. Las temperaturas cayeron drásticamente y la fotosíntesis se detuvo, colapsando las cadenas tróficas.' 
+        },
+        16:  { 
+            n: 'Extinción masiva',  img: 'img/16_impacto.png',  d: 'El fin de una era.', 
+            adap: 'Aproximadamente el 75% de las especies de la Tierra, incluyendo todos los dinosaurios no avianos, pterosaurios y grandes reptiles marinos, fueron borrados de la faz del planeta.' 
+        },
+        32:  { 
+            n: 'Desaparece la megafauna',    img: 'img/32_impacto.png',d: 'La caída de los gigantes.', 
+            adap: 'Sin vegetación suficiente, los inmensos herbívoros murieron de hambre, seguidos rápidamente por los formidables depredadores que dependían de ellos para subsistir.' 
+        },
+        64:  { 
+            n: 'Supervivencia aviana',     img: 'img/64_impacto.png',  d: 'Los pequeños resisten.', 
+            adap: 'Solo algunos linajes de pequeños terópodos emplumados con pico (las aves primitivas), capaces de volar, buscar refugio y alimentarse de semillas o carroña, lograron sobrevivir al desastre.' 
+        },
+        128: { 
+            n: 'Recuperación ecológica',   img: 'img/128_impacto.png', d: 'La vida se abre camino.', 
+            adap: 'A medida que el cielo se despejaba, los helechos oportunistas y las plantas pioneras comenzaron a repoblar la tierra arrasada, ofreciendo nuevas oportunidades a los pequeños sobrevivientes.' 
+        },
+        256: { 
+            n: 'Primeras paleoaves', img: 'img/256_impacto.png', d: 'Herederos de un mundo vacío.', 
+            adap: 'Las aves supervivientes, principalmente formas terrestres y acuáticas adaptables, comenzaron a ocupar gradualmente los enormes nichos ecológicos dejados por las especies extintas.' 
+        },
+        512: { 
+            n: 'Diversificación de las aves',   img: 'img/512_impacto.png',  d: 'Los nuevos reyes del cielo.', 
+            adap: 'En una explosiva y rápida radiación evolutiva, las aves se diversificaron en miles de especies, desarrollando picos, alas y formas adaptadas a casi cualquier entorno de la Tierra.' 
+        }
+    }
+};
+
 INVESTIGATIONS.vidas_a_la_deriva = {
     id: 'vidas_a_la_deriva',
     title: "VIDAS A LA DERIVA",
